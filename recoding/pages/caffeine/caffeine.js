@@ -27,23 +27,28 @@ Page({
     const days = [];
     const firstDay = new Date(year, month - 1, 1).getDay();
     const lastDate = new Date(year, month, 0).getDate();
-
+  
+    // 上个月补位
     let prevLastDate = new Date(year, month - 1, 0).getDate();
     for (let i = firstDay; i > 0; i--) {
       days.push({ date: prevLastDate - i + 1, isCurrentMonth: false, dateString: '' });
     }
-
+  
+    // 当月日期
     for (let i = 1; i <= lastDate; i++) {
       const dateString = `${year}-${month < 10 ? '0' + month : month}-${i < 10 ? '0' + i : i}`;
       days.push({ date: i, isCurrentMonth: true, dateString });
     }
-
+  
+    // 下个月补位 → 从 1 开始
+    let nextMonthDay = 1;
     while (days.length % 7 !== 0) {
-      days.push({ date: days.length, isCurrentMonth: false, dateString: '' });
+      days.push({ date: nextMonthDay++, isCurrentMonth: false, dateString: '' });
     }
-
+  
     this.setData({ days });
   },
+  
 
   /** 切换月份 */
   prevMonth() {
