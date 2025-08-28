@@ -151,8 +151,9 @@
 /* 按钮组 */
 .btn-group {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* 居中 */
   margin-top: 40rpx;
+  gap: 30rpx; /* 按钮之间的间距（微信基础库>=2.10.0支持） */
 }
 
 button {
