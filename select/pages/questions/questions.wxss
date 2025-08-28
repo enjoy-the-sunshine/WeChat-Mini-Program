@@ -11,28 +11,32 @@
 
 .header {
   width: 100%;
-  text-align: center;
+  display: flex;          /* 横向排列 */
+  justify-content: flex-start; /* 文字在左，熊图在右 */
+  align-items: center;
+  padding: 0 30rpx;
 }
 
 .bear-top {
-  width: 380rpx;
+  width: 400rpx;  
   height: auto;
-  margin-bottom: 20rpx;
-  margin-left:350rpx;
+  margin-left: 20rpx;  /* 文字和图片的间距 */
+  margin-bottom: 0;    /* 去掉原来的底部间距 */
 }
 
 .title {
-  font-size: 50rpx;
+  font-size: 52rpx;
   font-weight: bold;
-  margin-bottom: 100rpx;
 }
 
 .desc {
-  font-size: 36rpx;
-  color: #333;
+  font-size: 42rpx;
+  color: #404040;
   line-height: 1.6;
-  margin-bottom: 40rpx;
+  margin: 30rpx 0 40rpx; /* 顶部和底部间距 */
+  text-align: center;    /* 居中显示 */
 }
+
 
 .content-area {
   flex: 1;
@@ -87,7 +91,7 @@
   font-size: 34rpx;
   padding: 24rpx 0;
   color: #797979;
-  margin-top: -10rpx;
+  margin-top: 0rpx;
   margin-bottom: 40rpx;
 }
 

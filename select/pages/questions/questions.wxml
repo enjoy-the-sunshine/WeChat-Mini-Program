@@ -1,11 +1,14 @@
 <view class="page">
   <!-- 上方熊 + 文本 -->
   <view class="header">
-    <image src="/images/bear_top.png" class="bear-top" mode="widthFix"></image>
     <text class="title">CoffeeHealing~</text>
-    <view class="desc">
-      为了您更好的使用体验，<br/>请您先回答以下问题
-    </view>
+    <image src="/images/bear_top.png" class="bear-top" mode="widthFix"></image>
+  </view>
+
+  <!-- 只在第一页显示说明 -->
+  <view class="desc" wx:if="{{currentStep === 0}}">
+    <view>为了您更好的使用体验，</view>
+    <view>请您先回答以下问题。</view>
   </view>
 
   <!-- 内容区 -->
