@@ -55,6 +55,9 @@
   font-size: 28rpx;
   padding: 12rpx 0;
   border-radius: 50%;
+  width: 65rpx;   /* 固定宽度 */
+  height: 40rpx;  /* 固定高度 */
+  line-height: 37rpx; /* 让数字居中 */
 }
 
 .other-month {
@@ -100,7 +103,7 @@
 }
 
 .unit {
-  font-size: 28rpx;
+  font-size: 50rpx;
 }
 
 /* 饮品记录 */
@@ -131,7 +134,7 @@
 
 .drink-time {
   font-size: 24rpx;
-  color: #888;
+  color: #909399;
 }
 
 .drink-caffeine {
@@ -227,7 +230,7 @@ button {
 
 /* 标题 */
 .popup-title {
-  font-size: 34rpx;
+  font-size: 40rpx;
   font-weight: bold;
   margin-bottom: 30rpx;
 }
@@ -430,6 +433,6 @@ button {
 /* 删除按钮 */
 .delete-btn {
   justify-content: center;
-  color: red;
-  font-size: 28rpx;
+  color: #d8001b;
+  font-size: 32rpx;
 }

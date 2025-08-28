@@ -7,11 +7,14 @@ Page({
     selectedDate: '',
     selectedDateDisplay: '',
     selectedWeekday: '',
-    totalCaffeine: 150, // 临时写死数据
-    drinkName: '美式',
-    drinkDate: '2025年8月25日',
-    drinkTime: '9:24',
-    caffeineAmount: '150'
+    totalCaffeine: 0,
+
+    // 当日咖啡记录数组
+    drinkRecords: [],
+
+    // 编辑弹窗绑定
+    editIndex: null,
+    showEditPopup: false
   },
 
   onLoad() {
@@ -19,137 +22,126 @@ Page({
     this.setToday();
   },
 
-  // 生成日历数据
+  /** 生成日历数据 */
   generateCalendar(year, month) {
     const days = [];
-    const firstDay = new Date(year, month - 1, 1).getDay(); // 当月第一天是星期几
-    const lastDate = new Date(year, month, 0).getDate(); // 当月的总天数
-    const prevMonthDays = firstDay; // 前面需要补几个空位
+    const firstDay = new Date(year, month - 1, 1).getDay();
+    const lastDate = new Date(year, month, 0).getDate();
 
-    // 上月最后几天
     let prevLastDate = new Date(year, month - 1, 0).getDate();
-    for (let i = prevMonthDays; i > 0; i--) {
-      days.push({
-        date: prevLastDate - i + 1,
-        isCurrentMonth: false,
-        dateString: ''
-      });
+    for (let i = firstDay; i > 0; i--) {
+      days.push({ date: prevLastDate - i + 1, isCurrentMonth: false, dateString: '' });
     }
 
-    // 当月日期
     for (let i = 1; i <= lastDate; i++) {
       const dateString = `${year}-${month < 10 ? '0' + month : month}-${i < 10 ? '0' + i : i}`;
-      days.push({
-        date: i,
-        isCurrentMonth: true,
-        dateString
-      });
+      days.push({ date: i, isCurrentMonth: true, dateString });
     }
 
-    // 补下个月空位
     while (days.length % 7 !== 0) {
-      days.push({
-        date: days.length,
-        isCurrentMonth: false,
-        dateString: ''
-      });
+      days.push({ date: days.length, isCurrentMonth: false, dateString: '' });
     }
 
     this.setData({ days });
   },
 
-  // 上一月
+  /** 切换月份 */
   prevMonth() {
     let { currentYear, currentMonth } = this.data;
-    if (currentMonth === 1) {
-      currentMonth = 12;
-      currentYear--;
-    } else {
-      currentMonth--;
-    }
+    if (currentMonth === 1) { currentMonth = 12; currentYear--; } else { currentMonth--; }
     this.setData({ currentYear, currentMonth });
     this.generateCalendar(currentYear, currentMonth);
   },
-
-  // 下一月
   nextMonth() {
     let { currentYear, currentMonth } = this.data;
-    if (currentMonth === 12) {
-      currentMonth = 1;
-      currentYear++;
-    } else {
-      currentMonth++;
-    }
+    if (currentMonth === 12) { currentMonth = 1; currentYear++; } else { currentMonth++; }
     this.setData({ currentYear, currentMonth });
     this.generateCalendar(currentYear, currentMonth);
   },
 
-  // 选中日期
+  /** 点击日期 — 生成当天咖啡数据 */
   selectDate(e) {
     const date = e.currentTarget.dataset.date;
-    if (!date) return; // 空白位置不操作
+    if (!date) return;
+
     const weekMap = ['日', '一', '二', '三', '四', '五', '六'];
-    const dateObj = new Date(date);
-    const weekday = weekMap[dateObj.getDay()];
+    const weekday = weekMap[new Date(date).getDay()];
+
+    // 模拟随机咖啡
+    const coffeeTypes = [
+      { name: '美式咖啡', caffeine: 150 },
+      { name: '拿铁咖啡', caffeine: 120 },
+      { name: '卡布奇诺', caffeine: 110 },
+      { name: '摩卡咖啡', caffeine: 160 },
+      { name: '焦糖玛奇朵', caffeine: 140 }
+    ];
+    const cupCount = Math.floor(Math.random() * 3) + 1;
+    let drinkRecords = [];
+    for (let i = 0; i < cupCount; i++) {
+      const c = coffeeTypes[Math.floor(Math.random() * coffeeTypes.length)];
+      drinkRecords.push({
+        name: c.name,
+        caffeine: c.caffeine,
+        time: `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        date
+      });
+    }
+
+    const totalCaffeine = drinkRecords.reduce((sum, r) => sum + r.caffeine, 0);
+
     this.setData({
       selectedDate: date,
       selectedDateDisplay: date,
-      selectedWeekday: weekday
+      selectedWeekday: weekday,
+      drinkRecords,
+      totalCaffeine
     });
-    // 这里将来可以请求数据库获取该天的咖啡因数据
   },
 
-  // 默认选中今天
+  /** 默认选中今天 */
   setToday() {
-    const today = new Date();
-    const y = today.getFullYear();
-    const m = today.getMonth() + 1;
-    const d = today.getDate();
-    const dateString = `${y}-${m < 10 ? '0' + m : m}-${d < 10 ? '0' + d : d}`;
-    const weekMap = ['日', '一', '二', '三', '四', '五', '六'];
-    const weekday = weekMap[today.getDay()];
-    this.setData({
-      selectedDate: dateString,
-      selectedDateDisplay: dateString,
-      selectedWeekday: weekday
-    });
+    const t = new Date();
+    const dateString = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+    this.selectDate({ currentTarget: { dataset: { date: dateString } } });
   },
-  // 编辑弹窗
-  openEditPopup() {
-    this.setData({ showEditPopup: true });
+
+  /** 弹窗打开关闭 */
+  openEditPopup(e) {
+    this.setData({ editIndex: e.currentTarget.dataset.index, showEditPopup: true });
   },
   closeEditPopup() {
     this.setData({ showEditPopup: false });
   },
   stopTap() {},
 
-  // 输入事件
+  /** 弹窗输入绑定 */
   onDrinkNameInput(e) {
-    this.setData({ drinkName: e.detail.value });
+    this.setData({ [`drinkRecords[${this.data.editIndex}].name`]: e.detail.value });
   },
   onDrinkDateInput(e) {
-    this.setData({ drinkDate: e.detail.value });
+    this.setData({ [`drinkRecords[${this.data.editIndex}].date`]: e.detail.value });
   },
   onDrinkTimeInput(e) {
-    this.setData({ drinkTime: e.detail.value });
+    this.setData({ [`drinkRecords[${this.data.editIndex}].time`]: e.detail.value });
   },
   onCaffeineInput(e) {
-    this.setData({ caffeineAmount: e.detail.value });
+    this.setData({ [`drinkRecords[${this.data.editIndex}].caffeine`]: Number(e.detail.value) });
   },
 
-  // 删除记录
+  /** 删除记录 */
   onDeleteRecord() {
+    const idx = this.data.editIndex;
     wx.showModal({
       title: '提示',
       content: '确定要删除此记录吗？',
       success: (res) => {
         if (res.confirm) {
-          // 这里执行删除逻辑
-          console.log('记录已删除');
-          this.closeEditPopup();
+          const updated = [...this.data.drinkRecords];
+          updated.splice(idx, 1);
+          const totalCaffeine = updated.reduce((sum, r) => sum + r.caffeine, 0);
+          this.setData({ drinkRecords: updated, totalCaffeine, showEditPopup: false });
         }
       }
     });
   }
-  
 });
