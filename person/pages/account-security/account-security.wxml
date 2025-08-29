@@ -1,0 +1,79 @@
+<view class="container" style="height: 1450rpx;">
+
+<!-- 账号与安全 -->
+<view class="section" style="height: 180rpx; position: relative;">
+  <view class="section-title" style="position: relative; left: -204rpx; top: -91rpx; font-family: '思源黑体'; font-size: {{24*1.93}}rpx; color: #98592C">
+    账号与安全
+    <image src="/images/bearcoffee.png" style="position: absolute; top: -101rpx; right: 0px; width: 272rpx; height: 264rpx; left: 354rpx"
+      class="icon-large" />
+  </view>
+</view>
+
+<!-- 绑定手机号 -->
+<view class="section" style="height: 140rpx; display: flex; align-items: center; box-sizing: border-box">
+  <view class="section-title" style="font-family: '思源黑体'; font-size: {{20*1.93}}rpx; color: #AC886D; position: relative; left: 120rpx; top: -166rpx; width: 324rpx; display: flex; box-sizing: content-box">
+    <image style="width: 110rpx; height: 110rpx; display: inline-block; vertical-align: middle; box-sizing: border-box; margin-right: 10rpx"
+    class="icon-small" src="/images/happy.png" />
+    绑定手机号
+  </view>
+  <view class="input-panel" style="position: relative; left: -110rpx; top: -73rpx">
+    <input class="input-value" placeholder="请输入手机号" bindfocus="showModal" data-item="手机号" value="{{phoneNumber}}" />
+  </view>
+</view>
+
+<!-- 绑定微信号 -->
+<view class="section" style="height: 108rpx; display: flex; align-items: center; box-sizing: border-box">
+  <view class="section-title" style="flex: 1; font-family: '思源黑体'; font-size: {{20*1.93}}rpx; color: #AC886D; position: relative; left: 85rpx; top: -75rpx">
+    <image style="width: 110rpx; height: 110rpx; display: inline-block; vertical-align: middle; box-sizing: border-box; margin-right: 10rpx" class="icon-small" src="/images/happy.png" />
+    绑定微信号
+  </view>
+  <view class="input-panel" style="flex: 1; position: relative; left: -181rpx; top: 43rpx">
+    <input class="input-value" placeholder="请输入微信号" bindfocus="showModal" data-item="weChatId" value="{{weChatId}}" />
+  </view>
+</view>
+
+<!-- 密码修改 -->
+<view class="section" style="height: 72rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -28rpx">
+  <view class="section-title" style="position: relative; left: -41rpx; top: 36rpx; font-family: '思源黑体'; font-size: {{20*1.93}}rpx; color: #AC886D">
+    <image style="width: 110rpx; height: 110rpx; display: block; box-sizing: border-box" class="icon-small" src="/images/happy.png" />
+    密码修改
+  </view>
+  <view class="input-panel" style="position: relative; left: 0rpx; top: 25rpx">
+    <text bindtap="showModal" data-item="旧密码" class="input-value" style="color: #AC886D; font-family: '思源黑体'; font-size: {{20*1.93}}rpx;">点击此处进行验证</text>
+  </view>
+</view>
+
+<!-- 账户注销 -->
+<view class="section" style="position: relative; left: 0rpx; top: -28rpx; height: 72rpx; display: block; box-sizing: border-box">
+  <view class="section-title" style="position: relative; left: -64rpx; top: 195rpx; font-family: '思源黑体'; font-size: {{20*1.93}}rpx; color: #AC886D;">
+    <image style="width: 110rpx; height: 110rpx; display: block; box-sizing: border-box" class="icon-small" src="/images/happy.png" />
+    账户注销
+  </view>
+  <view class="input-panel" style="position: relative; left: 0rpx; top: 185rpx">
+    <text class="input-value" style="color: #AC886D; font-family: '思源黑体'; font-size: {{20*1.93}}rpx;">点击此处注销帐户</text>
+  </view>
+</view>
+
+<!-- 底部插画 -->
+<image style="height: 139rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: -264rpx; width: 654rpx" class="footer-image" src="/images/background-footer3.png"
+  alt="底部插画" />
+
+<!-- 修改弹窗 -->
+<view class="modal" wx:if="{{modalVisible}}">
+  <view class="modal-content">
+    <view class="modal-header">
+      <image src="/images/avatar.png" class="icon" />
+      <text>{{modalTitle}}</text>
+      <view>
+        <image wx:if="{{modalType === '头像'}}" src="/images/avatar.png" style="width: 200rpx; height: 200rpx;" />
+        <input wx:elif="{{modalType === '输入' || modalType === '密码'}}" class="modal-input" value="{{modalInput}}" placeholder="请输入{{modalTitle}}" bindinput="updateInput" />
+      </view>
+    </view>
+    <view class="modal-actions">
+      <button class="modal-button" bindtap="confirmModal">确认</button>
+      <button class="modal-button" bindtap="hideModal">返回</button>
+    </view>
+  </view>
+</view>
+
+</view>

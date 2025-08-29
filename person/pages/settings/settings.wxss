@@ -1,0 +1,71 @@
+.container {
+  background-color: #fdf8e3;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 53.85rpx;
+  font-weight: bold;
+  color: #98592C;
+  position: relative;
+  padding-bottom: 20rpx;
+  margin-bottom: 10rpx;
+  font-family: 'Source Han Sans', sans-serif; /* 使用思源黑体 */
+}
+
+
+.icon {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.card {
+  width: 90%;
+  background-color: rgba(172, 136, 109, 0.22); /* 设置不透明度为22% */
+  border-radius: 50rpx;  /* 圆角半径约25px */
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+  font-family: 'Microsoft YaHei', sans-serif; /* 设置字体 */
+  font-size: 28rpx; /* 大约对应14px的大小 */
+  width: 600rpx;
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.card-item-right {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 10rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.footer-image {
+  width: 100%;
+  height: 300rpx;
+  margin-top: 20rpx;
+}

@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/profile/profile",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarTitleText": "设置"
+  }
+  
+}

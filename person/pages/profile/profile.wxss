@@ -1,0 +1,123 @@
+.container {
+  background-color: #fdf8e3;
+  display: flex;
+  flex-direction: column;
+  height: 110vh;
+}/*现在页面会垂直滚动，但如果改变height的话底部的插画就会被压扁...非常奇怪*/
+
+
+.card {
+  width: 90%;
+  background-color: rgba(172, 136, 109, 0.22); /* 设置不透明度为22% */
+  border-radius: 50rpx;  /* 圆角半径约25px */
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+  font-family: 'Microsoft YaHei', sans-serif; /* 设置字体 */
+  font-size: 28rpx; /* 大约对应14px的大小 */
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 0; /* 增加文字上下内边距 */
+  position: 200rpx;
+  height: 70rpx;
+}
+
+.card-item-right {
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 10rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: rgba(0, 0, 0, 0.1); /* 使用 rgba 设置黑色并添加 50% 不透明度 */
+  width: 100%;
+  margin: 0;
+}
+
+
+.icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.footer-image {
+  width: 100%;
+  height: 300rpx;
+  margin-top: 20rpx;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 80%;
+  background-color: #fdf8e3; /* 设置为指定的底色 */
+  border-radius: 25px; /* 设置圆角为25px */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.icon {
+  width: 50px; /* 根据需要调整图标尺寸 */
+  height: 50px;
+  margin-right: 10px; /* 增加符号和文字之间的间距 */
+}
+
+.modal-input {
+  width: 80%;
+  background-color: #ffffff;
+  border: none;
+  padding: 10rpx;
+  border-radius: 25rpx;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  margin: 20rpx 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.modal-button {
+  background-color: #d0e4f7;
+  border: none;
+  border-radius: 25rpx;
+  padding: 10rpx 20rpx;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  margin: 0 15rpx;
+  width: 80rpx; /* 设置按钮的明确宽度 */
+}
+
+

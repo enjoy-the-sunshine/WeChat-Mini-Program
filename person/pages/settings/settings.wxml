@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="section account-settings">
+    <view class="section-title" style="height: 133rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
+      账户设置
+      <image style="width: 130rpx; height: 130rpx; display: block; box-sizing: border-box; left: 472rpx; top: 0rpx; position: absolute" class="icon" src="/images/happy.png" />
+    </view>
+    <view class="card" style="height: 200rpx; display: block; box-sizing: border-box">
+      <view class="card-item" bindtap="navigateToAccountSecurity">
+        <text class="label" style="position: relative; left: 45rpx; top: 0rpx">账号与安全</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+      <view class="divider"></view>
+      <view class="card-item">
+        <text class="label" style="position: relative; left: 45rpx; top: 0rpx">个人信息修改</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+      <view class="divider"></view>
+    </view>
+  </view>
+
+  <view class="section notification-settings">
+    <view class="section-title" style="position: relative; left: 0rpx; top: 47rpx">
+      通知设置
+      <image style="width: 130rpx; height: 130rpx; display: block; box-sizing: border-box; left: 510rpx; top: -20rpx; position: absolute" class="icon" src="/images/phone.png" />
+    </view>
+    <view class="card" style="position: relative; left: 0rpx; top: 87rpx; width: 597rpx; display: block; box-sizing: border-box">
+      <view class="card-item">
+        <text class="label" style="position: relative; left: 45rpx; top: 0rpx">通知</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+      <view class="divider"></view>
+    </view>
+  </view>
+
+  <image style="height: 454rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 104rpx; width: 393rpx" class="footer-image" src="/images/bearcoffee.png" alt="Bear with Coffee" />
+</view>

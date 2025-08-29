@@ -1,0 +1,53 @@
+<view class="container">
+
+<view class="header" style="position: relative; left: 0rpx; top: -200rpx; width: 470rpx; height: 470rpx; display: flex; box-sizing: border-box">
+  <!-- 用户头像 -->
+  <image style="width: 202rpx; height: 277rpx; display: block; box-sizing: border-box" class="avatar" src="{{userInfo.avatarUrl}}" alt="用户头像" />
+  <view class="user-info">
+    <!-- 用户昵称 -->
+    <text class="nickname">{{userInfo.nickname}}</text>
+    <!-- 用户等级 -->
+    <text class="level" style="position: relative; left: 156rpx; top: 10rpx">LEVEL. {{userInfo.level}}</text>
+
+  </view>
+  <view class="progress">
+    <!-- 进度条 -->
+    <view class="progress-bar" style="width: 552rpx; display: block; box-sizing: border-box; position: relative; left: -120rpx; top: 0rpx"></view>
+  </view>
+  <!-- 剩余积分提示 -->
+  <text class="points" style="position: relative; left: -85rpx; top: -20rpx">距离成为咖啡大师还需 {{userInfo.pointsNeeded}} 积分</text>
+</view>
+
+<view class="menu" style="position: relative; left: 0rpx; top: -172rpx; height: 349rpx; display: flex; box-sizing: border-box">
+ <!-- 个人资料菜单项 -->
+<view class="menu-item" bindtap="navigateToProfile">
+  <view style="display: flex; align-items: center;">
+    <image src="/images/icon-profile.png" class="icon" alt="个人资料图标" />
+    <text class="menu-text" style="position: relative; left: 64rpx; top: 0rpx">个人资料</text>
+  </view>
+  <image src="/images/coffeebean.png" class="icon" alt="咖啡豆图标" />
+</view>
+
+
+  <!-- 设置菜单项 -->
+  <view class="menu-item" bindtap="navigateToSettings"  style="position: relative; left: 0rpx; top: 89rpx">
+    <view style="display: flex; align-items: center;">
+      <image src="/images/icon-settings.png" class="icon" alt="设置图标" />
+      <text class="menu-text" style="position: relative; left: 70rpx; top: 0rpx">设置</text>
+    </view>
+    <image src="/images/coffeebean.png" class="icon" alt="咖啡豆图标" />
+  </view>
+
+  <!-- 问题反馈菜单项 -->
+  <view class="menu-item" bindtap="navigateToFeedback"   style="position: relative; left: 0rpx; top: 181rpx; height: 116rpx; display: flex; box-sizing: border-box">
+    <view style="display: flex; align-items: center;">
+      <image src="/images/icon-feedback.png" class="icon" alt="问题反馈图标" />
+      <text class="menu-text" style="position: relative; left: 70rpx; top: 0rpx">问题反馈</text>
+    </view>
+    <image src="/images/coffeebean.png" class="icon" alt="咖啡豆图标" />
+  </view>
+</view>
+
+<!-- 底部插画 -->
+<image style="height: 316rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 25rpx; width: 675rpx" class="footer-image" src="/images/background-footer.png" alt="底部插画" />
+</view>
