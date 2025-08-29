@@ -14,6 +14,8 @@
   border-radius: 26rpx;
   padding: 20rpx;
   margin-bottom: 20rpx;
+  justify-content: center;
+  width: 600rpx;
 }
 
 .calendar-header {
@@ -21,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  font-size: 32rpx;
+  font-size: 35rpx;
   color: #5b4b3b;
 }
 
@@ -143,9 +145,8 @@
 }
 
 .record-arrow {
-  font-size: 36rpx;
-  color: #ccc;
-  margin-left: 10rpx;
+  width: 40rpx;
+  height:40rpx;
 }
 
 /* 按钮组 */
@@ -167,7 +168,7 @@ button {
   padding: 20rpx 0;
   flex: 1;
   margin-right:20rpx;
-  font-size: 28rpx;
+  font-size: 34rpx;
 }
 
 .btn-state {
@@ -177,12 +178,12 @@ button {
   padding: 20rpx 0;
   flex: 1;
   margin-left: 10rpx;
-  font-size: 28rpx;
+  font-size: 34rpx;
 }
 
 /* 底部小熊插图 */
 .bear-container {
-  margin-top: 40rpx;
+  margin-top: 200rpx;
   text-align: center;
 }
 
@@ -222,8 +223,8 @@ button {
 
 /* 关闭按钮 */
 .popup-close-btn {
-  width: 40rpx;
-  height: 40rpx;
+  width: 60rpx;
+  height: 60rpx;
   position: absolute;
   right: 20rpx;
   top: 20rpx;
@@ -231,7 +232,7 @@ button {
 
 /* 标题 */
 .popup-title {
-  font-size: 40rpx;
+  font-size: 46rpx;
   font-weight: bold;
   margin-bottom: 30rpx;
 }
@@ -247,22 +248,23 @@ button {
 }
 
 .popup-icon {
-  width: 34rpx;
-  height: 34rpx;
+  width: 50rpx;
+  height: 50rpx;
   margin-right: 14rpx;
 }
 
-.popup-label {
+.popup-label{
   flex-shrink: 0;
-  font-size: 28rpx;
+  font-size: 35rpx;
   color: #333;
+  font-weight: bold;
 }
 
 .popup-value {
   margin-left: auto;
   padding: 4rpx 16rpx;
   background: #e0e0e0;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   font-size: 26rpx;
   color: #555;
 }
@@ -272,7 +274,7 @@ button {
   display: flex;
   align-items: center;
   background: white;
-  border-radius: 30rpx;
+  border-radius: 25rpx;
   padding: 14rpx 20rpx;
 }
 
@@ -298,7 +300,7 @@ button {
 .popup-input-inline {
   margin-left: auto;
   background: white;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 6rpx 14rpx;
   font-size: 26rpx;
   color: #333;
@@ -327,7 +329,7 @@ button {
 /* 删除按钮带白色方框 */
 .popup-delete-box {
   background: white;
-  border-radius: 30rpx;
+  border-radius: 25rpx;
   padding: 14rpx;
   margin-top: 20rpx;
   text-align: center;
@@ -346,7 +348,7 @@ button {
 
 .popup-input-container {
   background: #f0f0f0;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 6rpx;
   display: flex;
   align-items: center;
@@ -355,7 +357,7 @@ button {
 
 .popup-input-inner {
   background: white;
-  border-radius: 16rpx;
+  border-radius: 25rpx;
   padding: 6rpx 12rpx;
   font-size: 26rpx;
   flex: 1;
@@ -379,36 +381,27 @@ button {
   display: flex;
   align-items: center;
   background: white;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 14rpx 20rpx;
   margin-bottom: 16rpx;
 }
 
-.popup-icon {
-  width: 34rpx;
-  height: 34rpx;
-  margin-right: 14rpx;
-}
 
-.popup-label {
-  font-size: 28rpx;
-  color: #333;
-  margin-right: auto;
-}
 
 /* 灰色背景输入框 */
 .popup-inner-input {
   background: #D7D7D7;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 4rpx 12rpx;
-  width: 220rpx;
+  width: 200rpx;
+  margin-left:300rpx;
 }
 
 .popup-inner-input input {
   border: none;
   background: transparent;
-  font-size: 26rpx;
-  color: #333;
+  font-size: 31rpx;
+  color: #333333;
 }
 
 /* 咖啡因固定值 */
@@ -419,21 +412,23 @@ button {
 }
 
 .popup-caffeine-value {
-  font-size: 26rpx;
+  font-size: 30rpx;
   background: #D7D7D7;
   padding: 4rpx 12rpx;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
 }
 
 .popup-unit {
-  font-size: 24rpx;
-  color: #666;
+  font-size: 30rpx;
+  color: #909399;
   margin-left: 10rpx;
+  font-weight: bold;
 }
 
 /* 删除按钮 */
 .delete-btn {
   justify-content: center;
   color: #d8001b;
-  font-size: 32rpx;
+  font-size: 35rpx;
+  font-weight: bold;
 }

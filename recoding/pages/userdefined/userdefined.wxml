@@ -1,0 +1,21 @@
+<view class="page" style="height: 1600rpx; display: block; box-sizing: border-box">
+  <!-- 搜索框（保持和 brandselect一致） -->
+  <view class="search-box shadow">
+    <image src="/images/搜索.png" class="search-icon"></image>
+    <input placeholder="请输入内容" bindinput="onSearchInput" value="{{keyword}}" />
+  </view>
+
+  <!-- 饮品列表 -->
+  <view wx:for="{{filteredList}}" wx:key="name" class="list-item" bindtap="onDrinkTap" data-name="{{item.name}}" style="width: 625rpx; display: flex; box-sizing: border-box; position: relative; left: 44rpx; top: 0rpx">
+    <view class="left">
+      <text>{{item.name}}</text>
+    </view>
+    <image class="arrow" src="/images/展开.png" mode="widthFix"></image>
+  </view>
+
+  <!-- 底部添加按钮 -->
+<view class="add-btn-container" bindtap="onAddDrink">
+  <image class="add-btn-img" src="/images/add2.png" mode="aspectFit"></image>
+</view>
+
+</view>

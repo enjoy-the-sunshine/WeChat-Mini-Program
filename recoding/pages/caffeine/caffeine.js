@@ -64,7 +64,7 @@ Page({
     this.generateCalendar(currentYear, currentMonth);
   },
 
-  /** 点击日期 — 生成当天咖啡数据 */
+  /** 点击日期 */
   selectDate(e) {
     const date = e.currentTarget.dataset.date;
     if (!date) return;
@@ -72,42 +72,34 @@ Page({
     const weekMap = ['日', '一', '二', '三', '四', '五', '六'];
     const weekday = weekMap[new Date(date).getDay()];
 
-    // 模拟随机咖啡
-    const coffeeTypes = [
-      { name: '美式咖啡', caffeine: 150 },
-      { name: '拿铁咖啡', caffeine: 120 },
-      { name: '卡布奇诺', caffeine: 110 },
-      { name: '摩卡咖啡', caffeine: 160 },
-      { name: '焦糖玛奇朵', caffeine: 140 }
-    ];
-    const cupCount = Math.floor(Math.random() * 3) + 1;
-    let drinkRecords = [];
-    for (let i = 0; i < cupCount; i++) {
-      const c = coffeeTypes[Math.floor(Math.random() * coffeeTypes.length)];
-      drinkRecords.push({
-        name: c.name,
-        caffeine: c.caffeine,
-        time: `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
-        date
-      });
-    }
-
-    const totalCaffeine = drinkRecords.reduce((sum, r) => sum + r.caffeine, 0);
-
+    // 不生成随机数据，初始为空
     this.setData({
       selectedDate: date,
       selectedDateDisplay: date,
       selectedWeekday: weekday,
-      drinkRecords,
-      totalCaffeine
+      drinkRecords: [],
+      totalCaffeine: 0
     });
   },
+
 
   /** 默认选中今天 */
   setToday() {
     const t = new Date();
     const dateString = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
     this.selectDate({ currentTarget: { dataset: { date: dateString } } });
+  },
+// 保存数据
+  saveRecordsForDate(date, records) {
+    const allRecords = wx.getStorageSync('caffeineRecords') || {};
+    allRecords[date] = records;
+    wx.setStorageSync('caffeineRecords', allRecords);
+  },
+
+  // 读取数据
+  loadRecordsForDate(date) {
+    const allRecords = wx.getStorageSync('caffeineRecords') || {};
+    return allRecords[date] || [];
   },
 
   /** 弹窗打开关闭 */
@@ -148,5 +140,35 @@ Page({
         }
       }
     });
+  },
+  goToBrandSelect(){
+    wx.navigateTo({
+      url: '/pages/brandselect/brandselect'
+    });
+  },
+  onShow() {
+    const newRecord = wx.getStorageSync('newDrinkRecord');
+    if (newRecord) {
+      if (newRecord.date === this.data.selectedDate) {
+        const updatedRecords = [...this.data.drinkRecords, newRecord];
+        const totalCaffeine = updatedRecords.reduce((sum, r) => sum + r.caffeine, 0);
+        this.setData({
+          drinkRecords: updatedRecords,
+          totalCaffeine
+        });
+      }
+      wx.removeStorageSync('newDrinkRecord'); // 用完清除
+    }
+  },
+  fetchDrinkRecords(date) {
+    const allData = wx.getStorageSync('drinkRecords') || {};
+    const list = allData[date] || [];
+  
+    this.setData({ drinkRecords: list });
+    this.updateTotalCaffeine(list);
   }
+  
+  
+
 });
+

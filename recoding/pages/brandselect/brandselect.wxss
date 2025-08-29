@@ -1,0 +1,51 @@
+.page {
+  background-color: #fef8e7;
+  padding: 20rpx;
+}
+
+.search-box {
+  background: white;
+  border-radius: 20rpx;
+  padding: 10rpx 20rpx;
+  margin-bottom: 20rpx;
+  display: flex;           /* 横向排列图标和输入框 */
+  align-items: center;     /* 垂直居中 */
+}
+
+.search-icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 10rpx;
+}
+
+.search-box input {
+  flex: 1;                 /* 输入框占满剩余空间 */
+  border: none;
+  font-size: 28rpx;
+  background: transparent; /* 去掉背景 */
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  font-size:32.81rpx;
+}
+
+.brand-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.arrow {
+  width: 40rpx;
+  height: 40rpx;
+}
