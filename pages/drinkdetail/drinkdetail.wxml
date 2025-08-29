@@ -1,0 +1,56 @@
+<view class="page" style="height: 1600rpx; display: block; box-sizing: border-box">
+
+  <!-- 杯型选择 -->
+  <view class="cups">
+    <view class="cup-item" data-size="大杯" bindtap="selectCup">
+      <image src="/images/cup-large.png" class="cup-img-large"></image>
+      <text class="cup-text">大杯</text>
+      <image src="/images/add-icon.png" class="add-icon" data-size="大杯" bindtap="showInputModal" />
+    </view>
+    <view class="cup-item" data-size="中杯" bindtap="selectCup">
+      <image src="/images/cup-medium.png" class="cup-img-medium"></image>
+      <text class="cup-text">中杯</text>
+      <image src="/images/add-icon.png" class="add-icon" data-size="中杯" bindtap="showInputModal" />
+    </view>
+    <view class="cup-item" data-size="小杯" bindtap="selectCup">
+      <image src="/images/cup-small.png" class="cup-img-small"></image>
+      <text class="cup-text" style="position: relative; left: 0rpx; top: 33rpx">小杯</text>
+      <image src="/images/add-icon.png" class="add-icon" data-size="小杯" bindtap="showInputModal" />
+    </view>
+  </view>
+
+  <!-- 饮用时间 -->
+  <view class="time-box" style="position: relative; left: 37rpx; top: -2rpx">
+    <image src="/images/time2.png" class="time-icon-large"></image>
+    <view class="time-content">
+      <text class="time-title">饮用时间</text>
+      <input style="width: 279rpx; display: block; box-sizing: border-box; height: 80rpx" class="time-input" placeholder="请输入饮用时间" bindinput="onTimeInput" />
+    </view>
+  </view>
+
+  <!-- 咖啡因含量 -->
+  <view class="caffeine-box caffeine-position" style="height: 231rpx; display: flex; box-sizing: border-box; position: relative; left: 37rpx; top: 4rpx; width: 639rpx">
+    <image src="/images/caffeine2.png" class="caffeine-icon-large" style="width: 258rpx; display: block; box-sizing: border-box"></image>
+    <text class="caffeine-title" style="position: absolute; left: 274rpx; top: 47rpx; width: 200rpx; display: block; box-sizing: border-box">咖啡因含量</text>
+    <text class="caffeine-value" style="position: relative; left: -129rpx; top: 41rpx">{{caffeineAmount}}</text>
+    <text class="caffeine-unit" style="position: relative; left: -51rpx; top: 45rpx; font-weight: bold">mg</text>
+  </view>
+
+  <!-- 添加按钮 -->
+  <button class="add-btn add-btn-position" bindtap="goBackToCaffeine">添加</button>
+
+  <!-- 输入饮用量弹窗 -->
+  <view wx:if="{{showModal}}" class="modal-mask">
+    <view class="modal-container">
+      <view class="modal-header">
+        <text class="modal-title">饮用量</text>
+        <image class="modal-close" bindtap="closeModal" src="/images/close-icon.png"></image>
+      </view>
+      <view class="modal-body">
+        <input type="number" bindinput="onAmountInput" class="modal-input"/>%
+      </view>
+      <button class="modal-confirm" bindtap="confirmAmount">确定</button>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,18 @@
+<view class="page" style="height: 4200rpx; display: block; box-sizing: border-box">
+  <!-- 搜索框 -->
+  <view class="search-box shadow">
+    <image src="/images/搜索.png" class="search-icon"></image>
+    <input placeholder="请输入内容" bindinput="onSearchInput" value="{{keyword}}" />
+  </view>
+
+  <!-- 星巴克咖啡列表 -->
+  <view wx:for="{{filteredList}}" wx:key="name" class="list-item" style="width: 625rpx; display: flex; box-sizing: border-box; position: relative; left: 44rpx; top: 0rpx" bindtap="gotoDrinkDetail" data-name="{{item.name}}">
+    <text>{{item.name}}</text>
+    <image class="arrow" src="/images/展开.png" mode="widthFix"></image>
+  </view>
+  <!-- 底部小熊 -->
+  <view class="bottom-bear" style="height: 274rpx; display: flex; box-sizing: border-box">
+  <image src="/images/bear2.png" class="bear-img" style="width: 420rpx; height: 395rpx; display: block; box-sizing: border-box; position: relative; left: 235rpx; top: 198rpx"></image>
+  <text class="bear-text" style="position: relative; left: -275rpx; top: -38rpx; width: 299rpx; height: 75rpx; display: block; box-sizing: border-box; font-size: 50rpx">到底喽~~</text>
+  </view>
+</view>
