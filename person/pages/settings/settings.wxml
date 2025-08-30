@@ -12,7 +12,7 @@
         </view>
       </view>
       <view class="divider"></view>
-      <view class="card-item">
+      <view class="card-item" bindtap="navigateToProfile">
         <text class="label" style="position: relative; left: 45rpx; top: 0rpx">个人信息修改</text>
         <view class="card-item-right">
           <image src="/images/right.png" class="arrow" />

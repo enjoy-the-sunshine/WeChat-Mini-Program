@@ -10,6 +10,11 @@ Page({
           url: '/pages/account-security/account-security'
         });
   },
+  navigateToProfile: function() {
+    wx.navigateTo({
+      url: '/pages/profile/profile'
+    });
+},
 
   updateInput: function(e) {
     this.setData({
