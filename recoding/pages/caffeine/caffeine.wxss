@@ -109,6 +109,7 @@
 }
 
 /* 饮品记录 */
+/* 饮品记录 */
 .drink-record {
   display: flex;
   align-items: center;
@@ -117,7 +118,12 @@
   padding: 20rpx;
   width: 600rpx;
   justify-content: center;
-  margin: 40rpx auto 0; /* 上边距40rpx，左右auto即可水平居中 */
+  margin: 40rpx auto; /* 记录之间的小间距 */
+}
+
+/* 第一条饮品记录的顶部间距大一些，避免和统计框重叠 */
+.drink-record:first-child {
+  margin-top: 80rpx; /* 保持和统计框的视觉间隔 */
 }
 
 .drink-icon {
@@ -128,23 +134,27 @@
 .drink-info {
   margin-left: 20rpx;
   flex-grow: 1;
-  width:400rpx;
+  width: 400rpx;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
 }
 
 .drink-name {
   font-size: 40rpx;
   font-weight: bold;
-  color: black；
+  color: black;
+  margin-bottom: 4rpx; /* 名称和时间之间的间距 */
 }
 
 .drink-time {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #909399;
 }
 
+
 .drink-caffeine {
   font-size: 40rpx;
-  color: #8a5a2c;
+  color: #000000;
 }
 
 .record-arrow {
@@ -156,7 +166,7 @@
 .btn-group {
   display: flex;
   justify-content: center; /* 居中 */
-  margin-top: 40rpx;
+  margin-top:40rpx;
   gap: 30rpx; /* 按钮之间的间距（微信基础库>=2.10.0支持） */
 }
 
@@ -190,7 +200,7 @@ button {
 
 .bear-img {
   width: 100%;
-  margin-top: 260rpx;
+  margin-top: 320rpx;
 }
 /* 弹窗遮罩 */
 .popup-mask {
@@ -239,9 +249,15 @@ button {
 }
 
 /* 外层字段行 */
+/* 灰色方框容器整体靠右 */
+/* 弹窗字段行：左固定，右灰框 */
 .popup-field {
   display: flex;
   align-items: center;
+  background: white;
+  border-radius: 25rpx;
+  padding: 14rpx 20rpx;
+  margin-bottom: 16rpx;
 }
 
 .popup-icon {
@@ -388,15 +404,16 @@ button {
 
 
 /* 外层容器，宽度由内部 hidden-text 决定 */
+/* 灰框本身固定居中内容 */
 .popup-inner-input {
   background: #D7D7D7;
   border-radius: 25rpx;
   padding: 4rpx 12rpx;
-  margin-left: auto;
-  display: inline-flex;   /* 让宽度随内部内容 */
+  display: inline-flex;
   align-items: center;
+  justify-content: center;  /* 水平居中内容 */
   max-width: 400rpx;
-  min-width: 40rpx;
+  min-width: 120rpx;  /* 给个最小宽度，美观一点 */
   overflow: hidden;
   position: relative;
 }
@@ -452,6 +469,18 @@ button {
   font-weight: bold;
 }
 
+.popup-save-btn {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 25rpx;
+  font-size: 34rpx;
+  margin-top: 20rpx;
+  font-weight: bold;
+}
+
+
 /* 去掉 flex 撑满，让每个框单独决定宽度 */
 .popup-inner-input.auto-width {
   display: inline-flex;
@@ -482,3 +511,42 @@ button {
   white-space: nowrap;
   font-size: 31rpx;
 }
+
+.popup-action-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  gap: 20rpx;
+}
+
+.popup-action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 25rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+.popup-action-btn.delete-btn {
+  background-color: white;
+  color: #d8001b;
+}
+
+.popup-action-btn.save-btn {
+  background-color: white;
+  color: black;
+}
+.popup-field-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* 不被压缩 */
+}
+
+.popup-field-right {
+  margin-left: auto; /* 推到最右 */
+  display: flex;
+  align-items: center;
+}
+
+

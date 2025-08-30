@@ -1,4 +1,8 @@
 // pages/caffeine/caffeine.js
+// pages/caffeine/caffeine.js
+const AV = require('../../libs/av-core-min.js');
+require('../../libs/leancloud-adapters-weapp.js');
+
 Page({
   data: {
     currentYear: 2025,
@@ -117,6 +121,29 @@ Page({
   onCaffeineInput(e) {
     this.setData({ [`drinkRecords[${this.data.editIndex}].caffeine`]: Number(e.detail.value) });
   },
+  onDrinkDateInput(e) {
+    const newDate = e.detail.value;
+    this.setData({ [`drinkRecords[${this.data.editIndex}].date`]: newDate });
+  
+    if (newDate !== this.data.selectedDate) {
+      // 从当前日期列表移除
+      const updated = this.data.drinkRecords.filter((_, i) => i !== this.data.editIndex);
+      this.setData({ drinkRecords: updated });
+    }
+  },
+  onDrinkTimeChange(e) {
+    const newTime = e.detail.value;
+    this.setData({
+      'editRecord.time': newTime  // 改 editRecord 里的值
+    });
+  },
+  onDrinkDateChange(e) {
+    const newDate = e.detail.value;
+    this.setData({
+      'editRecord.date': newDate
+    });
+  },
+  
 
   /** 软删除记录（本地屏蔽） */
   onDeleteRecord() {
@@ -189,5 +216,47 @@ Page({
   updateTotalCaffeine(records) {
     const total = records.reduce((sum, r) => sum + (Number(r.caffeine) || 0), 0);
     this.setData({ totalCaffeine: total });
-  }
+  },
+
+  onSaveRecord() {
+    const updated = this.data.editRecord;
+    if (!updated || !updated.objectId) {
+      wx.showToast({ title: '记录数据无效', icon: 'error' });
+      return;
+    }
+  
+    wx.showLoading({ title: '保存中...' });
+  
+    const query = new AV.Query('intakes');
+    query.get(updated.objectId).then(intake => {
+      const acl = intake.getACL() || new AV.ACL();
+      acl.setPublicReadAccess(true);
+      acl.setPublicWriteAccess(true);
+      intake.setACL(acl);
+  
+      // 保证字段和查询一致
+      intake.set('brand', updated.brand || '');
+      intake.set('product', updated.name || '');
+      intake.set('takenAt_time', updated.time || '');
+      intake.set('takenAt', new Date(`${updated.date}T00:00:00`));
+      intake.set('caffeine_total_mg', Number(updated.caffeine) || 0);
+  
+      return intake.save();
+    }).then(() => {
+      wx.hideLoading();
+      wx.showToast({ title: '保存成功' });
+      this.setData({ showEditPopup: false });
+  
+      // 重新拉取当天数据
+      this.fetchDrinkRecords(this.data.selectedDate);
+    }).catch(err => {
+      wx.hideLoading();
+      console.error('保存失败', err);
+      wx.showToast({ title: '保存失败', icon: 'error' });
+    });
+  }  
+  
+  
+  
+  
 });

@@ -29,18 +29,17 @@
 </view>
 
 <!-- 当日饮品记录 -->
-<scroll-view scroll-y style="max-height:400rpx;">
+<view>
   <view wx:for="{{drinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{index}}">
     <image class="drink-icon" src="/images/coffee-icon.png" mode="aspectFit"></image>
     <view class="drink-info">
       <text class="drink-name">{{item.name}}</text>
-      <text class="drink-time">
-      {{item.time}}</text>
+      <text class="drink-time">{{item.time}}</text>
     </view>
     <text class="drink-caffeine">{{item.caffeine}}mg</text>
     <image class="record-arrow" src="/images/展开.png" mode="widthFix"></image>
   </view>
-</scroll-view>
+</view>
 
 
 <!-- 按钮 -->
@@ -62,34 +61,50 @@
     <view class="popup-title">编辑记录</view>
 
     <!-- 饮品 -->
-    <view class="popup-field">
+  <view class="popup-field">
+    <view class="popup-field-left">
       <image src="/images/drink-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">饮品</text>
-      <view class="popup-inner-input auto-width">
+    </view>
+    <view class="popup-field-right">
+      <view class="popup-inner-input auto-width drink-name-input">
         <text class="hidden-text">{{editRecord.name || ' '}}</text>
         <input value="{{editRecord.name}}" bindinput="onDrinkNameInput" />
       </view>
     </view>
+  </view>
 
-    <!-- 日期 -->
-    <view class="popup-field">
+  <!-- 日期 -->
+  <view class="popup-field">
+    <view class="popup-field-left">
       <image src="/images/calendar-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">日期</text>
-      <view class="popup-inner-input auto-width">
-        <text class="hidden-text">{{editRecord.date || ' '}}</text>
-        <input value="{{editRecord.date}}" bindinput="onDrinkDateInput" />
-      </view>
     </view>
+    <view class="popup-field-right">
+      <picker mode="date" value="{{editRecord.date}}" bindchange="onDrinkDateChange">
+        <view class="popup-inner-input auto-width">
+          <text>{{editRecord.date || '选择日期'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
 
-    <!-- 时间 -->
-    <view class="popup-field">
+  <!-- 时间 -->
+  <view class="popup-field">
+    <view class="popup-field-left">
       <image src="/images/time-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">时间</text>
-      <view class="popup-inner-input auto-width">
-        <text class="hidden-text">{{editRecord.time || ' '}}</text>
-        <input value="{{editRecord.time}}" bindinput="onDrinkTimeInput" />
-      </view>
     </view>
+    <view class="popup-field-right">
+      <picker mode="time" value="{{editRecord.time}}" bindchange="onDrinkTimeChange">
+        <view class="popup-inner-input auto-width">
+          <text>{{editRecord.time || '选择时间'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+
 
 
     <!-- 咖啡因含量 -->
@@ -102,10 +117,17 @@
       </view>
     </view>
 
-    <!-- 删除 -->
-    <view class="popup-field delete-btn" bindtap="onDeleteRecord">
-      <text>删除此记录...</text>
+    <!-- 操作按钮行 -->
+  <view class="popup-action-row">
+    <view class="popup-action-btn delete-btn" bindtap="onDeleteRecord">
+      删除此记录...
     </view>
+    <view class="popup-action-btn save-btn" bindtap="onSaveRecord">
+      保存修改
+    </view>
+  </view>
+
+
   </view>
 </view>
 
