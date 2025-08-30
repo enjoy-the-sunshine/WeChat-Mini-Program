@@ -69,24 +69,29 @@
   display: flex;
   flex-direction: column;
   margin-left: 20rpx;
+  font-size:34rpx;
+  font-weight: bold;
 }
 
 .time-title {
   font-size: 38rpx;
   color: #ac886d; /* 与咖啡因含量标题颜色一致 */
   margin-bottom: 10rpx;
-  margin-left:50rpx;
+  margin-left:70rpx;
   font-weight: bold;
 }
 
 .time-input {
   background: #fff;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 10rpx 20rpx;
-  width: 280rpx;
+  width: 150rpx;
   height: 58rpx;
   border: 2rpx solid #909399;
   margin-left:50rpx;
+  text-align: center; /* 文字水平居中 */
+  line-height: 58rpx; /* 垂直居中文本 */
+  box-shadow: 0rpx 6rpx 12rpx #000000;
 }
 
 /* 咖啡因含量 */
@@ -121,7 +126,7 @@
   color: #98592C;
   font-size: 68rpx;
   margin-left: auto;
-  margin-right: 6rpx;
+  margin-right: -25rpx;
   margin-top: -20rpx;
 }
 
@@ -188,7 +193,7 @@
 
 .modal-input {
   border: 2rpx solid #ac886d;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 10rpx 20rpx;
   margin-right: 10rpx;
   box-shadow: 0rpx 6rpx 12rpx #000000;
@@ -200,5 +205,5 @@
   margin-top: 60rpx;
   background: #ac886d;
   color: #fff;
-  border-radius: 40rpx;
+  border-radius: 25rpx;
 }

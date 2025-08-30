@@ -57,10 +57,12 @@ Page({
     this.setData({ caffeineAmount: actualCaffeine });
   },
 
-  // 饮用时间输入
-  onTimeInput(e) {
+  
+  // 饮用时间选择
+  onTimeChange(e) {
     this.setData({ drinkTime: e.detail.value });
   },
+
   // 确认饮用量
   // 只负责保存百分比并更新咖啡因，不跳转
   confirmAmount() {
@@ -72,22 +74,45 @@ Page({
 
   
   goBackToCaffeine() {
+    const AV = require('../../libs/av-core-min.js');
+    require('../../libs/leancloud-adapters-weapp.js');
+  
     const t = new Date();
     const dateString = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+    const dateOnly = new Date(`${dateString}T00:00:00`); // takenAt
+    const timeString = this.data.drinkTime || `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`; // takenAt_time
   
-    const record = {
-      name: this.data.drinkName || '未知饮品',
-      caffeine: this.data.caffeineAmount || 0,
-      time: this.data.drinkTime || `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`,
-      date: dateString
-    };
+    const caffeinePerServ = this.data.caffeinePerServ || this.data.caffeineAmount;
+    const servings = 1;
+    const caffeineTotal = caffeinePerServ * servings;
   
-    wx.setStorageSync('newDrinkRecord', record);
+    const Intake = AV.Object.extend('intakes');
+    const intake = new Intake();
+    intake.set('takenAt', dateOnly);
+    intake.set('takenAt_time', timeString);
+    intake.set('brand', this.data.brandName || '');
+    intake.set('product', this.data.drinkName || '未知饮品');
+    intake.set('size_key', this.data.cupSize || '');
+    intake.set('size_ml', this.data.sizeMl || 0);
+    intake.set('caffeine_per_serving_mg', caffeinePerServ);
+    intake.set('servings', servings);
+    intake.set('caffeine_total_mg', caffeineTotal);
+    intake.set('note', this.data.note || '');
   
-    wx.reLaunch({
-      url: '/pages/caffeine/caffeine'
-    });
+    intake.save().then(() => {
+      wx.setStorageSync('newDrinkRecord', {
+        brand: this.data.brandName,
+        name: this.data.drinkName,
+        caffeine: caffeineTotal,
+        date: dateString,
+        time: timeString
+      });
+      wx.reLaunch({
+        url: '/pages/caffeine/caffeine'
+      });
+    }).catch(console.error);
   },
+  
   
   onLoad(options) {
     if (options.name) {

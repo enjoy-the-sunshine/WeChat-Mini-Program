@@ -2,7 +2,7 @@ Page({
   data: {
     keyword: '',
     drinkList: [
-      { name: '抹茶拿铁' }
+      
     ],
     filteredList: []
   },

@@ -1,4 +1,4 @@
-<view class="page" style="height: 1481rpx; display: block; box-sizing: border-box">
+<view class="page">
   <!-- 搜索框 -->
   <view class="search-box shadow">
     <image src="/images/搜索.png" class="search-icon"></image>

@@ -13,7 +13,7 @@
   background: #fff;
   border-radius: 26rpx;
   padding: 20rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 40rpx;
   justify-content: center;
   width: 600rpx;
 }
@@ -73,14 +73,14 @@
 
 /* 咖啡因统计框 */
 .caffeine-summary {
-  background: #f3d29a;
-  border-radius: 26rpx;
+  background: #f7d49a;
+  border-radius: 25rpx;
   padding: 20rpx;
   margin-top: 40rpx;
 }
 
 .summary-date {
-  font-size: 45rpx;
+  font-size: 35rpx;
   color:black;
   display: block;
   margin-bottom: 10rpx;
@@ -94,7 +94,7 @@
 
 .summary-title {
   text-decoration: underline;
-  font-size: 40rpx;
+  font-size: 39rpx;
   color: #797979;
 }
 
@@ -105,17 +105,19 @@
 }
 
 .unit {
-  font-size: 50rpx;
+  font-size: 46rpx;
 }
 
 /* 饮品记录 */
 .drink-record {
   display: flex;
   align-items: center;
-  margin-top: 40rpx;
   background: white;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   padding: 20rpx;
+  width: 600rpx;
+  justify-content: center;
+  margin: 40rpx auto 0; /* 上边距40rpx，左右auto即可水平居中 */
 }
 
 .drink-icon {
@@ -126,6 +128,7 @@
 .drink-info {
   margin-left: 20rpx;
   flex-grow: 1;
+  width:400rpx;
 }
 
 .drink-name {
@@ -166,9 +169,9 @@ button {
   color: white;
   border-radius: 25rpx;
   padding: 20rpx 0;
-  flex: 1;
   margin-right:20rpx;
   font-size: 34rpx;
+  width: 100rpx;
 }
 
 .btn-state {
@@ -176,20 +179,18 @@ button {
   color:black;
   border-radius: 25rpx;
   padding: 20rpx 0;
-  flex: 1;
   margin-left: 10rpx;
   font-size: 34rpx;
 }
 
 /* 底部小熊插图 */
 .bear-container {
-  margin-top: 200rpx;
   text-align: center;
 }
 
 .bear-img {
   width: 100%;
-  margin-bottom: 100rpx;
+  margin-top: 260rpx;
 }
 /* 弹窗遮罩 */
 .popup-mask {
@@ -237,14 +238,10 @@ button {
   margin-bottom: 30rpx;
 }
 
-/* 字段行 */
+/* 外层字段行 */
 .popup-field {
   display: flex;
   align-items: center;
-  background: white;
-  border-radius: 30rpx;
-  padding: 14rpx 20rpx;
-  margin-bottom: 16rpx;
 }
 
 .popup-icon {
@@ -388,21 +385,43 @@ button {
 
 
 
-/* 灰色背景输入框 */
+
+
+/* 外层容器，宽度由内部 hidden-text 决定 */
 .popup-inner-input {
   background: #D7D7D7;
   border-radius: 25rpx;
   padding: 4rpx 12rpx;
-  width: 200rpx;
-  margin-left:300rpx;
+  margin-left: auto;
+  display: inline-flex;   /* 让宽度随内部内容 */
+  align-items: center;
+  max-width: 400rpx;
+  min-width: 40rpx;
+  overflow: hidden;
+  position: relative;
 }
 
+/* 真正显示的 input */
 .popup-inner-input input {
   border: none;
   background: transparent;
   font-size: 31rpx;
   color: #333333;
+  text-align: center;
+  width: 100%; /* 占满容器 */
 }
+
+/* 隐藏的文字，用来撑开容器宽度 */
+.hidden-text {
+  position: absolute;
+  visibility: hidden; /* 不显示 */
+  white-space: nowrap;
+  font-size: 31rpx;
+  padding: 0;
+  margin: 0;
+}
+
+
 
 /* 咖啡因固定值 */
 .popup-caffeine-display {
@@ -431,4 +450,35 @@ button {
   color: #d8001b;
   font-size: 35rpx;
   font-weight: bold;
+}
+
+/* 去掉 flex 撑满，让每个框单独决定宽度 */
+.popup-inner-input.auto-width {
+  display: inline-flex;
+  align-items: center;
+  background: #D7D7D7;
+  border-radius: 25rpx;
+  padding: 4rpx 12rpx;
+  margin-left: auto;
+  max-width: 500rpx;
+  min-width: 40rpx;
+  box-sizing: border-box;
+}
+
+/* 输入框 */
+.popup-inner-input.auto-width input {
+  border: none;
+  background: transparent;
+  font-size: 31rpx;
+  color: #333333;
+  text-align: center;
+  width: auto;
+}
+
+/* 隐藏的测量文字 */
+.hidden-text {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font-size: 31rpx;
 }

@@ -25,16 +25,15 @@ Page({
 
   onBrandTap(e) {
     const brand = e.currentTarget.dataset.name;
-    if (brand === '星巴克') {
-      wx.navigateTo({
-        url: '/pages/starbuck/starbuck'
-      });
-    } else if (brand === '自定义') {
+    if (brand === '自定义') {
       wx.navigateTo({
         url: '/pages/userdefined/userdefined'
       });
     } else {
-      wx.showToast({ title: '暂未开放', icon: 'none' });
+      wx.navigateTo({
+        url: `/pages/brandcoffee/brandcoffee?brand=${encodeURIComponent(brand)}`
+      });
     }
-  }  
+  }
+  
 });

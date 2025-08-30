@@ -8,14 +8,12 @@ Page({
     selectedDateDisplay: '',
     selectedWeekday: '',
     totalCaffeine: 0,
-
-    // 当日咖啡记录数组
     drinkRecords: [],
-
-    // 编辑弹窗绑定
     editIndex: null,
+    editRecord: {},  // 新增：保存当前编辑的记录
     showEditPopup: false
   },
+  
 
   onLoad() {
     this.generateCalendar(this.data.currentYear, this.data.currentMonth);
@@ -27,28 +25,27 @@ Page({
     const days = [];
     const firstDay = new Date(year, month - 1, 1).getDay();
     const lastDate = new Date(year, month, 0).getDate();
-  
+
     // 上个月补位
     let prevLastDate = new Date(year, month - 1, 0).getDate();
     for (let i = firstDay; i > 0; i--) {
       days.push({ date: prevLastDate - i + 1, isCurrentMonth: false, dateString: '' });
     }
-  
+
     // 当月日期
     for (let i = 1; i <= lastDate; i++) {
       const dateString = `${year}-${month < 10 ? '0' + month : month}-${i < 10 ? '0' + i : i}`;
       days.push({ date: i, isCurrentMonth: true, dateString });
     }
-  
-    // 下个月补位 → 从 1 开始
+
+    // 下个月补位
     let nextMonthDay = 1;
     while (days.length % 7 !== 0) {
       days.push({ date: nextMonthDay++, isCurrentMonth: false, dateString: '' });
     }
-  
+
     this.setData({ days });
   },
-  
 
   /** 切换月份 */
   prevMonth() {
@@ -72,16 +69,14 @@ Page({
     const weekMap = ['日', '一', '二', '三', '四', '五', '六'];
     const weekday = weekMap[new Date(date).getDay()];
 
-    // 不生成随机数据，初始为空
     this.setData({
       selectedDate: date,
       selectedDateDisplay: date,
-      selectedWeekday: weekday,
-      drinkRecords: [],
-      totalCaffeine: 0
+      selectedWeekday: weekday
     });
-  },
 
+    this.fetchDrinkRecords(date);
+  },
 
   /** 默认选中今天 */
   setToday() {
@@ -89,34 +84,32 @@ Page({
     const dateString = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
     this.selectDate({ currentTarget: { dataset: { date: dateString } } });
   },
-// 保存数据
-  saveRecordsForDate(date, records) {
-    const allRecords = wx.getStorageSync('caffeineRecords') || {};
-    allRecords[date] = records;
-    wx.setStorageSync('caffeineRecords', allRecords);
-  },
 
-  // 读取数据
-  loadRecordsForDate(date) {
-    const allRecords = wx.getStorageSync('caffeineRecords') || {};
-    return allRecords[date] || [];
-  },
-
-  /** 弹窗打开关闭 */
+  /** 弹窗 */
   openEditPopup(e) {
-    this.setData({ editIndex: e.currentTarget.dataset.index, showEditPopup: true });
+    const index = e.currentTarget.dataset.index;
+    const record = this.data.drinkRecords[index];
+    if (!record) return;
+  
+    this.setData({
+      editIndex: index,
+      editRecord: {
+        ...record,
+        date: this.data.selectedDate  // 直接赋值当前选中日期
+      },
+      showEditPopup: true
+    });
   },
+  
+
   closeEditPopup() {
     this.setData({ showEditPopup: false });
   },
   stopTap() {},
 
-  /** 弹窗输入绑定 */
+  /** 编辑绑定 */
   onDrinkNameInput(e) {
     this.setData({ [`drinkRecords[${this.data.editIndex}].name`]: e.detail.value });
-  },
-  onDrinkDateInput(e) {
-    this.setData({ [`drinkRecords[${this.data.editIndex}].date`]: e.detail.value });
   },
   onDrinkTimeInput(e) {
     this.setData({ [`drinkRecords[${this.data.editIndex}].time`]: e.detail.value });
@@ -125,50 +118,76 @@ Page({
     this.setData({ [`drinkRecords[${this.data.editIndex}].caffeine`]: Number(e.detail.value) });
   },
 
-  /** 删除记录 */
+  /** 软删除记录（本地屏蔽） */
   onDeleteRecord() {
     const idx = this.data.editIndex;
+    const record = this.data.drinkRecords[idx];
+    if (!record || !record.objectId) return;
+
     wx.showModal({
       title: '提示',
       content: '确定要删除此记录吗？',
       success: (res) => {
         if (res.confirm) {
-          const updated = [...this.data.drinkRecords];
-          updated.splice(idx, 1);
-          const totalCaffeine = updated.reduce((sum, r) => sum + r.caffeine, 0);
+          // 本地维护已删除ID
+          let deletedIds = wx.getStorageSync('deletedIntakeIds') || [];
+          if (!deletedIds.includes(record.objectId)) {
+            deletedIds.push(record.objectId);
+            wx.setStorageSync('deletedIntakeIds', deletedIds);
+          }
+          // 从当前列表移除
+          const updated = this.data.drinkRecords.filter(r => r.objectId !== record.objectId);
+          const totalCaffeine = updated.reduce((sum, r) => sum + (Number(r.caffeine) || 0), 0);
           this.setData({ drinkRecords: updated, totalCaffeine, showEditPopup: false });
         }
       }
     });
   },
-  goToBrandSelect(){
-    wx.navigateTo({
-      url: '/pages/brandselect/brandselect'
-    });
+
+  /** 跳转品牌选择 */
+  goToBrandSelect() {
+    wx.navigateTo({ url: '/pages/brandselect/brandselect' });
   },
+
+  /** 页面显示时刷新当前选中日期 */
   onShow() {
-    const newRecord = wx.getStorageSync('newDrinkRecord');
-    if (newRecord) {
-      if (newRecord.date === this.data.selectedDate) {
-        const updatedRecords = [...this.data.drinkRecords, newRecord];
-        const totalCaffeine = updatedRecords.reduce((sum, r) => sum + r.caffeine, 0);
-        this.setData({
-          drinkRecords: updatedRecords,
-          totalCaffeine
-        });
-      }
-      wx.removeStorageSync('newDrinkRecord'); // 用完清除
+    if (this.data.selectedDate) {
+      this.fetchDrinkRecords(this.data.selectedDate);
     }
   },
-  fetchDrinkRecords(date) {
-    const allData = wx.getStorageSync('drinkRecords') || {};
-    const list = allData[date] || [];
-  
-    this.setData({ drinkRecords: list });
-    this.updateTotalCaffeine(list);
+
+  /** 拉取记录（过滤本地已删除ID） */
+  fetchDrinkRecords(dateString) {
+    const AV = require('../../libs/av-core-min.js');
+    require('../../libs/leancloud-adapters-weapp.js');
+
+    const dateOnly = new Date(`${dateString}T00:00:00`);
+    const deletedIds = wx.getStorageSync('deletedIntakeIds') || [];
+
+    const query = new AV.Query('intakes');
+    query.equalTo('takenAt', dateOnly);
+    query.ascending('takenAt_time'); // 按时间顺序
+    query.find().then(list => {
+      let records = list.map(obj => ({
+        objectId: obj.id,
+        brand: obj.get('brand') || '',
+        name: obj.get('product') || '',
+        caffeine: obj.get('caffeine_total_mg') || 0,
+        time: obj.get('takenAt_time') || ''
+      }));
+      // 过滤掉已删除记录
+      records = records.filter(r => !deletedIds.includes(r.objectId));
+      this.setData({ drinkRecords: records });
+      this.updateTotalCaffeine(records);
+    }).catch(err => {
+      console.error('查询饮用记录失败：', err);
+      this.setData({ drinkRecords: [], totalCaffeine: 0 });
+    });
+  },
+
+  /** 更新总咖啡因 */
+  updateTotalCaffeine(records) {
+    const total = records.reduce((sum, r) => sum + (Number(r.caffeine) || 0), 0);
+    this.setData({ totalCaffeine: total });
   }
-  
-  
-
 });
-

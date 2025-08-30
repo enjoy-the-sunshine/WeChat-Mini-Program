@@ -1,7 +1,7 @@
-<view class="page" style="height: 1600rpx">
+<view class="page">
 
 <!-- 日历 -->
-<view class="calendar-container shadow" style="position: relative; left: 37rpx; top: 8rpx">
+<view class="calendar-container shadow" style="position: relative; left: 37rpx; top: 40rpx">
   <view class="calendar-header">
     <text class="arrow" bindtap="prevMonth">‹</text>
     <text class="current-date">{{currentYear}}年{{currentMonth}}月</text>
@@ -20,7 +20,7 @@
 </view>
 
 <!-- 总咖啡因 -->
-<view class="caffeine-summary shadow" style="width: 639rpx; display: block; box-sizing: border-box; position: relative; left: 37rpx; top: 1rpx">
+<view class="caffeine-summary shadow" style="width: 639rpx; display: block; box-sizing: border-box; position: relative; left: 37rpx; top: 40rpx">
   <text class="summary-date">{{selectedDateDisplay}}  星期{{selectedWeekday}}</text>
   <view class="summary-row">
     <text class="summary-title">今日总计咖啡因</text>
@@ -45,8 +45,8 @@
 
 <!-- 按钮 -->
 <view class="btn-group">
-  <button class="btn-add shadow" bindtap="goToBrandSelect">追加记录</button>
-  <button class="btn-state shadow">状态记录</button>
+  <button class="btn-add shadow" bindtap="goToBrandSelect" style="width: 300rpx; display: block; box-sizing: border-box; left: 14rpx; top: 40rpx; position: relative">追加记录</button>
+  <button class="btn-state shadow" style="width: 300rpx; display: block; box-sizing: border-box; left: -15rpx; top: 40rpx; position: relative">状态记录</button>
 </view>
 
 <!-- 底部插图 -->
@@ -57,45 +57,56 @@
 
 <!-- 弹窗 -->
 <view class="popup-mask" wx:if="{{showEditPopup}}" bindtap="closeEditPopup">
-<view class="popup-container" catchtap="stopTap">
-  <image src="/images/close-icon.png" class="popup-close-btn" bindtap="closeEditPopup"></image>
-  <view class="popup-title">编辑记录</view>
+  <view class="popup-container" catchtap="stopTap">
+    <image src="/images/close-icon.png" class="popup-close-btn" bindtap="closeEditPopup"></image>
+    <view class="popup-title">编辑记录</view>
 
-  <view class="popup-field">
-    <image src="/images/drink-icon.png" class="popup-icon"></image>
-    <text class="popup-label" style="font-size: 35rpx;">饮品</text>
-    <view class="popup-inner-input">
-      <input value="{{drinkRecords[editIndex].name}}" bindinput="onDrinkNameInput" />
+    <!-- 饮品 -->
+    <view class="popup-field">
+      <image src="/images/drink-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">饮品</text>
+      <view class="popup-inner-input auto-width">
+        <text class="hidden-text">{{editRecord.name || ' '}}</text>
+        <input value="{{editRecord.name}}" bindinput="onDrinkNameInput" />
+      </view>
     </view>
-  </view>
 
-  <view class="popup-field">
-    <image src="/images/calendar-icon.png" class="popup-icon"></image>
-    <text class="popup-label" style="font-size: 35rpx;">日期</text>
-    <view class="popup-inner-input">
-      <input value="{{drinkRecords[editIndex].date}}" bindinput="onDrinkDateInput" />
+    <!-- 日期 -->
+    <view class="popup-field">
+      <image src="/images/calendar-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">日期</text>
+      <view class="popup-inner-input auto-width">
+        <text class="hidden-text">{{editRecord.date || ' '}}</text>
+        <input value="{{editRecord.date}}" bindinput="onDrinkDateInput" />
+      </view>
     </view>
-  </view>
 
-  <view class="popup-field">
-    <image src="/images/time-icon.png" class="popup-icon"></image>
-    <text class="popup-label" style="font-size: 35rpx;">时间</text>
-    <view class="popup-inner-input">
-      <input value="{{drinkRecords[editIndex].time}}" bindinput="onDrinkTimeInput" />
+    <!-- 时间 -->
+    <view class="popup-field">
+      <image src="/images/time-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">时间</text>
+      <view class="popup-inner-input auto-width">
+        <text class="hidden-text">{{editRecord.time || ' '}}</text>
+        <input value="{{editRecord.time}}" bindinput="onDrinkTimeInput" />
+      </view>
     </view>
-  </view>
 
-  <view class="popup-field">
-    <image src="/images/caffeine-icon.png" class="popup-icon"></image>
-    <text class="popup-label" style="font-size: 35rpx;">咖啡因含量</text>
-    <view class="popup-caffeine-display">
-      <text class="popup-caffeine-value">{{drinkRecords[editIndex].caffeine}}</text>
-      <text class="popup-unit">mg</text>
+
+    <!-- 咖啡因含量 -->
+    <view class="popup-field">
+      <image src="/images/caffeine-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">咖啡因含量</text>
+      <view class="popup-caffeine-display">
+        <text class="popup-caffeine-value">{{editRecord.caffeine}}</text>
+        <text class="popup-unit">mg</text>
+      </view>
     </view>
-  </view>
 
+    <!-- 删除 -->
     <view class="popup-field delete-btn" bindtap="onDeleteRecord">
       <text>删除此记录...</text>
     </view>
   </view>
 </view>
+
+

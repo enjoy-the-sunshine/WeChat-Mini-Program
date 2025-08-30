@@ -24,7 +24,10 @@
     <image src="/images/time2.png" class="time-icon-large"></image>
     <view class="time-content">
       <text class="time-title">饮用时间</text>
-      <input style="width: 279rpx; display: block; box-sizing: border-box; height: 80rpx" class="time-input" placeholder="请输入饮用时间" bindinput="onTimeInput" />
+      <picker mode="time" value="{{drinkTime}}" start="00:00" end="23:59" bindchange="onTimeChange">
+    <view class="time-input">{{drinkTime}}</view>
+</picker>
+
     </view>
   </view>
 

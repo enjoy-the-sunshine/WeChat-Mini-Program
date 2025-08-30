@@ -2,7 +2,7 @@
   "pages": [
     "pages/caffeine/caffeine",
     "pages/brandselect/brandselect",
-    "pages/starbuck/starbuck",
+    "pages/brandcoffee/brandcoffee",
     "pages/drinkdetail/drinkdetail",
     "pages/userdefined/userdefined",
     "pages/logs/logs"
