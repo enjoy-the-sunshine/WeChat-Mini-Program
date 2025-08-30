@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "CoffeeHealing",
+  "usingComponents": {
+    "ec-canvas": "/components/ec-canvas/ec-canvas"
+  }
+}

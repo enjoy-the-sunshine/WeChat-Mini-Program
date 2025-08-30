@@ -1,0 +1,62 @@
+<view class="page" style="height: 1456rpx; display: block; box-sizing: border-box">
+  <!-- 卡片1：体内咖啡因 -->
+  <view class="card" style="height: 314rpx; display: flex; box-sizing: border-box;">
+    <!-- 左侧圆圈睡眠水平 -->
+    <view class="caffeine-circle" style="position: relative; left: 37rpx; top: 35rpx; width: 339rpx; display: block; box-sizing: border-box; height: 133rpx">
+      <view class="fill" style="height: {{fillHeightStr}};"></view>
+      <view class="sleep-line"></view>
+      <text class="sleep-label" style="position: absolute; left: -4rpx; top: 36rpx">睡眠水平</text>
+    </view>
+
+    <!-- 中间内容 -->
+    <view class="card1-middle" style="position: relative; left: 56rpx; top: 0rpx">
+      <view class="card-title" style="position: relative; left: -170rpx; top: -43rpx; width: 224rpx; display: block; box-sizing: border-box">体内咖啡因</view>
+      <view class="card-desc" style="position: relative; left: -170rpx; top: -47rpx; width: 300rpx; display: block; box-sizing: border-box">动态计算体内实时咖啡因水平</view>
+      <view class="level-badge {{levelClass}}" style="position: absolute; left: 199rpx; top: 84rpx">{{levelText}}</view>
+      <view class="value-row">
+        <text class="caffeine-value" style="position: relative; left: 95rpx; top: -32rpx">{{bodyCaffeine}}</text>
+        <text class="unit" style="width: 56rpx; height: 64rpx; display: block; box-sizing: border-box; position: relative; left: 95rpx; top: 0rpx">mg</text>
+      </view>
+    </view>
+
+    <!-- 右侧熊图 -->
+    <image class="bear-img1" src="{{bearImg1}}" mode="widthFix" style="width: 585rpx; height: 695rpx; display: block; box-sizing: border-box; position: relative; left: 20rpx; top: 72rpx"></image>
+  </view>
+
+  <!-- 卡片2：今日咖啡因 -->
+  <view class="card" style="height: 281rpx; display: flex; box-sizing: border-box;">
+    <view class="card-left">
+      <view class="card-title" style="position: relative; left: 0rpx; top: -43rpx">今日咖啡因</view>
+      <view class="card-desc" style="position: relative; left: 0rpx; top: -47rpx">今日累计摄入的总咖啡因</view>
+      <view class="caffeine-today">
+        <text class="bold brown">{{dailyCaffeine}}</text>/<text>{{dailyLimit}}mg</text>
+      </view>
+      <view class="progress" style="width: 477rpx; height: 10rpx; display: block; box-sizing: border-box">
+        <view class="progress-bar" style="width: {{progressWidthStr}};"></view>
+      </view>
+    </view>
+    <image class="bear-circle" src="{{bearImg2}}" mode="widthFix" style="width: 181rpx; height: 172rpx; display: block; box-sizing: border-box; position: relative; left: -14rpx; top: -19rpx"></image>
+  </view>
+
+  <!-- 卡片3：元气时刻 -->
+  <view class="card orange-card" style="height: 281rpx; display: flex; box-sizing: border-box;">
+    <view class="card-left">
+      <view class="card-title grey">元气时刻</view>
+      <view class="card-desc grey">记录咖啡因的提神效果</view>
+      <view class="timer-label">提神倒计时</view>
+      <view class="timer-value">{{timer}}</view>
+      <view class="progress light">
+        <view class="progress-bar light" style="width: 60%;"></view>
+      </view>
+      <view class="small-desc">体内咖啡因含量{{bodyCaffeine}}mg · 提神至15:00</view>
+    </view>
+    <image class="bear-img" src="{{bearImg3}}" mode="widthFix" style="width: 366rpx; height: 270rpx; display: block; box-sizing: border-box"></image>
+  </view>
+
+  <!-- 设置项 -->
+  <view class="settings" bindtap="goToSetting">
+    <image class="settings-icon" src="/images/settings.png" />
+    <text class="settings-text">个性化咖啡因代谢设置</text>
+    <image class="arrow-icon" src="/images/arrow_right.png" />
+  </view>
+</view>
