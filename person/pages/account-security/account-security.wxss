@@ -70,3 +70,67 @@
   position: relative;
   bottom: 0;
 }
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 400rpx;
+  background-color: #fdf8e3; /* Light background color */
+  border-radius: 25px; /* Rounded corners */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.icon {
+  width: 50px; /* Icon size */
+  height: 50px;
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.modal-input {
+  width: 80%;
+  background-color: #ffffff;
+  border: none;
+  padding: 10rpx;
+  border-radius: 25rpx;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  margin: 20rpx 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.modal-button {
+  background-color: #d0e4f7;
+  border: none;
+  border-radius: 25rpx;
+  padding: 10rpx 20rpx;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  margin: 0 15rpx;
+  width: 80rpx; /* Fixed button width */
+}
