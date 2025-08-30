@@ -1,0 +1,22 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/login_wechat/login_wechat",
+    "pages/login_phone/login_phone",
+    "pages/login_bear/login_bear",
+    "pages/register/register",
+    "pages/register/help/help",
+    "pages/protocol/user/user",
+    "pages/protocol/privacy/privacy",
+    "pages/add1_choice/add1_choice"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "CoffeeHealing",
+    "backgroundColor": "#fdf8e3",
+    "backgroundTextStyle": "light"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

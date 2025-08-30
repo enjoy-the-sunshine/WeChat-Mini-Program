@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "添加咖啡",
+  "navigationBarBackgroundColor": "#F5F5DC",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#F5F5DC",
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": false,
+  "disableScroll": false
+}

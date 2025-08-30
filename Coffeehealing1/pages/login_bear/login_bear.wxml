@@ -1,0 +1,52 @@
+<!--pages/login_bear/login_bear.wxml-->
+<view class="container">
+  <!-- 顶部导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left">
+      <text class="time">9:41</text>
+    </view>
+    <view class="nav-center">
+      <text class="app-title">CoffeeHealing</text>
+    </view>
+    <view class="nav-right">
+      <text class="nav-icon">...</text>
+      <text class="nav-icon">◎</text>
+    </view>
+  </view>
+
+  <!-- 信息提示区域 -->
+  <view class="info-bubble">
+    <text class="main-title">如何称呼你的小熊?</text>
+    <text class="subtitle">它将是你探索健康生活,管理咖啡因的最佳伙伴</text>
+  </view>
+
+  <!-- 小熊插图 -->
+  <view class="bear-container">
+    <image class="bear-image" src="/assets/images/bear_fly.png" mode="aspectFit" style="width: 508rpx; height: 494rpx; display: block; box-sizing: border-box; position: relative; left: -1rpx; top: -28rpx"></image>
+    <!-- 可爱装饰 -->
+    <view class="decoration-heart">💕</view>
+    <view class="decoration-star">⭐</view>
+  </view>
+
+  <!-- 输入框 -->
+  <view class="input-container">
+    <input 
+      class="name-input" 
+      placeholder="请输入小熊的名字" 
+      value="{{bearName}}"
+      bindinput="onNameInput"
+      maxlength="10"
+    />
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="button-container">
+    <button class="btn confirm-btn" bindtap="onConfirm">OK!</button>
+    <button class="btn skip-btn" bindtap="onSkip">跳过</button>
+  </view>
+
+  <!-- 临时跳转按钮 -->
+  <view class="temp-button-container">
+    <button class="btn temp-btn" bindtap="goToAddChoice">跳转到添加咖啡页面</button>
+  </view>
+</view>

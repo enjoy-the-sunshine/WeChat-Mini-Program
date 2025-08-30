@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/add_home/add_home",
+    "pages/drink_detail/drink_detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FDF8E3",
+    "navigationBarTitleText": "CoffeeHealing",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

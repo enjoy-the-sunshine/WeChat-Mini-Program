@@ -1,0 +1,198 @@
+/* pages/second/second.wxss */
+.page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fdf6e3;
+  overflow: hidden;
+}
+
+/* 间距调整按钮 */
+.spacing-controls {
+  position: fixed;
+  top: 20rpx;
+  right: 20rpx;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.spacing-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  padding: 10rpx 20rpx;
+  font-size: 24rpx;
+  color: #333;
+  min-width: 120rpx;
+}
+
+.spacing-btn:active {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.05);
+  width: calc(100vw - 40rpx);
+  min-height: 200rpx;
+  /* 移除任何可能影响间距的样式 */
+}
+
+.card.dragging {
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.15);
+  transform: scale(1.02);
+  z-index: 1000;
+}
+
+.orange-card {
+  background-color: #f7e0d2;
+}
+
+.card-left {
+  flex: 1;
+}
+
+.card-middle {
+  flex: 1;
+  position: relative;
+}
+
+.card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 4rpx;
+}
+
+.card-title.grey {
+  color: white;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.card-desc.grey {
+  color: rgba(255,255,255,0.8);
+}
+
+.caffeine-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #a6653f;
+}
+
+.unit {
+  font-size: 24rpx;
+  color: #a6653f;
+}
+
+.bear-img {
+  width: 120rpx;
+}
+
+.bear-circle {
+  width: 80rpx;
+  margin-left: 20rpx;
+}
+
+.low-badge {
+  position: absolute;
+  top: 0;
+  right: -20rpx;
+  background: #f0ad4e;
+  color: white;
+  border-radius: 20rpx;
+  padding: 4rpx 12rpx;
+  font-size: 20rpx;
+}
+
+.caffeine-today {
+  font-size: 28rpx;
+  margin-top: 10rpx;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.brown {
+  color: #a6653f;
+}
+
+.progress {
+  height: 12rpx;
+  background-color: #eee;
+  border-radius: 6rpx;
+  margin-top: 10rpx;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #a6653f;
+  border-radius: 6rpx;
+}
+
+.progress.light {
+  background-color: rgba(255,255,255,0.5);
+}
+
+.progress-bar.light {
+  background-color: white;
+}
+
+.timer-label {
+  font-size: 24rpx;
+  color: white;
+  margin-top: 10rpx;
+}
+
+.timer-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.small-desc {
+  font-size: 20rpx;
+  color: white;
+  margin-top: 10rpx;
+}
+
+.settings {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 20rpx;
+  border-radius: 16rpx;
+}
+
+.settings-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.settings-text {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.arrow-icon {
+  width: 32rpx;
+  height: 32rpx;
+}

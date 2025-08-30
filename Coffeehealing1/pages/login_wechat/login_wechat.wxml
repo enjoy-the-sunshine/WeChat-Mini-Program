@@ -1,0 +1,16 @@
+<!--pages/login_wechat/login_wechat.wxml-->
+<view class="container">
+  <image class="bear-fly" src="/assets/images/bear_fly.png" mode="widthFix" style="width: 450rpx; height: 623rpx; display: block; box-sizing: border-box"></image>
+
+  <text class="title" style="position: relative;  top: 39rpx; font-size: 60rpx; font-weight: bold">CoffeeHealing~</text>
+
+  <view class="phone-box">
+    <text class="phone" style="position: relative; top: 52rpx; font-size: 40rpx; font-weight: bold">+86 123****4567</text>
+  </view>
+
+  <button class="btn" bindtap="onLogin" style="position: relative; left: 0rpx; top: 88rpx">一键登录</button>
+
+  <image class="bear-lie" src="/assets/images/bear_lie.png" mode="widthFix" style="position: relative; left: -4rpx; top: 103rpx; width: 321rpx; height: 217rpx; display: block; box-sizing: border-box"></image>
+
+  <navigator url="/pages/register/help/help" class="problem" style="position: relative; left: -4rpx; top: 105rpx">登录遇到问题?</navigator>
+</view>

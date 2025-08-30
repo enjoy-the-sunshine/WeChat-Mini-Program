@@ -1,0 +1,104 @@
+<!--pages/add1_choice/add1_choice.wxml-->
+<view class="container">
+  <!-- 咖啡杯型选择 -->
+  <view class="coffee-selection">
+    <view class="coffee-item" bindtap="selectCup" data-type="large">
+      <view class="coffee-cup large-cup">
+        <view class="cup-body"></view>
+        <view class="cup-sleeve"></view>
+        <view class="steam steam1"></view>
+        <view class="steam steam2"></view>
+        <view class="steam steam3"></view>
+      </view>
+      <text class="cup-text">大杯</text>
+      <view class="add-btn" catchtap="showPercentageModal" data-type="large">+</view>
+    </view>
+
+    <view class="coffee-item" bindtap="selectCup" data-type="medium">
+      <view class="coffee-cup medium-cup">
+        <view class="cup-body"></view>
+        <view class="coffee-liquid"></view>
+        <view class="steam steam1"></view>
+        <view class="steam steam2"></view>
+        <view class="steam steam3"></view>
+      </view>
+      <text class="cup-text">中杯</text>
+      <view class="add-btn" catchtap="showPercentageModal" data-type="medium">+</view>
+    </view>
+
+    <view class="coffee-item" bindtap="selectCup" data-type="small">
+      <view class="coffee-cup small-cup">
+        <view class="cup-body"></view>
+        <view class="coffee-liquid"></view>
+        <view class="saucer"></view>
+        <view class="steam steam1"></view>
+        <view class="steam steam2"></view>
+        <view class="steam steam3"></view>
+      </view>
+      <text class="cup-text">小杯</text>
+      <view class="add-btn" catchtap="showPercentageModal" data-type="small">+</view>
+    </view>
+  </view>
+
+  <!-- 饮用时间输入 -->
+  <view class="input-card">
+    <view class="input-item">
+      <view class="input-icon">🕐</view>
+      <text class="input-label">饮用时间</text>
+      <picker mode="time" value="{{drinkingTime}}" bindchange="onTimeChange">
+        <view class="time-input">{{drinkingTime || '请选择时间'}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 咖啡因含量显示 -->
+  <view class="input-card">
+    <view class="input-item">
+      <view class="caffeine-icon">
+        <view class="molecule">C₈H₁₀N₄O₂</view>
+        <view class="coffee-icon">☕</view>
+      </view>
+      <view class="caffeine-content">
+        <text class="input-label">咖啡因含量</text>
+        <view class="caffeine-amount">{{caffeineContent}} mg</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-button" bindtap="addCoffee">
+    <text>添加</text>
+  </view>
+
+  <!-- 百分比输入弹窗 -->
+  <view class="modal-overlay" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">输入饮用百分比</text>
+      </view>
+      <view class="modal-body">
+        <view class="percentage-input">
+          <input type="number" 
+                 placeholder="请输入百分比" 
+                 value="{{percentageInput}}"
+                 bindinput="onPercentageInput"
+                 maxlength="3" />
+          <text class="percentage-symbol">%</text>
+        </view>
+        <view class="percentage-slider">
+          <slider value="{{percentageSlider}}" 
+                  bindchange="onSliderChange" 
+                  min="0" 
+                  max="100" 
+                  step="1" 
+                  activeColor="#8B4513" />
+          <text class="slider-value">{{percentageSlider}}%</text>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn cancel-btn" bindtap="hideModal">取消</button>
+        <button class="modal-btn confirm-btn" bindtap="confirmPercentage">确认</button>
+      </view>
+    </view>
+  </view>
+</view>

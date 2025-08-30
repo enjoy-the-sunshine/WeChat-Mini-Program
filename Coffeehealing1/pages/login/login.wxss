@@ -1,0 +1,105 @@
+/* pages/login/login.wxss *//* 外层容器 */
+/* 外层容器 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #FDF8E3;
+  height: 100vh;
+  padding: 40rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 顶部插画 */
+.top-img {
+  width: 500rpx;
+  height: 500rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+/* 标题 */
+.title {
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+/* 副标题 */
+.subtitle {
+  font-size: 50rpx;
+  color: #333333;
+  margin-bottom: 100rpx;
+}
+
+/* 通用按钮 */
+.btn {
+  width: 80%;
+  height: 90rpx;
+  margin-bottom: 40rpx;
+  border-radius: 45rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+
+/* 微信按钮 */
+.wechat-btn {
+  background-color: #AC886D;
+  color: #FDF8E3;
+}
+
+/* 手机号按钮 */
+.phone-btn {
+  background-color: rgba(161, 202, 226, 0.23); 
+  color: #797979;
+}
+
+/* 按钮里的图标 */
+.icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 20rpx;
+}
+
+/* 协议区域 */
+.agreement {
+  position: absolute;
+  bottom: 340rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  color: #797979;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 复选框 */
+.checkbox {
+  margin-right: 12rpx;
+  transform: scale(0.8);
+}
+
+/* 协议链接 */
+.link {
+  color: #84a9dd;
+  margin: 0 4rpx;
+}
+
+/* 底部插画 */
+.low-img {
+  width: 300rpx;
+  height: 300rpx;
+  margin-top: 80rpx;
+  margin-bottom: 10rpx;
+}

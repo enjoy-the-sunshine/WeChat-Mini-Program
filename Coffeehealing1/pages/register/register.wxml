@@ -1,0 +1,33 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+  <image class="bear-fly" src="/assets/images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
+
+  <text 
+  class="title" 
+  style="font-size: 60rpx; font-weight: bold"
+>CoffeeHealing~</text>
+
+  <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" placeholder="手机号" />
+  
+  <view class="password-box">
+    <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" password="{{!showPassword}}" placeholder="密码" />
+    <image class="eye" src="{{showPassword ? '/assets/images/eye_open.png' : '/assets/images/eye_close.png'}}" bindtap="togglePassword" style="position: absolute; left: 517rpx; top: 64rpx"></image>
+  </view>
+
+  <view class="password-box">
+    <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" password="{{!showConfirmPassword}}" placeholder="确认密码" />
+    <image class="eye" src="{{showConfirmPassword ? '/assets/images/eye_open.png' : '/assets/images/eye_close.png'}}" bindtap="toggleConfirmPassword" style="position: absolute; left: 517rpx; top: 64rpx"></image>
+  </view>
+
+
+  <!-- 协议勾选 --> 
+  <view class="agreement" style="width: 576rpx; display: flex; box-sizing: border-box"> <checkbox-group bindchange="onAgreeChange"> <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox> </checkbox-group> <text>我已阅读并同意</text> <text class="link" bindtap="openUserAgreement">《用户协议》</text> <text>和</text> <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text> </view>
+
+  <button class="btn" bindtap="onRegister" style="position: relative; left: -1rpx; top: -27rpx">立即注册</button>
+
+  <view class="tips">
+    <navigator url="/pages/login/login" style="position: relative; left: 0rpx; top: -35rpx">已有账号？去登录</navigator>
+  </view>
+
+  <navigator url="/pages/register/help/help" class="problem" style="position: relative; left: -1rpx; top: -20rpx">注册遇到问题?</navigator>
+</view>

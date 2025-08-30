@@ -1,0 +1,585 @@
+/* pages/add1_choice/add1_choice.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #F5F5DC;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 顶部导航栏 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background-color: #F5F5DC;
+  position: relative;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.back-icon {
+  font-size: 36rpx;
+  margin-right: 10rpx;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #8B4513;
+  font-style: italic;
+}
+
+.header-icons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.icon-dots, .icon-target {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 咖啡杯选择区域 */
+.coffee-selection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  margin: 20rpx 0;
+}
+
+.coffee-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 10rpx;
+  border-radius: 20rpx;
+}
+
+.coffee-item.selected {
+  background: rgba(139, 69, 19, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(139, 69, 19, 0.2);
+  transform: translateY(-5rpx);
+}
+
+.coffee-item.selected .coffee-cup {
+  transform: scale(1.05);
+}
+
+.coffee-item.selected .cup-text {
+  color: #8B4513;
+  font-weight: bold;
+}
+
+.coffee-cup {
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+/* 大杯样式 */
+.large-cup {
+  width: 120rpx;
+  height: 160rpx;
+  position: relative;
+}
+
+.large-cup .cup-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 50%, #e8e8e8 100%);
+  border-radius: 60rpx 60rpx 25rpx 25rpx;
+  border: 3rpx solid #d0d0d0;
+  position: relative;
+  box-shadow: 
+    inset 0 2rpx 8rpx rgba(0,0,0,0.1),
+    0 4rpx 12rpx rgba(0,0,0,0.15);
+}
+
+.large-cup .cup-body::before {
+  content: '';
+  position: absolute;
+  top: 15rpx;
+  left: 15rpx;
+  right: 15rpx;
+  bottom: 25rpx;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+  border-radius: 45rpx 45rpx 15rpx 15rpx;
+  opacity: 0.9;
+}
+
+.large-cup .cup-body::after {
+  content: '';
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  right: 20rpx;
+  bottom: 30rpx;
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+  border-radius: 40rpx 40rpx 12rpx 12rpx;
+  opacity: 0.8;
+}
+
+.large-cup .cup-sleeve {
+  position: absolute;
+  bottom: 25rpx;
+  left: 8rpx;
+  right: 8rpx;
+  height: 45rpx;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  border-radius: 22rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.2);
+}
+
+.large-cup .cup-sleeve::before {
+  content: '';
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24rpx;
+  height: 24rpx;
+  background: linear-gradient(135deg, #87CEEB 0%, #4682B4 100%);
+  border-radius: 50%;
+  box-shadow: 0 1rpx 3rpx rgba(0,0,0,0.3);
+}
+
+.large-cup .cup-sleeve::after {
+  content: '';
+  position: absolute;
+  top: 12rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16rpx;
+  height: 16rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* 中杯样式 */
+.medium-cup {
+  width: 100rpx;
+  height: 130rpx;
+  position: relative;
+}
+
+.medium-cup .cup-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 50%, #e8e8e8 100%);
+  border-radius: 50rpx 50rpx 18rpx 18rpx;
+  border: 3rpx solid #d0d0d0;
+  position: relative;
+  box-shadow: 
+    inset 0 2rpx 6rpx rgba(0,0,0,0.1),
+    0 3rpx 10rpx rgba(0,0,0,0.12);
+}
+
+.medium-cup .cup-body::before {
+  content: '';
+  position: absolute;
+  top: 12rpx;
+  left: 12rpx;
+  right: 12rpx;
+  bottom: 18rpx;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+  border-radius: 38rpx 38rpx 12rpx 12rpx;
+  opacity: 0.9;
+}
+
+.medium-cup .coffee-liquid {
+  position: absolute;
+  top: 15rpx;
+  left: 15rpx;
+  right: 15rpx;
+  bottom: 20rpx;
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 50%, #DEB887 100%);
+  border-radius: 35rpx 35rpx 12rpx 12rpx;
+  opacity: 0.85;
+}
+
+.medium-cup .coffee-liquid::after {
+  content: '';
+  position: absolute;
+  top: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rpx;
+  height: 8rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10rpx;
+  opacity: 0.6;
+}
+
+/* 小杯样式 */
+.small-cup {
+  width: 80rpx;
+  height: 110rpx;
+  position: relative;
+}
+
+.small-cup .cup-body {
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 50%, #e8e8e8 100%);
+  border-radius: 40rpx 40rpx 12rpx 12rpx;
+  border: 3rpx solid #d0d0d0;
+  position: relative;
+  box-shadow: 
+    inset 0 1rpx 4rpx rgba(0,0,0,0.1),
+    0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.small-cup .cup-body::before {
+  content: '';
+  position: absolute;
+  top: 8rpx;
+  left: 8rpx;
+  right: 8rpx;
+  bottom: 12rpx;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+  border-radius: 32rpx 32rpx 10rpx 10rpx;
+  opacity: 0.9;
+}
+
+.small-cup .coffee-liquid {
+  position: absolute;
+  top: 10rpx;
+  left: 10rpx;
+  right: 10rpx;
+  bottom: 12rpx;
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 50%, #DEB887 100%);
+  border-radius: 30rpx 30rpx 10rpx 10rpx;
+  opacity: 0.85;
+}
+
+.small-cup .coffee-liquid::after {
+  content: '';
+  position: absolute;
+  top: 6rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16rpx;
+  height: 6rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 8rpx;
+  opacity: 0.6;
+}
+
+.small-cup .saucer {
+  position: absolute;
+  bottom: -8rpx;
+  left: -8rpx;
+  right: -8rpx;
+  height: 18rpx;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 50%, #e8e8e8 100%);
+  border-radius: 50%;
+  border: 2rpx solid #d0d0d0;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}
+
+.small-cup .saucer::before {
+  content: '';
+  position: absolute;
+  top: 4rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 6rpx;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+  border-radius: 3rpx;
+  opacity: 0.7;
+}
+
+/* 蒸汽动画 */
+.steam {
+  position: absolute;
+  top: -25rpx;
+  width: 6rpx;
+  height: 35rpx;
+  background: linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+  border-radius: 3rpx;
+  animation: steam 3s infinite ease-out;
+  filter: blur(0.5rpx);
+}
+
+.steam1 {
+  left: 25%;
+  animation-delay: 0s;
+  animation-duration: 2.5s;
+}
+
+.steam2 {
+  left: 50%;
+  animation-delay: 0.8s;
+  animation-duration: 3s;
+}
+
+.steam3 {
+  left: 75%;
+  animation-delay: 1.6s;
+  animation-duration: 2.8s;
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8) rotate(0deg);
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateY(-15rpx) scale(1.1) rotate(2deg);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-30rpx) scale(1.3) rotate(-1deg);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translateY(-45rpx) scale(1.1) rotate(1deg);
+  }
+  80% {
+    opacity: 0.3;
+    transform: translateY(-60rpx) scale(0.9) rotate(-2deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-75rpx) scale(0.6) rotate(0deg);
+  }
+}
+
+.cup-text {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.1);
+}
+
+.add-btn {
+  width: 50rpx;
+  height: 50rpx;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #666;
+  font-weight: bold;
+  box-shadow: 
+    0 2rpx 6rpx rgba(0,0,0,0.15),
+    inset 0 1rpx 2rpx rgba(255,255,255,0.8);
+  border: 1rpx solid #d0d0d0;
+  transition: all 0.2s ease;
+}
+
+.add-btn:active {
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  color: #fff;
+  transform: scale(0.95);
+  box-shadow: 
+    0 1rpx 3rpx rgba(0,0,0,0.2),
+    inset 0 1rpx 2rpx rgba(255,255,255,0.3);
+}
+
+/* 输入卡片 */
+.input-card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 20rpx 30rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.1);
+}
+
+.input-item {
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.input-label {
+  font-size: 32rpx;
+  color: #333;
+  margin-right: 20rpx;
+  flex: 1;
+}
+
+.time-input {
+  padding: 15rpx 25rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  color: #666;
+  min-width: 200rpx;
+  text-align: center;
+}
+
+/* 咖啡因含量样式 */
+.caffeine-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20rpx;
+}
+
+.molecule {
+  font-size: 24rpx;
+  color: #8B4513;
+  font-weight: bold;
+  margin-bottom: 5rpx;
+}
+
+.coffee-icon {
+  font-size: 32rpx;
+}
+
+.caffeine-content {
+  flex: 1;
+}
+
+.caffeine-amount {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #D2691E;
+  margin-top: 10rpx;
+}
+
+/* 添加按钮 */
+.add-button {
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+  color: #fff;
+  padding: 30rpx 60rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  margin: 40rpx 30rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 25rpx rgba(210,105,30,0.3);
+}
+
+.add-button:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 15rpx rgba(210,105,30,0.3);
+}
+
+/* 弹窗样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 20rpx;
+  width: 80%;
+  max-width: 600rpx;
+  padding: 40rpx;
+  box-shadow: 0 10rpx 40rpx rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body {
+  margin-bottom: 40rpx;
+}
+
+.percentage-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.percentage-input input {
+  flex: 1;
+  padding: 20rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 15rpx;
+  font-size: 32rpx;
+  text-align: center;
+}
+
+.percentage-symbol {
+  font-size: 32rpx;
+  color: #666;
+  margin-left: 15rpx;
+}
+
+.percentage-slider {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.percentage-slider slider {
+  flex: 1;
+}
+
+.slider-value {
+  font-size: 28rpx;
+  color: #8B4513;
+  font-weight: bold;
+  min-width: 80rpx;
+  text-align: center;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 25rpx;
+  border-radius: 15rpx;
+  font-size: 32rpx;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.confirm-btn {
+  background: #8B4513;
+  color: #fff;
+}
+
+.modal-btn:active {
+  opacity: 0.8;
+}

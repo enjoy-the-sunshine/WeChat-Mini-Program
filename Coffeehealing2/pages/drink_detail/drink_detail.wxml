@@ -1,0 +1,74 @@
+<!--pages/drink_detail/drink_detail.wxml-->
+<view class="container">
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-left" bindtap="goBack">
+      <text class="back-arrow">‹</text>
+      <text class="back-text">返回</text>
+    </view>
+  </view>
+
+  <!-- 饮品信息 -->
+  <view class="drink-info">
+    <view class="drink-name">{{drink.name}}</view>
+    <view class="drink-desc">选择您的饮品规格</view>
+  </view>
+
+  <!-- 杯子选择 -->
+  <view class="cup-selection">
+    <view class="cup-item {{selectedSize === 'large' ? 'selected' : ''}}" 
+          bindtap="selectSize" data-size="large">
+      <view class="cup-icon large-cup">☕</view>
+      <view class="cup-label">大杯</view>
+      <view class="add-btn">+</view>
+    </view>
+    
+    <view class="cup-item {{selectedSize === 'medium' ? 'selected' : ''}}" 
+          bindtap="selectSize" data-size="medium">
+      <view class="cup-icon medium-cup">☕</view>
+      <view class="cup-label">中杯</view>
+      <view class="add-btn">+</view>
+    </view>
+    
+    <view class="cup-item {{selectedSize === 'small' ? 'selected' : ''}}" 
+          bindtap="selectSize" data-size="small">
+      <view class="cup-icon small-cup">☕</view>
+      <view class="cup-label">小杯</view>
+      <view class="add-btn">+</view>
+    </view>
+  </view>
+
+  <!-- 饮用时间 -->
+  <view class="time-section">
+    <view class="section-card">
+      <view class="card-left">
+        <view class="clock-icon">🕐</view>
+      </view>
+      <view class="card-content">
+        <view class="card-title">饮用时间</view>
+        <picker mode="time" value="{{drinkTime}}" bindchange="onTimeChange">
+          <view class="time-input">{{drinkTime || '选择时间'}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 咖啡因含量 -->
+  <view class="caffeine-section">
+    <view class="section-card">
+      <view class="card-left">
+        <view class="caffeine-icon">⚗️</view>
+        <view class="caffeine-formula">C₈H₁₀N₄O₂</view>
+      </view>
+      <view class="card-content">
+        <view class="card-title">咖啡因含量</view>
+        <view class="caffeine-value">{{currentCaffeine}} mg</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-button" bindtap="addDrink">
+    <text class="add-text">添加</text>
+  </view>
+</view>

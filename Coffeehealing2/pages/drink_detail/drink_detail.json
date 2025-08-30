@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "添加饮品",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#FDF8E3",
+  "enablePullDownRefresh": false,
+  "disableScroll": false
+}

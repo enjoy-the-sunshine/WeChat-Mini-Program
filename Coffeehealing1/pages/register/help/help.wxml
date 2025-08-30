@@ -1,0 +1,76 @@
+<!--pages/register/help/help.wxml-->
+<view class="container">
+  <view class="content">
+    <view class="section">
+      <view class="intro">
+        <text class="intro-text">如果您在登录或注册过程中遇到问题，请按照以下步骤进行检查</text>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">一、设备检查</view>
+        <view class="article-content">
+          <view class="paragraph">1、确保您的设备网络连接正常，可以正常访问其他应用</view>
+          <view class="paragraph">2、检查微信版本是否为最新版本，建议更新到最新版本</view>
+          <view class="paragraph">3、确保设备有足够的存储空间，建议预留至少100MB空间</view>
+          <view class="paragraph">4、检查设备时间设置是否正确，避免因时间错误导致验证失败</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">二、输入检查</view>
+        <view class="article-content">
+          <view class="paragraph">1、确保手机号格式正确，应为11位数字</view>
+          <view class="paragraph">2、密码长度应在6-20位之间，包含字母和数字</view>
+          <view class="paragraph">3、确认密码必须与密码完全一致</view>
+          <view class="paragraph">4、确保已勾选"用户协议"和"隐私政策"</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">三、权限检查</view>
+        <view class="article-content">
+          <view class="paragraph">1、确保已授权微信获取您的手机号信息</view>
+          <view class="paragraph">2、检查是否允许了必要的系统权限</view>
+          <view class="paragraph">3、如果之前拒绝过权限，请在设置中重新开启</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">四、常见问题</view>
+        <view class="article-content">
+          <view class="paragraph">1、如果提示"手机号已被注册"，请尝试登录或联系客服</view>
+          <view class="paragraph">2、如果提示"手机号未注册"，请先注册账号</view>
+          <view class="paragraph">3、如果密码错误，请检查密码是否正确或尝试重置密码</view>
+          <view class="paragraph">4、如果验证码收不到，请检查手机信号或稍后重试</view>
+          <view class="paragraph">5、如果页面加载缓慢，请检查网络连接或重启应用</view>
+          <view class="paragraph">6、如果微信登录失败，请检查微信授权设置</view>
+        </view>
+      </view>
+      
+      <view class="contact-section">
+        <view class="contact-title">联系开发人员</view>
+        <view class="contact-content">
+          <view class="contact-item">
+            <text class="contact-label">邮箱：</text>
+            <text class="contact-value">support@coffeehealing.com</text>
+          </view>
+          <view class="contact-item">
+            <text class="contact-label">微信：</text>
+            <text class="contact-value">CoffeeHealing_Support</text>
+          </view>
+          <view class="contact-item">
+            <text class="contact-label">工作时间：</text>
+            <text class="contact-value">周一至周五 9:00-18:00</text>
+          </view>
+        </view>
+        <view class="contact-note">
+          <text>请在联系时提供以下信息：</text>
+          <view class="note-item">• 您的手机号</view>
+          <view class="note-item">• 遇到的具体问题</view>
+          <view class="note-item">• 设备型号和系统版本</view>
+          <view class="note-item">• 问题发生的具体时间</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

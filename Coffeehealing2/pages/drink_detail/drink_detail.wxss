@@ -1,0 +1,244 @@
+/* pages/drink_detail/drink_detail.wxss */
+.container {
+  min-height: 100vh;
+  background: #FDF8E3;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 导航栏 */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50rpx 40rpx 30rpx 40rpx;
+  background: #FDF8E3;
+  border-bottom: 1rpx solid #e8e0c8;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.back-arrow {
+  font-size: 48rpx;
+  color: #AC886D;
+  margin-right: 15rpx;
+}
+
+.back-text {
+  font-size: 32rpx;
+  color: #8b6f5a;
+  font-weight: 500;
+}
+
+.nav-title {
+  font-size: 38rpx;
+  color: #AC886D;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.nav-right {
+  display: flex;
+  gap: 20rpx;
+}
+
+.nav-icon {
+  font-size: 32rpx;
+  color: #8b6f5a;
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(172, 136, 109, 0.1);
+}
+
+/* 饮品信息 */
+.drink-info {
+  padding: 50rpx 40rpx 40rpx 40rpx;
+  text-align: center;
+}
+
+.drink-name {
+  font-size: 44rpx;
+  color: #8b6f5a;
+  font-weight: 600;
+  margin-bottom: 15rpx;
+}
+
+.drink-desc {
+  font-size: 30rpx;
+  color: #AC886D;
+  font-weight: 400;
+}
+
+/* 杯子选择 */
+.cup-selection {
+  display: flex;
+  justify-content: space-around;
+  padding: 40rpx;
+  margin: 0 30rpx;
+  background: white;
+  border-radius: 25rpx;
+  box-shadow: 0 6rpx 20rpx rgba(172, 136, 109, 0.1);
+  border: 1rpx solid #e8e0c8;
+}
+
+.cup-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx 25rpx;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+  border: 2rpx solid transparent;
+  min-width: 120rpx;
+}
+
+.cup-item.selected {
+  background: rgba(172, 136, 109, 0.1);
+  border-color: #AC886D;
+  box-shadow: 0 4rpx 15rpx rgba(172, 136, 109, 0.2);
+}
+
+.cup-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.large-cup {
+  font-size: 90rpx;
+}
+
+.medium-cup {
+  font-size: 80rpx;
+}
+
+.small-cup {
+  font-size: 70rpx;
+}
+
+.cup-label {
+  font-size: 30rpx;
+  color: #8b6f5a;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+
+.add-btn {
+  width: 50rpx;
+  height: 50rpx;
+  background: #AC886D;
+  color: #FDF8E3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  box-shadow: 0 2rpx 8rpx rgba(172, 136, 109, 0.3);
+}
+
+/* 时间选择 */
+.time-section {
+  padding: 30rpx 40rpx;
+  margin-top: 20rpx;
+}
+
+.section-card {
+  display: flex;
+  align-items: center;
+  padding: 40rpx;
+  background: white;
+  border-radius: 25rpx;
+  box-shadow: 0 6rpx 20rpx rgba(172, 136, 109, 0.1);
+  border: 1rpx solid #e8e0c8;
+}
+
+.card-left {
+  margin-right: 30rpx;
+}
+
+.clock-icon {
+  font-size: 60rpx;
+  color: #AC886D;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 32rpx;
+  color: #8b6f5a;
+  font-weight: 500;
+  margin-bottom: 15rpx;
+}
+
+.time-input {
+  padding: 20rpx 25rpx;
+  background: #f8f4e8;
+  border: 1rpx solid #d4c4a8;
+  border-radius: 15rpx;
+  font-size: 30rpx;
+  color: #8b6f5a;
+  min-width: 250rpx;
+  text-align: center;
+}
+
+/* 咖啡因含量 */
+.caffeine-section {
+  padding: 30rpx 40rpx;
+  margin-top: 20rpx;
+}
+
+.caffeine-icon {
+  font-size: 50rpx;
+  color: #AC886D;
+  margin-bottom: 10rpx;
+}
+
+.caffeine-formula {
+  font-size: 24rpx;
+  color: #8b6f5a;
+  font-weight: 400;
+  text-align: center;
+}
+
+.caffeine-value {
+  font-size: 56rpx;
+  color: #AC886D;
+  font-weight: 600;
+  margin-top: 15rpx;
+}
+
+/* 添加按钮 */
+.add-button {
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #AC886D;
+  color: #FDF8E3;
+  padding: 30rpx 100rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 25rpx rgba(172, 136, 109, 0.3);
+  transition: all 0.3s ease;
+  border: 1rpx solid #8b6f5a;
+}
+
+.add-button:active {
+  transform: translateX(-50%) scale(0.95);
+  box-shadow: 0 6rpx 20rpx rgba(172, 136, 109, 0.3);
+}
+
+.add-text {
+  font-size: 36rpx;
+  font-weight: 500;
+}
