@@ -1,0 +1,17 @@
+/* app.wxss 全局样式 */
+page {
+  background-color: #fdf8e3;
+  font-family: "Source Han Sans CN", "Source Han Sans", "思源黑体", "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* 通用按钮样式 */
+button {
+  border: none;
+}
+
+/* 协议文字链接全局样式 */
+.link {
+  color: #1E90FF;
+}
+
+/* Toast 遮罩层样式可全局统一 */

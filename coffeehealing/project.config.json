@@ -1,0 +1,9 @@
+{
+  "setting": {
+    "ignoreUploadUnusedFiles": false,
+    "minified": true,
+    "postcss": true,
+    "enhance": true,
+    "es6": true
+  }
+}
