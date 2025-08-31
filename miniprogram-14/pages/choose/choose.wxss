@@ -1,0 +1,125 @@
+.container {
+  background-color: #fdf8e3;
+  min-height: 100vh;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+
+.top-bear {
+  width: 120rpx;
+  height: 120rpx;
+  z-index: 999;
+}
+
+.search-box {
+  margin-top: 24rpx;
+  margin-bottom: 12rpx;
+}
+
+.search-box input {
+  width: 100%;
+  height: 80rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding-left: 60rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+/* 列表容器样式 */
+.list-container {
+  margin-bottom: 100rpx; /* 增加底部间距 */
+  padding: 0 10rpx; /* 增加左右内边距 */
+}
+
+/* 底部图片容器样式 */
+.bottom-image-container {
+  width: 100%;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  /* 与上方列表和下方tabbar保持间距 */
+  margin-bottom: 30rpx;
+}
+
+/* 底部图片样式 */
+.bottom-image {
+  width: 100%;  /* 宽度铺满容器 */
+  max-height: 300rpx;  /* 限制最大高度，避免图片过高 */
+  border-radius: 20rpx;  /* 圆角处理 */
+  display: block;  /* 去除图片底部默认空白 */
+}
+
+/* 确保tabbar在最底部，不被图片遮挡 */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;  /* 提高层级，确保在图片上方 */
+  /* 其他原有样式保持不变 */
+}
+
+/* 列表项样式调整 */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdf8e3;
+  height: 100rpx; /* 增大高度（原96rpx） */
+  padding: 0 150rpx; /* 增大左右内边距（原32rpx） */
+  border-radius: 20rpx; /* 稍微增大圆角 */
+  font-size: 36rpx; /* 增大字体（原32rpx） */
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.507); /* 增加轻微阴影提升质感 */
+}
+
+/* 箭头图标大小调整 */
+.arrow {
+  width: 48rpx; /* 增大箭头（原40rpx） */
+  height: 48rpx;
+  opacity: 0.7; /* 稍微降低不透明度 */
+}
+
+/* 分割线样式调整 */
+.divider {
+  height: 2rpx;
+  background-color: #eec262; /* 更浅的颜色 */
+  margin: 20rpx 0; /* 增大分割线上下间距（原16rpx） */
+  margin-left: 0rpx; /* 让分割线与列表项文字对齐 */
+}
+
+.bottom-bears {
+  width: 100%;
+  height: auto;
+}
+
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.tabbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tabbar-item image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.tabbar-item text {
+  font-size: 24rpx;
+  margin-top: 8rpx;
+}
+
+.tabbar-item.active{
+  color: #007aff;
+}

@@ -1,0 +1,90 @@
+<view class="container" style="position: relative; left: 0rpx; top: -25rpx">
+  <!-- 我的饮品模块 -->
+  <view class="section" style="position: relative; left: -77rpx; top: 160rpx">
+    <view class="section-title" style="width: 318rpx; display: flex; box-sizing: border-box; height: 72rpx; left: 99rpx; top: 9rpx">
+      <image class="title-icon" src="/images/my_drink_icon.png"></image>
+      <text class="title-text" style="position: relative; left: 74rpx; top: 1rpx">我的饮品</text>
+    </view>
+    <view class="item" bindtap="toCustomDrink" style="position: relative; left: 79rpx; top: 41rpx; width: 518rpx; display: flex; box-sizing: border-box">
+      <text style="width: 439rpx; display: block; box-sizing: border-box">自定义饮品</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 122rpx; top: 2rpx; height: 47rpx; display: block; box-sizing: border-box; width: 91rpx"></image>
+    </view>
+    <view class="divider" style="position: relative; left: 56rpx; top: 50rpx; width: 518rpx; height: 2rpx; display: block; box-sizing: border-box"></view>
+  </view>
+  <!-- 品牌模块 -->
+  <view class="section" style="position: relative; left: 0rpx; top: 264rpx; height: 791rpx; display: block; box-sizing: border-box">
+    <view class="section-title" style="position: relative; left: -89rpx; top: -64rpx; width: 322rpx; display: flex; box-sizing: border-box">
+      <image class="title-icon" src="/images/brand_icon.png"></image>
+      <text class="title-text" style="position: relative; left: 69rpx; top: -1rpx">品牌</text>
+    </view>
+    <view class="item" bindtap="toStarbucks" style="position: relative; left: 0rpx; top: -8rpx">
+      <image class="brand-icon" src="/images/starbucks_icon.png"></image>
+      <text style="position: relative; left: -64rpx; top: 0rpx">星巴克</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toLuckin" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/luckin_icon.png"></image>
+      <text style="position: relative; left: -81rpx; top: -4rpx">瑞幸</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toKudi" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/kudi_icon.png"></image>
+      <text style="position: relative; left: -81rpx; top: -12rpx">库迪</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toBawangChaji" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/bawang_chaji_icon.png"></image>
+      <text style="position: relative; left: -47rpx; top: 4rpx">霸王茶姬</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toChabaidao" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/chabaidao_icon.png"></image>
+      <text style="position: relative; left: -64rpx; top: 0rpx">茶百道</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toGuming" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/guming_icon.png"></image>
+      <text style="position: relative; left: -81rpx; top: 4rpx">古茗</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+    <view class="item" bindtap="toXicha" style="position: relative; left: 0rpx; top: 0rpx">
+      <image class="brand-icon" src="/images/xicha_icon.png"></image>
+      <text style="position: relative; left: -81rpx; top: 4rpx">喜茶</text>
+      <image class="arrow" src="/images/arrow.png" style="position: relative; left: 124rpx; top: 1rpx; height: 47rpx; display: block; box-sizing: border-box"></image>
+    </view>
+    <view class="divider"></view>
+  </view>
+  <image class="星巴克" src="/images/星巴克.png" style="position: relative; left: -191rpx; top: -481rpx; z-index: 999; width: 80rpx; height: 80rpx; display: block; box-sizing: border-box"></image> 
+  <image class="瑞幸" src="/images/瑞幸.png" style="position: relative; left: -193rpx; top: -427rpx; z-index: 999; width: 210rpx; height: 114rpx; display: block; box-sizing: border-box"></image> 
+  <image class="库迪" src="/images/库迪.png" style="position: relative; left: -206rpx; top: -400rpx; z-index: 999; width: 110rpx; height: 114rpx; display: block; box-sizing: border-box"></image> 
+  <image class="霸王茶姬" src="/images/霸王茶姬.png" style="position: relative; left: -206rpx; top: -370rpx; z-index: 999; width: 180rpx; height: 162rpx; display: block; box-sizing: border-box"></image> 
+  <image class="茶百道" src="/images/茶百道.png" style="position: relative; left: -206rpx; top: -370rpx; z-index: 999; width: 100rpx; height: 80rpx; display: block; box-sizing: border-box"></image> 
+  <image class="古茗" src="/images/古茗.png" style="position: relative; left: -206rpx; top: -306rpx; z-index: 999; width: 100rpx; height: 80rpx; display: block; box-sizing: border-box"></image> 
+  <image class="喜茶" src="/images/喜茶.png" style="position: relative; left: -206rpx; top: -252rpx; z-index: 998; width: 80rpx; height: 80rpx; display: block; box-sizing: border-box"></image> 
+  <!-- 底部导航栏 -->
+  <view class="tab-bar" style="position: fixed; left: 0rpx; top: 1509rpx;z-index:999">
+    <view class="tab-bar-item" bindtap="toHome">
+      <image class="tab-icon" src="/images/tabber1.png"></image>
+      <text class="tab-text">首页</text>
+    </view>
+    <view class="tab-bar-item" bindtap="toCoffeeRecord">
+      <image class="tab-icon" src="/images/tabber2.png"></image>
+      <text class="tab-text">咖啡记录</text>
+    </view>
+    <view class="tab-bar-item active">
+      <image class="tab-icon" src="/images/tabber3.png"></image>
+      <text class="tab-text">饮品字典</text>
+    </view>
+    <view class="tab-bar-item" bindtap="toMy">
+      <image class="tab-icon" src="/images/tabber4.png"></image>
+      <text class="tab-text">我的</text>
+    </view>
+  </view>
+</view>

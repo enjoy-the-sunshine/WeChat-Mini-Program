@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/choose/choose",
+    "pages/xingbake/xingbake",
+    "pages/gexinghua/gexinghua",
+    "pages/guming/guming",
+    "pages/ruixing/euixing",
+    "pages/ruixing/ruixing",
+    "pages/kudi/kudi",
+    "pages/bawang/bawang",
+    "pages/chabaidao/chabaidao",
+    "pages/xicha/xicha"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "tagNameStyleIsolation": "legacy",
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}
