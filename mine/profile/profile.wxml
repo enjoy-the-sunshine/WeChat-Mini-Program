@@ -1,0 +1,109 @@
+<view class="container">
+
+  <!-- 头像和用户名 -->
+  <view class="card" catchtap="showModal" data-item="头像">
+    <view class="card-item">
+      <text>头像</text>
+      <view class="card-item-right">
+        <image src="{{avatar || '/images/avatar.png'}}" class="icon" />
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="card-item" catchtap="showModal" data-item="用户名">
+      <text>用户名</text>
+      <view class="card-item-right">
+        <text>{{username || 'Yolanda'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+  </view>
+
+  <!-- 身高体重年龄 -->
+  <view class="card">
+    <view class="card-item" catchtap="showModal" data-item="身高">
+      <text>身高 (cm)</text>
+      <view class="card-item-right">
+        <text>{{height || '160'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="card-item" catchtap="showModal" data-item="体重">
+      <text>体重 (kg)</text>
+      <view class="card-item-right">
+        <text>{{weight || '45'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="card-item" catchtap="showModal" data-item="年龄">
+      <text>年龄</text>
+      <view class="card-item-right">
+        <text>{{age || '20'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+  </view>
+
+  <!-- 咖啡因摄入目标 -->
+  <view class="card">
+    <view class="card-item" catchtap="showModal" data-item="咖啡因摄入目标">
+      <text>咖啡因摄入目标 (mg)</text>
+      <view class="card-item-right">
+        <text>{{caffeineGoal || '170'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="card-item" catchtap="showModal" data-item="睡前咖啡因水平">
+      <text>睡前咖啡因水平 (mg)</text>
+      <view class="card-item-right">
+        <text>{{caffeineLevelBeforeSleep || '50'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+    <view class="card-item" catchtap="showModal" data-item="入睡时间">
+      <text>目标入睡时间</text>
+      <view class="card-item-right">
+        <text>{{sleepTime || '22:00'}}</text>
+        <image src="/images/right.png" class="arrow" />
+      </view>
+    </view>
+    <view class="divider"></view>
+  </view>
+
+  <!-- 底部插画 -->
+  <image class="footer-image" src="/images/background-footer.png" alt="底部插画" />
+
+  <!-- 修改弹窗 -->
+  <view class="modal" wx:if="{{modalVisible}}">
+    <view class="modal-content">
+
+      <!-- 标题区：图标 + 文字 -->
+      <view class="modal-header">
+        <image src="/images/avatar.png" class="modal-icon" />
+        <text class="modal-title">{{modalTitle}}</text>
+      </view>
+
+      <!-- 输入框或头像选择 -->
+      <view>
+        <image wx:if="{{modalType === '头像'}}"
+                src="{{avatar || '/images/avatar.png'}}"
+                style="width: 200rpx; height: 200rpx;" />
+        <input wx:else class="modal-input" value="{{modalInput}}" bindinput="updateInput" placeholder="请输入内容" />
+      </view>
+
+      <!-- 按钮 -->
+      <view class="modal-actions">
+        <button class="modal-button" bindtap="confirmModal">确认</button>
+        <button class="modal-button" bindtap="hideModal">返回</button>
+      </view>
+
+    </view>
+  </view>
+
+</view> <!-- 这一行是新加的，关闭最外层 container -->

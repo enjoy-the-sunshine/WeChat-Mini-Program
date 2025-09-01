@@ -1,0 +1,42 @@
+<view class="container">
+  <!-- 账户设置 -->
+  <view class="section account-settings">
+    <view class="section-title">
+      <text>账户设置</text>
+      <image class="icon" src="/images/happy.png" />
+    </view>
+    <view class="card">
+      <view class="card-item" bindtap="navigateToAccountSecurity">
+        <text class="label">账号与安全</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+      <view class="divider"></view>
+      <view class="card-item" bindtap="navigateToProfile">
+        <text class="label">个人信息修改</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 通知设置 -->
+  <view class="section notification-settings">
+    <view class="section-title">
+      <text>通知设置</text>
+      <image class="icon" src="/images/phone.png" />
+    </view>
+    <view class="card">
+      <view class="card-item" bindtap="navigateToNotification">
+        <text class="label">通知</text>
+        <view class="card-item-right">
+          <image src="/images/right.png" class="arrow" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <image class="footer-image" src="/images/bearcoffee.png" alt="Bear with Coffee" />
+</view>

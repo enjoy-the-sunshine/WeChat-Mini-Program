@@ -1,0 +1,90 @@
+<view class="container">
+
+<!-- 账号与安全 -->
+<view class="section header-section">
+  <view class="section-title">
+    账号与安全
+    <image src="/images/bearcoffee.png" class="icon-large" />
+  </view>
+</view>
+
+<!-- 绑定手机号 -->
+<view class="section">
+  <view class="section-title">
+    <image class="icon-small" src="/images/happy.png" />
+    绑定手机号
+  </view>
+  <view class="input-panel">
+    <input class="input-value" placeholder="请输入手机号"
+           bindfocus="showModal" data-item="手机号"
+           value="{{phoneNumber}}" />
+  </view>
+</view>
+
+<!-- 绑定微信号 -->
+<view class="section">
+  <view class="section-title">
+    <image class="icon-small" src="/images/happy.png" />
+    绑定微信号
+  </view>
+  <view class="input-panel">
+    <input class="input-value" placeholder="请输入微信号"
+           bindfocus="showModal" data-item="weChatId"
+           value="{{weChatId}}" />
+  </view>
+</view>
+
+<!-- 密码修改 -->
+<view class="section">
+  <view class="section-title">
+    <image class="icon-small" src="/images/happy.png" />
+    密码修改
+  </view>
+  <view class="input-panel">
+    <text bindtap="showModal" data-item="旧密码" class="input-value">点击此处进行验证</text>
+  </view>
+</view>
+
+<!-- 账户注销 -->
+<view class="section">
+  <view class="section-title">
+    <image class="icon-small" src="/images/happy.png" />
+    账户注销
+  </view>
+  <view class="input-panel">
+    <text class="input-value delete-account">账户注销申请</text>
+  </view>
+</view>
+
+<!-- 底部插画 -->
+<image class="footer-image" src="/images/background-footer2.png" alt="底部插画" />
+
+<!-- 修改弹窗 -->
+<view class="modal" wx:if="{{modalVisible}}">
+  <view class="modal-content">
+
+    <!-- 标题区：图标 + 文字 -->
+    <view class="modal-header">
+      <image src="/images/avatar.png" class="modal-icon" />
+      <text class="modal-title">{{modalTitle}}</text>
+    </view>
+
+    <!-- 输入框或头像选择 -->
+    <view>
+      <image wx:if="{{modalType === '头像'}}"
+              src="{{avatar || '/images/avatar.png'}}"
+              style="width: 200rpx; height: 200rpx;" />
+      <input wx:else class="modal-input" value="{{modalInput}}" bindinput="updateInput" placeholder="请输入内容" />
+    </view>
+
+    <!-- 按钮区域 -->
+    <view class="modal-actions">
+      <button class="modal-button" bindtap="confirmModal">确认</button>
+      <button class="modal-button" bindtap="hideModal">返回</button>
+    </view>
+
+  </view>
+</view>
+
+</view>
+
