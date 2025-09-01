@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "小熊命名",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#FDF8E3",
+  "navigationStyle": "custom",
+  "usingComponents": {}
+}

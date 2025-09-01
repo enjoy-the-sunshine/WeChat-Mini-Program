@@ -1,0 +1,209 @@
+.page {
+  background-color: #fef8e7;
+  height: 100%;
+  padding: 20rpx;
+}
+
+/* 杯型选择区 */
+.cups {
+  display: flex;
+  justify-content: space-around;
+  margin-top:80rpx;
+}
+
+.cup-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 400rpx; /* 控制总高度，让三个加号和文字对齐 */
+}
+
+.cup-text {
+  font-size: 38rpx;
+  color: #ac886d;
+  margin-top: 10rpx;
+  font-weight: bold;
+}
+
+.cup-img-large {
+  width: 229rpx;
+  height: 249rpx;
+}
+
+.cup-img-medium {
+  width: 208rpx;
+  height: 225rpx;
+  margin-top: 20rpx;
+}
+
+.cup-img-small {
+  width: 160rpx;
+  height: 145rpx;
+  margin-top: 70rpx;
+}
+
+.add-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: auto; /* 保证三个加号对齐在底部 */
+}
+
+/* 饮用时间 */
+.time-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 40rpx;
+  padding: 20rpx;
+  margin-top: 80rpx;
+  width: 600rpx;
+}
+
+.time-icon-large {
+  width: 218rpx;
+  height: 193rpx;
+}
+
+.time-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+  font-size:34rpx;
+  font-weight: bold;
+}
+
+.time-title {
+  font-size: 38rpx;
+  color: #ac886d; /* 与咖啡因含量标题颜色一致 */
+  margin-bottom: 10rpx;
+  margin-left:70rpx;
+  font-weight: bold;
+}
+
+.time-input {
+  background: #fff;
+  border-radius: 25rpx;
+  padding: 10rpx 20rpx;
+  width: 150rpx;
+  height: 58rpx;
+  border: 2rpx solid #909399;
+  margin-left:50rpx;
+  text-align: center; /* 文字水平居中 */
+  line-height: 58rpx; /* 垂直居中文本 */
+  box-shadow: 0rpx 6rpx 12rpx #000000;
+}
+
+/* 咖啡因含量 */
+.caffeine-position {
+  margin-top: 40rpx;
+}
+
+.caffeine-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 40rpx;
+  padding: 20rpx;
+  margin-top: 80rpx;
+  width: 600rpx;
+}
+
+.caffeine-icon-large {
+  width: 380rpx;
+  height: 180rpx;
+}
+
+.caffeine-title {
+  font-weight: bold;
+  font-size: 38rpx;
+  color: #ac886d;
+  margin-left: 40rpx;
+}
+
+.caffeine-value {
+  font-weight: bold;
+  color: #98592C;
+  font-size: 68rpx;
+  margin-left: auto;
+  margin-right: -25rpx;
+  margin-top: -20rpx;
+}
+
+.caffeine-unit {
+  font-size: 38rpx;
+  color: #666;
+}
+
+/* 添加按钮位置 */
+.add-btn-position {
+  background-color: #ac886d;
+  color: #Fdf8e3;
+  margin-top: 160rpx;
+  border-radius: 40rpx;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-container {
+  background: #fff;
+  border-radius: 40rpx;
+  width: 80%;
+  height:25%;
+  padding: 40rpx;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 54rpx;
+  color: #ac886d;
+  font-weight: bold;
+}
+
+.modal-close {
+  width: 50rpx;
+  height:50rpx;
+}
+
+.modal-body {
+  display: flex;
+  align-items: center;
+  margin-top: 40rpx;
+  color:#ac886d;
+  font-weight:bold;
+  justify-content: center;
+}
+
+.modal-input {
+  border: 2rpx solid #ac886d;
+  border-radius: 25rpx;
+  padding: 10rpx 20rpx;
+  margin-right: 10rpx;
+  box-shadow: 0rpx 6rpx 12rpx #000000;
+  width:180rpx;
+  height: 80rpx;
+}
+
+.modal-confirm {
+  margin-top: 60rpx;
+  background: #ac886d;
+  color: #fff;
+  border-radius: 25rpx;
+}

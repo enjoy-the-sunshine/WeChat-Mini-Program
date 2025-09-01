@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 可滚动列表区域 -->
+  <scroll-view class="coffee-scroll" scroll-y style="height: 1297rpx; display: block; box-sizing: border-box; width: 750rpx">
+    <block wx:for="{{coffeeData}}" wx:key="index">
+      <view 
+        class="coffee-item {{item.isSelected ? 'selected' : ''}}"
+        bindtap="handleItemTap"
+        data-index="{{index}}"
+       style="width: 754rpx; display: flex; box-sizing: border-box">
+        <text class="item-text" style="position: relative; left: 105rpx; top: 3rpx">{{item.name}}</text>
+        <image 
+          wx:if="{{item.isSelected}}" 
+          class="check-icon" 
+          src="/images/check.png"
+        ></image>
+        <image class="arrow-icon" src="/images/arrow.png"></image>
+      </view>
+      <view class="divider" wx:if="{{index !== coffeeData.length - 1}}"></view>
+    </block>
+    <view class="bottom-tip" style="width: 400rpx; display: block; box-sizing: border-box">到底喽~~</view>
+    <image class="bear-icon" src="/images/bear.png" style="position: relative; left: 175rpx; top: -46rpx"></image>
+  </scroll-view>
+
+  <!-- 遮罩层与弹窗 -->
+  <view class="mask" wx:if="{{showModal}}" bindtap="closeModal"></view>
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-title text-box">{{currentModal.title}}</view>
+    <view class="modal-header">
+      <view class="text-box header-box">杯型</view>
+      <view class="text-box header-box">容积</view>
+      <view class="text-box header-box">咖啡因含量</view>
+    </view>
+<!-- 只展示弹窗中杯型列表的修改部分，其他代码保持不变 -->
+<block wx:for="{{currentModal.items}}" wx:key="index">
+  <view 
+    class="modal-item" 
+    bindtap="selectCupType" 
+    data-index="{{index}}"
+  >
+    <!-- 为每个文本框添加背景色样式绑定 -->
+    <view class="text-box" style="background-color: {{item.isActive ? '#eafff2' : '#fdf8e3'}};">{{item.type}}</view>
+    <view class="text-box" style="background-color: {{item.isActive ? '#eafff2' : '#fdf8e3'}};">{{item.volume}}</view>
+    <view class="text-box" style="background-color: {{item.isActive ? '#eafff2' : '#fdf8e3'}};">{{item.caffeine}}</view>
+  </view>
+</block>
+    <view class="confirm-btn" bindtap="confirmSelection">确认选择</view>
+  </view>
+
+
+</view>

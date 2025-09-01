@@ -1,0 +1,16 @@
+<view class="page">
+  <!-- 搜索框 -->
+  <view class="search-box shadow">
+    <image src="/images/搜索.png" class="search-icon"></image>
+    <input placeholder="请输入内容" bindinput="onSearchInput" value="{{keyword}}" />
+  </view>
+
+  <!-- 品牌列表 -->
+  <view wx:for="{{filteredList}}" wx:key="name" class="list-item" bindtap="onBrandTap" data-name="{{item.name}}" style="width: 625rpx; display: flex; box-sizing: border-box; position: relative; left: 44rpx; top: 0rpx">
+    <view class="left">
+      <image wx:if="{{item.icon}}" src="{{item.icon}}" class="brand-icon" style="width: 70rpx; height: 68rpx; display: block; box-sizing: border-box"></image>
+      <text>{{item.name}}</text>
+    </view>
+    <image class="arrow" src="/images/展开.png" mode="widthFix"></image>
+  </view>
+</view>

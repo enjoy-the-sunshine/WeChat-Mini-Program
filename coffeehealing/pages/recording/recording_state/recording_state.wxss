@@ -1,0 +1,99 @@
+/* =================== 基础 =================== */
+.no-scroll { height: 100vh; overflow: hidden; }
+
+.page {
+  background: #FDF8E3
+  ;
+  box-sizing: border-box;
+  padding: 24rpx 0 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.panel { border-radius: 25px; border: none; box-shadow: 0 3px 6px rgba(0,0,0,0.15); }
+.panel-white { background: #FFFFFF; }
+.panel-sleep  { background:#F7D49A }
+
+.panel-header{ display:flex; align-items:center; justify-content:space-between; padding: 16rpx 20rpx 0; }
+
+/* 字号（×1.93） */
+.h2 { font-size: 39rpx; font-weight: 800; color: #7D5835; letter-spacing: 1rpx; }
+.hero-text,.kv-title,.kv-value,.feel-label { font-size: 31rpx; }
+.note { font-size: 27rpx; }
+.h2-row { display:flex; align-items:center; gap: 10rpx; }
+.head-icon { width: 36rpx; opacity: .9; }
+
+/* 精确尺寸 */
+.panel-mood{ width: 673rpx; height: 248rpx; padding: 16rpx 20rpx; margin-bottom:22rpx; box-sizing:border-box; }
+.panel-sleep-fixed{ width: 673rpx; height: 527rpx; padding: 16rpx 20rpx; margin-bottom:22rpx; box-sizing:border-box; }
+.panel-journal{ width: 673rpx; height: 333rpx; padding: 16rpx 20rpx; box-sizing:border-box; }
+
+/* 今日心情 */
+.mood-wrap{ display:grid; grid-template-columns: 210rpx 1fr; column-gap:18rpx; align-items:start; margin-top:-6rpx;}
+.mood-hero{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.hero-img{ width:120rpx; height:120rpx; margin-top:-10rpx; }
+.hero-text{ margin-top:-2rpx; color:#7D5835; font-weight:700; }
+
+.mood-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:1rpx 4rpx; }
+.mood-item{ display:flex; flex-direction:column; align-items:center; justify-content:center; transform: translateY(-6rpx); }
+.mood-img{ width:82rpx; height:82rpx; display:block; }
+
+/* 睡眠记录 */
+.kv-row{ display:flex; gap:24rpx; margin:10rpx 0; justify-content:space-between; }
+.kv-box{
+  width:283rpx; height:115rpx; background:#fff; border:none; border-radius:15px;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15);
+  padding:14rpx 16rpx; box-sizing:border-box;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.kv-title{ display:flex; align-items:center; gap:10rpx; color:#7D5835; font-weight:700; }
+.kv-icon{ width:32rpx; }
+.kv-value{ margin-top:6rpx; color:#4B3A2C; line-height:36rpx; }
+.kv-slider{ margin-top:8rpx; }
+
+/* 睡眠时长箭头 & 文本 */
+.duration-box{ position: relative; }
+.duration-text{ padding-right: 60rpx; }      /* 预留箭头位置，避免遮挡 */
+.arrow-btn{
+  position:absolute; right:22rpx; width:26rpx; height:26rpx; opacity:.95;
+}
+.arrow-up{ top:26rpx; }
+.arrow-down{ top:66rpx; }
+
+/* 睡眠感受 */
+.feel-wrap{
+  width:585rpx; height:115rpx; background:#fff; border:none; border-radius:15px;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15); margin:16rpx auto 0; padding:18rpx; box-sizing:border-box;
+  display:flex; align-items:center; justify-content:flex-start;
+}
+.feel-label{ color:#7A5A41; font-weight:700; margin-right:18rpx; }
+.feel-group{ display:flex; gap:18rpx; }
+.feel-item{ width:60rpx; height:60rpx; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; }
+.feel-item.sel{ box-shadow:0 0 0 4rpx rgba(184,144,111,.28) inset; }
+.feel-img{ width:44rpx; height:44rpx; }
+
+/* 元气熊日志 */
+.journal{ display:grid; grid-template-columns:200rpx 1fr; column-gap:20rpx; align-items:center; height:calc(333rpx - 70rpx); padding:10rpx 0; }
+.bear{ width:150rpx; height:auto; background:none; border:none; border-radius:0; box-shadow:none; }
+.note-box{
+  width:306rpx; height:260rpx; background:#F7D49A; border:none; border-radius:19px;
+  box-shadow:0 3px 6px rgba(0,0,0,0.15); position:relative; box-sizing:border-box; padding:16rpx;
+}
+.note{ width:100%; height:100%; color:#4B3A2C; background:transparent; line-height:38rpx; }
+.pen{ position:absolute; right:12rpx; bottom:12rpx; width:26rpx; }
+
+/* 底部确认按钮：宽124rpx，高62rpx */
+.footer{
+  position:fixed; left:0; right:0; bottom:calc(env(safe-area-inset-bottom) + 24rpx);
+  display:flex; justify-content:center; z-index:9;
+}
+.btn-primary{
+  width:123rpx; height:62rpx; display:inline-flex; align-items:center; justify-content:center;
+  padding:0; min-width:0; line-height:62rpx; border:none; border-radius:12rpx; color:#fff;
+  font-size:27rpx; font-weight:800; letter-spacing:1rpx;
+  background:linear-gradient(180deg,#B8906F 0%, #A97D5A 100%); box-shadow:0 3px 6px rgba(0,0,0,0.15);
+}
+.btn-primary--active{ transform:translateY(2rpx); opacity:.96; }
+
+/* 回形针 */
+.paperclip{ position:absolute; top:-20rpx; right:20rpx; width:48rpx; height:48rpx; z-index:5; }

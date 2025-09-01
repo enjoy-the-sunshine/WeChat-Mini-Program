@@ -1,0 +1,49 @@
+<!--pages/protocol/user/user.wxml-->
+<view class="container">
+  <scroll-view scroll-y="true" class="content">
+    <view class="section">
+      <view class="intro">
+        <text class="intro-text">欢迎使用 CoffeeHealing。本协议为您与本小程序之间具有法律约束力的协议。</text>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">一、服务说明</view>
+        <view class="article-content">
+          <view class="paragraph">1、本小程序提供咖啡因健康管理服务，包括实时计算体内咖啡因水平（截至当日）、统计今日总摄入量、元气时刻分析、睡眠水平曲线预测、吉祥物互动、咖啡与心情记录、生理指标统计、自定义饮品库及摄入量推荐功能。</view>
+          <view class="paragraph">2、个性化服务（如代谢预测、生理指标分析）需注册账号，未登录用户仅可使用基础计算功能。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">二、用户义务</view>
+        <view class="article-content">
+          <view class="paragraph">1、注册时需提供真实性别、体重、代谢敏感度等生理数据，以确保计算准确性。</view>
+          <view class="paragraph">2、禁止输入虚假或他人健康数据，否则可能导致功能失效。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">三、数据使用</view>
+        <view class="article-content">
+          <view class="paragraph">1、为提供睡眠曲线预测，需持续记录您的饮品摄入时间及咖啡因含量，数据存储于云端数据库。</view>
+          <view class="paragraph">2、匿名化处理后的统计数据可能用于优化算法，但不会关联个人身份。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">四、免责条款</view>
+        <view class="article-content">
+          <view class="paragraph">1、咖啡因代谢预测基于科研模型（如半衰期计算），实际代谢速度因个体差异可能偏差，不作为医疗建议。</view>
+          <view class="paragraph">2、因网络延迟、设备故障导致的数据误差不承担责任。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">五、协议修改</view>
+        <view class="article-content">
+          <view class="paragraph">重大更新（如功能调整）将通过小程序公告通知，继续使用视为接受新条款。</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

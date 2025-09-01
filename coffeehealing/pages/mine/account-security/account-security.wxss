@@ -1,0 +1,155 @@
+.container {
+  background-color: #fdf8e3;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 改成占满整个屏幕 */
+  padding: 30rpx 20rpx; /* 四周留间距 */
+  box-sizing: border-box;
+}
+
+/* 顶部标题区 */
+.header-section .section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 53.85rpx;
+  font-weight: bold;
+  color: #98592C;
+}
+
+.icon-large {
+  margin-top: -100rpx;
+  width: 300rpx;
+  height: 320rpx;
+}
+
+/* 每组设置项 */
+.section {
+  margin-top: 40rpx;
+}
+
+/* 每项标题 + 图标 */
+.section-title {
+  font-size: 38.6rpx;
+  font-weight: bold;
+  color: #98592C;
+  display: flex;
+  align-items: center;
+}
+
+/* 小熊图标放大并靠左留间距 */
+.icon-small {
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+  margin-left: 10rpx;
+}
+
+/* 输入框面板 */
+.input-panel {
+  background-color: #ffffff;
+  width: 60%;
+  height: 80rpx;
+  border-radius: 25rpx;
+  margin: 10rpx 40rpx 0 auto; /* 靠右 */
+  padding: 0 20rpx;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.input-value {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.delete-account {
+  color: #ff0000;
+}
+
+/* 底部小熊插画 */
+.footer-image {
+  width: 100%;
+  height: 300rpx;
+  margin-top: auto;
+}
+
+/* ===== 弹窗样式（与 profile 一致） ===== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 垂直居中 */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  background-color: #fdf8e3;
+  border-radius: 25rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 弹窗标题 */
+.modal-header {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: -10rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+/* 输入框 */
+.modal-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: none;
+  padding: 20rpx;
+  border-radius: 25rpx;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  margin-bottom: 30rpx;
+  font-size: 28rpx;
+}
+
+/* 按钮区域 */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  width: 100%;
+}
+
+.modal-button {
+  background-color: #a1cae2;
+  border: none;
+  border-radius: 25rpx;
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  min-width: 120rpx;
+  text-align: center;
+}
+
+.modal-icon {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.modal-title {
+  position: relative;
+  top: -55rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}

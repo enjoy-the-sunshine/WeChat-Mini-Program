@@ -1,0 +1,102 @@
+.page {
+  background-color: #fdf5dc;
+  min-height: 100vh;
+  padding: 40rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.header {
+  width: 100%;
+  display: flex;          /* 横向排列 */
+  justify-content: flex-start; /* 文字在左，熊图在右 */
+  align-items: center;
+  padding: 0 30rpx;
+}
+
+.bear-top {
+  width: 400rpx;  
+  height: auto;
+  margin-left: 20rpx;  /* 文字和图片的间距 */
+  margin-bottom: 0;    /* 去掉原来的底部间距 */
+}
+
+.title {
+  font-size: 52rpx;
+  font-weight: bold;
+}
+
+.desc {
+  font-size: 42rpx;
+  color: #404040;
+  line-height: 1.6;
+  margin: 30rpx 0 40rpx; /* 顶部和底部间距 */
+  text-align: center;    /* 居中显示 */
+}
+
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.question {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.option {
+  display: block;
+  width: calc(100vw - 40rpx);
+  max-width: none; /* 选项框更宽 */
+  margin: 0 auto 20rpx;
+  background: white;
+  border-radius: 999rpx;
+  font-size: 34rpx;
+  padding: 24rpx 0;
+  color: #909399;
+  margin-top: 20rpx;
+}
+
+.option.selected {
+  background: #ac886d;
+  color: #fdf8e3;
+}
+
+.nav-btns {
+  width: 100%;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 居中按钮 */
+  padding: 0 20rpx; /* 给两边一点空隙 */
+}
+
+.nav-btn {
+  display: block;
+  width: calc(100vw - 40rpx);
+  max-width: none;
+  margin: 0 auto 20rpx;
+  background: #a1cae2;
+  border-radius: 999rpx;
+  font-size: 34rpx;
+  padding: 24rpx 0;
+  color: #797979;
+  margin-top: 0rpx;
+  margin-bottom: 40rpx;
+}
+
+.bear-bottom {
+  width: 380rpx;
+  height: auto;
+  margin-right:350rpx;
+}

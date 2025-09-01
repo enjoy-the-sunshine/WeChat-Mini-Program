@@ -1,0 +1,43 @@
+<view class="page">
+  <!-- 上方熊 + 文本 -->
+  <view class="header">
+    <text class="title">CoffeeHealing~</text>
+    <image src="/images/bear_top.png" class="bear-top" mode="widthFix"></image>
+  </view>
+
+  <!-- 只在第一页显示说明 -->
+  <view class="desc" wx:if="{{currentStep === 0}}">
+    <view>为了您更好的使用体验，</view>
+    <view>请您先回答以下问题。</view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content-area">
+    <view class="question">
+      Q{{currentStep+1}}.{{questions[currentStep].text}}
+    </view>
+
+    <button
+      class="option {{answers[currentStep]==='是' ? 'selected' : ''}}"
+      bindtap="selectAnswer"
+      data-answer="是"
+      style="width:80vw"
+    >是</button>
+
+    <button
+      class="option {{answers[currentStep]==='否' ? 'selected' : ''}}"
+      bindtap="selectAnswer"
+      data-answer="否"
+      style="width:80vw"
+    >否</button>
+
+    <view class="nav-btns">
+      <button wx:if="{{currentStep>0}}" class="nav-btn" bindtap="prevStep" style="width:80vw">上一步</button>
+      <button wx:if="{{currentStep<questions.length-1}}" class="nav-btn" bindtap="nextStep" style="width:80vw">下一步</button>
+      <button wx:if="{{currentStep===questions.length-1}}" class="nav-btn" bindtap="finish" style="width:80vw">进入小程序！</button>
+    </view>
+  </view>
+
+  <!-- 底部熊 -->
+  <image src="/images/bear_bottom.png" class="bear-bottom" mode="widthFix"></image>
+</view>

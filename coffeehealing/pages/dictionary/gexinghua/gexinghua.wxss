@@ -1,0 +1,175 @@
+/* 全局重置（可根据项目调整） */
+page {
+  background-color: #FAF0D7; /* 页面背景色 */
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* 容器控制整体间距 */
+.container {
+  padding: 16px;
+  position: relative; /* 用于小熊绝对定位 */
+}
+
+/* 自定义导航栏（还原设计稿顶部） */
+.custom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84px; /* 小程序导航栏标准高度 */
+  margin-bottom: 12px;
+}
+.nav-back {
+  width: 24px;
+  height: 24px;
+}
+.nav-title {
+  font-size: 17px; /* 微信标题标准字号 */
+  font-weight: bold;
+  color: #333;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+}
+.nav-menu {
+  width: 24px;
+  height: 24px;
+}
+
+/* 卡片通用样式 */
+.card {
+  background: #FAF0D7;
+  border: 2px solid #D9B382;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 96px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.card-icon {
+  width: 28px;
+  height: 20px;
+  margin-right: 8px;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 表单项通用样式 */
+.form-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.label {
+  font-size: 14px;
+  color: #666;
+  flex: 1;
+}
+.input {
+  flex: 2;
+  background: #FFF;
+  border: 1px solid #E6E6E6;
+  border-radius: 6px;
+  padding: 6px 4px;
+  font-size: 14px;
+}
+.unit {
+  margin-left: 4px;
+  color: #999;
+  font-size: 14px;
+}
+.picker-view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 2;
+  background: #FFF;
+  border: 1px solid #E6E6E6;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #666;
+}
+.arrow {
+  width: 16px;
+  height: 16px;
+}
+.clock-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* 小熊插画定位（覆盖在两个卡片之间） */
+.bear-img {
+  width: 120px;
+  height: 100px;
+  position: absolute;
+  right: 20px;
+  top: 220px; /* 可根据设计微调 */
+}
+
+/* 按钮组 */
+.btn-group {
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0;
+}
+.btn {
+  width: 45%;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+}
+.confirm {
+  background: #D9B382;
+  color: #FFF;
+}
+.cancel {
+  background: #FFF3D9;
+  border: 1px solid #D9B382;
+}
+
+/* 底部TabBar */
+.tabbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #FFF;
+  border-top: 1px solid #ECECEC;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tab-icon {
+  width: 24px;
+  height: 24px;
+}
+.tab-text {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+/* 替换原来的多层选择器 */
+.tab-item-active-text {
+  color: #D9B382;
+}
