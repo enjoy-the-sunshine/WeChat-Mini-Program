@@ -1,6 +1,6 @@
 <!--pages/login_phone/login_phone.wxml-->
 <view class="container">
-  <image class="bear-fly" src="/images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
+  <image class="bear-fly" src="../images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
 
   <text 
   class="title" 
@@ -21,7 +21,7 @@
   <button class="btn" bindtap="onLogin">一键登录</button>
 
   <navigator url="/pages/login_wechat/login_wechat" class="other" style="position: relative; left: 0rpx; top: -34rpx">其他登陆方式</navigator>
-  <image class="bear-lie" src="/images/bear_lie.png" mode="widthFix" style="width: 271rpx; height: 206rpx; display: block; box-sizing: border-box"></image>
+  <image class="bear-lie" src="../images/bear_lie.png" mode="widthFix" style="width: 271rpx; height: 206rpx; display: block; box-sizing: border-box"></image>
 
   <navigator url="/pages/register/help/help" class="problem">登录遇到问题?</navigator>
 </view>

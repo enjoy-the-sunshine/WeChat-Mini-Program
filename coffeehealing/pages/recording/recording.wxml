@@ -31,13 +31,13 @@
 <!-- 当日饮品记录 -->
 <view>
   <view wx:for="{{drinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{index}}">
-    <image class="drink-icon" src="/images/coffee-icon.png" mode="aspectFit"></image>
+    <image class="drink-icon" src="../images/coffee-icon.png" mode="aspectFit"></image>
     <view class="drink-info">
       <text class="drink-name">{{item.name}}</text>
       <text class="drink-time">{{item.time}}</text>
     </view>
     <text class="drink-caffeine">{{item.caffeine}}mg</text>
-    <image class="record-arrow" src="/images/展开.png" mode="widthFix"></image>
+    <image class="record-arrow" src="../images/arrow_right.png" mode="widthFix"></image>
   </view>
 </view>
 
@@ -50,20 +50,20 @@
 
 <!-- 底部插图 -->
 <view class="bear-container">
-  <image src="/images/bear.png" mode="widthFix" class="bear-img"></image>
+  <image src="../images/bear_grass1.png" mode="widthFix" class="bear-img"></image>
 </view>
 </view>
 
 <!-- 弹窗 -->
 <view class="popup-mask" wx:if="{{showEditPopup}}" bindtap="closeEditPopup">
   <view class="popup-container" catchtap="stopTap">
-    <image src="/images/close-icon.png" class="popup-close-btn" bindtap="closeEditPopup"></image>
+    <image src="../images/close-icon.png" class="popup-close-btn" bindtap="closeEditPopup"></image>
     <view class="popup-title">编辑记录</view>
 
     <!-- 饮品 -->
   <view class="popup-field">
     <view class="popup-field-left">
-      <image src="/images/drink-icon.png" class="popup-icon"></image>
+      <image src="../images/drink-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">饮品</text>
     </view>
     <view class="popup-field-right">
@@ -77,7 +77,7 @@
   <!-- 日期 -->
   <view class="popup-field">
     <view class="popup-field-left">
-      <image src="/images/calendar-icon.png" class="popup-icon"></image>
+      <image src="../images/calendar-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">日期</text>
     </view>
     <view class="popup-field-right">
@@ -92,7 +92,7 @@
   <!-- 时间 -->
   <view class="popup-field">
     <view class="popup-field-left">
-      <image src="/images/time-icon.png" class="popup-icon"></image>
+      <image src="../images/time-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">时间</text>
     </view>
     <view class="popup-field-right">
@@ -109,7 +109,7 @@
 
     <!-- 咖啡因含量 -->
     <view class="popup-field">
-      <image src="/images/caffeine-icon.png" class="popup-icon"></image>
+      <image src="../images/caffeine-icon.png" class="popup-icon"></image>
       <text class="popup-label" style="font-size: 35rpx;">咖啡因含量</text>
       <view class="popup-caffeine-display">
         <text class="popup-caffeine-value">{{editRecord.caffeine}}</text>

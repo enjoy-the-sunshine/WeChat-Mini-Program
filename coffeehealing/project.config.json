@@ -24,7 +24,6 @@
       "outputPath": ""
     }
   },
-  "appid": "wx93a8156fd6a6ee51",
   "libVersion": "3.9.2",
   "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
@@ -32,5 +31,6 @@
     "ignore": [],
     "include": []
   },
-  "editorSetting": {}
+  "editorSetting": {},
+  "appid": "wx93a8156fd6a6ee51"
 }

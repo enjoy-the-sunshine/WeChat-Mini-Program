@@ -1,7 +1,4 @@
 {
   "navigationBarTitleText": "首页",
-  "navigationStyle": "default",
-  "usingComponents": {
-    "ec-canvas": "/components/ec-canvas/ec-canvas"
-  }
+  "navigationStyle": "default"
 }

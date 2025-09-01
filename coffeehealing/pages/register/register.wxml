@@ -1,6 +1,6 @@
 <!--pages/register/register.wxml-->
 <view class="container">
-  <image class="bear-fly" src="/images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
+  <image class="bear-fly" src="../images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
 
   <text 
   class="title" 

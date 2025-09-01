@@ -1,4 +1,4 @@
-import * as echarts from '../../components/ec-canvas/echarts.js';
+
 
 let chart = null;
 
@@ -17,20 +17,20 @@ Page({
   // 跳转到 second 页面
   goToSecond() {
     wx.navigateTo({
-      url: '/pages/home/main_record/main_record'
+      url: '/subpackage/home/main_record/main_record'
     });
   },
 
   // 跳转到 third 页面
   goToThird() {
     wx.navigateTo({
-      url: '/pages/home/main_forecast/main_forecast'
+      url: '/subpackage/home/main_forecast/main_forecast'
     });
   },
   // 跳转到 brandselect 页面
   goToBrandSelect() {
     wx.navigateTo({
-      url: '/pages/recording/brandselect/brandselect'
+      url: '/subpackage/recording/brandselect/brandselect'
     });
   },
 

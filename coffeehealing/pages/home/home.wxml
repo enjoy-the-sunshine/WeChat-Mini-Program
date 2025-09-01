@@ -1,58 +1,54 @@
 <view class="page">
 
 <!-- 顶部咖啡因卡片 -->
-<view class="card caffeine-card" style="height: 527rpx;">
-  <view class="card-header">
+<view class="card caffeine-card">
+  <view class="card-header" bindtap="goToSecond">
     <image 
       class="arrow-icon" 
-      src="/images/arrow_right.png" 
+      src="../images/arrow_right.png" 
       mode="widthFix"
-      bindtap="goToSecond"
     ></image>
   </view>
 
   <view class="caffeine-info">
-    <image class="bear-img" src="/images/bear_coffee.png" mode="widthFix" style="width: 325rpx; height: 245rpx; position: relative; left: -31rpx; top: -72rpx"></image>
+    <image class="bear-img" src="../images/bear_1.png" mode="widthFix"></image>
     <view class="caffeine-text">
       <view class="caffeine-item">
-        <text class="label" style="position: relative; left: 0rpx; top: -79rpx">体内实时咖啡因</text>
-        <text class="value" style="position: relative; left: 0rpx; top: -79rpx">{{ caffeineNow }}mg</text>
+        <text class="label">体内实时咖啡因</text>
+        <text class="value">{{ caffeineNow }}mg</text>
       </view>
       <view class="caffeine-item">
-        <text class="label" style="position: relative; left: 0rpx; top: -54rpx">今日总计</text>
-        <text class="value" style="position: relative; left: -127rpx; top: 0rpx">{{ caffeineTotal }}mg</text>
+        <text class="label">今日总计</text>
+        <text class="value">{{ caffeineTotal }}mg</text>
       </view>
     </view>
   </view>
 
-  <view class="energy-time" style="height: 147rpx;">
-    <image class="bear-face" src="/images/bear_face.png" mode="widthFix" style="width: 154rpx;"></image>
+  <view class="energy-time">
+    <image class="bear-face" src="../images/bear_face.png" mode="widthFix"></image>
     <view class="energy-text">
       <text class="title">元气时刻</text>
-      <text class="subtitle" style="position: relative; left: -12rpx; top: 18rpx">
-        预计提神至 
-        <text class="time" style="position: relative; left: 158rpx; top: -43rpx">{{ energyTime }}</text>
+      <text class="subtitle">
+        预计提神至 <text class="time">{{ energyTime }}</text>
       </text>
     </view>
   </view>
 </view>
 
-<!-- 标题 -->
-<view class="section-title">体内咖啡因代谢实时预测</view>
-
-<!-- 动态柱状图 -->
-<view class="card chart-card" style="height: 479rpx; display: block; box-sizing: border-box" bindtap="goToThird">
-  <ec-canvas 
-    id="mychart-dom-bar" 
-    canvas-id="mychart-bar" 
-    ec="{{ ec }}" 
-    bindtap="goToThird"
-  ></ec-canvas>
+<!-- 预测标题方框 -->
+<view class="forecast-title-box" bindtap="goToThird">
+  <text class="forecast-title-text">体内咖啡因代谢实时预测</text>
+  <image 
+    class="arrow-icon"
+    src="../images/arrow_right.png"
+    mode="widthFix"
+  ></image>
 </view>
+
 
 <!-- 圆形添加按钮 -->
 <view class="circle-btn" bindtap="goToBrandSelect">
-  <text class="circle-plus" style="position: relative; left: 1rpx; top: -4rpx">+</text>
+  <text class="circle-plus">+</text>
 </view>
 
 </view>

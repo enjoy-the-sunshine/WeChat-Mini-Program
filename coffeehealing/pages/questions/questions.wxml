@@ -2,7 +2,7 @@
   <!-- 上方熊 + 文本 -->
   <view class="header">
     <text class="title">CoffeeHealing~</text>
-    <image src="/images/bear_top.png" class="bear-top" mode="widthFix"></image>
+    <image src="../images/bear_top.png" class="bear-top" mode="widthFix"></image>
   </view>
 
   <!-- 只在第一页显示说明 -->
@@ -39,5 +39,5 @@
   </view>
 
   <!-- 底部熊 -->
-  <image src="/images/bear_bottom.png" class="bear-bottom" mode="widthFix"></image>
+  <image src="../images/bear_lie.png" class="bear-bottom" mode="widthFix"></image>
 </view>

@@ -6,7 +6,7 @@ require('../../libs/leancloud-adapters-weapp.js');
 Page({
   data: {
     currentYear: 2025,
-    currentMonth: 9,
+    currentMonth: 8,
     days: [],
     selectedDate: '',
     selectedDateDisplay: '',
@@ -173,12 +173,12 @@ Page({
 
   /** 跳转品牌选择 */
   goToBrandSelect() {
-    wx.navigateTo({ url: '/pages/recording/brandselect/brandselect' });
+    wx.navigateTo({ url: '/subpackage/recording/brandselect/brandselect' });
   },
   /** 跳转状态记录 */
   goToRecordingState() {
     wx.navigateTo({
-      url: '/pages/recording/recording_state/recording_state'
+      url: '/subpackage/recording/recording_state/recording_state'
     });
   },
 

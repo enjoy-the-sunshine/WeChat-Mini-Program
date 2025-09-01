@@ -7,7 +7,7 @@
   </view>
   <view class="item" bindtap="toCustomDrink">
     <text>自定义饮品</text>
-    <image class="arrow" src="/images/arrow.png"></image>
+    <image class="arrow" src="../images/arrow.png"></image>
   </view>
   <view class="divider"></view>
 </view>
@@ -24,7 +24,7 @@
         <image class="brand-icon" src="{{item.icon}}" mode="aspectFit"></image>
         <text>{{item.name}}</text>
       </view>
-      <image class="arrow" src="/images/arrow.png"></image>
+      <image class="arrow" src="../images/arrow.png"></image>
     </view>
     <view class="divider" wx:if="{{!item.isLast}}"></view>
   </block>

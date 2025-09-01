@@ -4,7 +4,7 @@
 <!-- 顶部插画 -->
 <image 
     class="top-img" 
-    src="/images/bear_fly.png" 
+    src="../images/bear_fly.png" 
     mode="aspectFit" 
     style="position: relative; left: 75rpx; top: -27rpx; transform: rotate(-35deg);"
 ></image>
@@ -23,7 +23,7 @@
 <button 
   class="btn wechat-btn {{!isAgree ? 'disabled' : ''}}" 
   bindtap="onWechatLogin" style="position: relative; left: 0rpx; top: -77rpx">
-  <image class="icon" src="/images/icon_weixin.png" mode="aspectFit"></image>
+  <image class="icon" src="../images/icon_weixin.png" mode="aspectFit"></image>
   微信登录
 </button>
 
@@ -31,12 +31,12 @@
 <button 
   class="btn phone-btn {{!isAgree ? 'disabled' : ''}}" 
   bindtap="onPhoneLogin" style="position: relative; left: 0rpx; top: -77rpx">
-  <image class="icon" src="/images/icon_phone.png" mode="aspectFit"></image>
+  <image class="icon" src="../images/icon_phone.png" mode="aspectFit"></image>
   手机号登录
 </button>
 
 <!-- 协议勾选 --> <view class="agreement" style="position: absolute; left: 0rpx; top: 1004rpx; height: 41rpx; display: flex; box-sizing: border-box"> <checkbox-group bindchange="onAgreeChange"> <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox> </checkbox-group> <text>我已阅读并同意</text> <text class="link" bindtap="openUserAgreement">《用户协议》</text> <text>和</text> <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text> </view>
 
 <!-- 底部部插画 -->
-<image class="low-img" src="/images/cup_smile.png" mode="aspectFit" style="position: relative; left: -185rpx; top: 10rpx"></image>
+<image class="low-img" src="../images/cup_smile.png" mode="aspectFit" style="position: relative; left: -185rpx; top: 10rpx"></image>
 </view>

@@ -10,7 +10,7 @@
 
   <!-- 小熊插图 -->
   <view class="bear-container">
-    <image class="bear-image" src="/images/bear_fly.png" mode="aspectFit" style="width: 508rpx; height: 494rpx; display: block; box-sizing: border-box; position: relative; left: -1rpx; top: -28rpx"></image>
+    <image class="bear-image" src="../images/bear_fly.png" mode="aspectFit" style="width: 508rpx; height: 494rpx; display: block; box-sizing: border-box; position: relative; left: -1rpx; top: -28rpx"></image>
     <!-- 可爱装饰 -->
     <view class="decoration-heart">💕</view>
     <view class="decoration-star">⭐</view>

@@ -10,24 +10,46 @@
     "pages/protocol/privacy/privacy",
     "pages/questions/questions",
     "pages/home/home",
-    "pages/home/main_record/main_record",
-    "pages/home/main_forecast/main_forecast",
-    "pages/home/main_record_setting/main_record_setting",
     "pages/recording/recording",
-    "pages/recording/brandselect/brandselect",
-    "pages/recording/brandcoffee/brandcoffee",
-    "pages/recording/userdefined/userdefined",
-    "pages/recording/drinkdetail/drinkdetail",
-    "pages/recording/recording_state/recording_state",
     "pages/dictionary/dictionary",
-    "pages/dictionary/gexinghua/gexinghua",
-    "pages/dictionary/xicha/xicha",
-    "pages/mine/mine",
-    "pages/mine/profile/profile",
-    "pages/mine/settings/settings",
-    "pages/mine/account-security/account-security",
-    "pages/mine/person_setting_message/person_setting_message",
-    "pages/mine/feedback/feedback"
+    "pages/mine/mine"
+  ],
+  "subPackages": [
+    {
+      "root": "subpackage/recording",
+      "pages": [
+        "brandselect/brandselect",
+        "brandcoffee/brandcoffee",
+        "userdefined/userdefined",
+        "drinkdetail/drinkdetail",
+        "recording_state/recording_state"
+      ]
+    },
+    {
+      "root": "subpackage/dictionary",
+      "pages": [
+        "brandcoffee/brandcoffee",
+        "gexinghua/gexinghua"
+      ]
+    },
+    {
+      "root": "subpackage/home",
+      "pages": [
+        "main_record/main_record",
+        "main_forecast/main_forecast",
+        "main_record_setting/main_record_setting"
+      ]
+    },
+    {
+      "root": "subpackage/mine",
+      "pages": [
+        "profile/profile",
+        "settings/settings",
+        "account-security/account-security",
+        "person_setting_message/person_setting_message",
+        "feedback/feedback"
+      ]
+    }
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
@@ -37,9 +59,9 @@
     "backgroundTextStyle": "light"
   },
   "tabBar": {
-    "color": "#000000",            
-    "selectedColor": "#1296db",    
-    "backgroundColor": "#ffffff",  
+    "color": "#000000",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
@@ -70,5 +92,4 @@
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
-
 }

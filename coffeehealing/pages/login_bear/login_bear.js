@@ -38,7 +38,7 @@ Page({
     // 延迟跳转到添加咖啡页面（临时）
     setTimeout(() => {
       wx.navigateTo({
-        url: '/pages/questions/questions'
+        url: '/pages/question/question'
       });
     }, 1500);
   },
@@ -59,15 +59,15 @@ Page({
     // 延迟跳转到添加咖啡页面（临时）
     setTimeout(() => {
       wx.navigateTo({
-        url: '/pages/questions/questions'
+        url: '/pages/question/question'
       });
     }, 1500);
   },
 
   // 临时跳转到添加咖啡页面
   goToAddChoice() {
-    wx.navigateTo({
-      url: '/pages/questions/questions'
+    wx.switchTab({
+      url: '/pages/home/home'
     });
   }
 });
