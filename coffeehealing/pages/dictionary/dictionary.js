@@ -1,28 +1,52 @@
 Page({
   data: {
     brandList: [
-      { name: '星巴克', icon: '/images/星巴克.png', page: '/pages/dictionary/xingbake/xingbake' },
-      { name: '瑞幸', icon: '/images/瑞幸.png', page: '/pages/dictionary/ruixing/ruixing' },
-      { name: '库迪', icon: '/images/库迪.png', page: '/pages/dictionary/kudi/kudi' },
-      { name: '霸王茶姬', icon: '/images/霸王茶姬.png', page: '/pages/dictionary/bawang/bawang' },
-      { name: '茶百道', icon: '/images/茶百道.png', page: '/pages/dictionary/chabaidao/chabaidao' },
-      { name: '古茗', icon: '/images/古茗.png', page: '/pages/dictionary/guming/guming' },
-      { name: '喜茶', icon: '/images/喜茶.png', page: '/pages/dictionary/xicha/xicha', isLast: true }
-    ]
+      { name: '星巴克', icon: '/images/星巴克.png' },
+      { name: '瑞幸', icon: '/images/瑞幸.png' },
+      { name: '库迪', icon: '/images/库迪.png' },
+      { name: '霸王茶姬', icon: '/images/霸王茶姬.png' },
+      { name: '茶百道', icon: '/images/茶百道.png' },
+      { name: '古茗', icon: '/images/古茗.png' },
+      { name: '喜茶', icon: '/images/喜茶.png', isLast: true }
+    ],
+
+    // 品牌数据直接放这里
+    brandData: {
+      星巴克: [
+        {
+          id: 1,
+          name: "星巴克 茶瓦那帝王云雾",
+          isSelected: false,
+          modal: {
+            title: "星巴克 茶瓦那帝王云雾",
+            selectedIndex: -1,
+            items: [
+              { type: "小杯", volume: "237ml", caffeine: "0.15mg", isActive: false },
+              { type: "中杯", volume: "355ml", caffeine: "0.15mg", isActive: false },
+              { type: "大杯", volume: "473ml", caffeine: "15-25mg", isActive: false },
+              { type: "超大杯", volume: "592ml", caffeine: "15-25mg", isActive: false }
+            ]
+          }
+        },
+        // ... 这里继续放 xingbake.js 里的其他数据
+      ],
+      瑞幸: [
+        // 这里放瑞幸的咖啡数据
+      ],
+      // 其他品牌...
+    }
   },
 
-  // 自定义饮品跳转
   toCustomDrink() {
     wx.navigateTo({
-      url: '/pages/dictionary/choose/choose'
+      url: '/pages/recording/userdefined/userdefined'
     });
   },
 
-  // 通用品牌跳转
   onBrandTap(e) {
-    const pageUrl = e.currentTarget.dataset.page;
-    if (pageUrl) {
-      wx.navigateTo({ url: pageUrl });
-    }
+    const brand = e.currentTarget.dataset.name;
+    wx.navigateTo({
+      url: `/pages/dictionary/brandcoffee/brandcoffee?brand=${encodeURIComponent(brand)}`
+    });
   }
 });

@@ -1,54 +1,30 @@
-/* 全局重置（可根据项目调整） */
+/* 页面背景与字体 */
 page {
-  background-color: #FAF0D7; /* 页面背景色 */
+  background-color: #FAF0D7;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* 容器控制整体间距 */
+/* 容器 */
 .container {
   padding: 16px;
-  position: relative; /* 用于小熊绝对定位 */
+  position: relative;
 }
 
-/* 自定义导航栏（还原设计稿顶部） */
-.custom-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 84px; /* 小程序导航栏标准高度 */
-  margin-bottom: 12px;
-}
-.nav-back {
-  width: 24px;
-  height: 24px;
-}
-.nav-title {
-  font-size: 17px; /* 微信标题标准字号 */
-  font-weight: bold;
-  color: #333;
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-}
-.nav-dot {
-  width: 8px;
-  height: 8px;
-  margin-right: 8px;
-}
-.nav-menu {
-  width: 24px;
-  height: 24px;
-}
-
-/* 卡片通用样式 */
+/* 卡片通用 */
 .card {
   background: #FAF0D7;
   border: 2px solid #D9B382;
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 96px;
+  margin-bottom: 40rpx;
 }
+
+/* 第一张卡片往下留更多空隙给小熊 */
+.drink-card {
+  margin-bottom: 260rpx; /* 再加大，原120rpx */
+  margin-top: 50rpx;
+}
+
 .card-header {
   display: flex;
   align-items: center;
@@ -65,7 +41,7 @@ page {
   color: #333;
 }
 
-/* 表单项通用样式 */
+/* 表单项 */
 .form-item {
   display: flex;
   align-items: center;
@@ -102,74 +78,52 @@ page {
   font-size: 14px;
   color: #666;
 }
-.arrow {
-  width: 16px;
-  height: 16px;
-}
-.clock-icon {
-  width: 18px;
-  height: 18px;
-}
 
-/* 小熊插画定位（覆盖在两个卡片之间） */
+/* 小熊插画放大 */
 .bear-img {
-  width: 120px;
-  height: 100px;
+  width: 180px;  
+  height: 140px;
   position: absolute;
   right: 20px;
-  top: 220px; /* 可根据设计微调 */
+  top: 280px;
+  z-index: 10;
 }
 
-/* 按钮组 */
+/* 小输入框包裹单位 */
+.input-unit-wrap {
+  display: flex;
+  align-items: center;
+}
+.input.small {
+  width: 270rpx;
+  height: 28rpx; /* 高度减小 */
+}
+
 .btn-group {
   display: flex;
-  justify-content: space-around;
-  margin: 24px 0;
+  justify-content: center;    /* 居中排放 */
+  gap: 60rpx;                 /* 按钮之间固定间距 */
+  margin: 60rpx 0 20rpx;      /* 不给左右固定margin，这样 gap 才显得明显 */
 }
+
 .btn {
-  width: 45%;
+  width: 160rpx;              /* 缩窄按钮宽度 */
   padding: 10px 0;
-  border-radius: 8px;
+  border-radius: 25px;
   font-size: 15px;
   color: #333;
 }
+
 .confirm {
-  background: #D9B382;
+  background: #ac886d;
   color: #FFF;
 }
 .cancel {
-  background: #FFF3D9;
-  border: 1px solid #D9B382;
+  background: #ac886d;
+  color: #FFF;
 }
 
-/* 底部TabBar */
-.tabbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #FFF;
-  border-top: 1px solid #ECECEC;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-.tab-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.tab-icon {
-  width: 24px;
-  height: 24px;
-}
-.tab-text {
-  font-size: 12px;
-  color: #999;
-  margin-top: 2px;
-}
-/* 替换原来的多层选择器 */
-.tab-item-active-text {
-  color: #D9B382;
+/* 点击态表单项 */
+.form-item.clickable {
+  cursor: pointer;
 }

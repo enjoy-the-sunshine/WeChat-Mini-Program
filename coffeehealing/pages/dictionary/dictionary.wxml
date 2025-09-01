@@ -19,7 +19,7 @@
   </view>
 
   <block wx:for="{{brandList}}" wx:key="name">
-    <view class="item" bindtap="{{item.tap}}">
+    <view class="item" bindtap="onBrandTap" data-name="{{item.name}}">
       <view class="item-left">
         <image class="brand-icon" src="{{item.icon}}" mode="aspectFit"></image>
         <text>{{item.name}}</text>
@@ -28,6 +28,7 @@
     </view>
     <view class="divider" wx:if="{{!item.isLast}}"></view>
   </block>
+
 </view>
 
 </view>

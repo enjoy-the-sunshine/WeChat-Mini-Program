@@ -27,6 +27,9 @@ Page({
   },
 
   onAddDrink() {
-    wx.showToast({ title: '添加自定义饮品功能开发中', icon: 'none' });
+    wx.navigateTo({
+      url: '/pages/dictionary/gexinghua/gexinghua'
+    });
   }
+  
 });

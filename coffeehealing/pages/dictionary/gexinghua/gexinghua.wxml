@@ -1,144 +1,71 @@
-<!-- 页面整体容器：修复定位单位兼容性 -->
-<view class="container" style="position: relative; left: 0; top: 23rpx; padding-bottom: 100rpx;">
+<view class="container">
 
-<!-- 顶部导航栏：添加返回事件 -->
-<view class="custom-nav">
-  <image 
-    class="nav-back" 
-    src="/images/back-arrow.png" 
-    mode="widthFix"
-    bindtap="goHome"
-    alt="返回"
-  ></image>
-  <text class="nav-title">CoffeeHealing</text>
-  <view class="nav-right">
-    <image class="nav-dot" src="/images/dot.png" mode="widthFix" alt="通知"></image>
-    <image class="nav-menu" src="/images/menu.png" mode="widthFix" alt="菜单"></image>
-  </view>
-</view>
-
-<!-- 个性化饮品设置卡片：修复宽度单位 -->
-<view class="card drink-card" style="width: calc(100% - 40rpx); display: block; box-sizing: border-box; margin: 0 auto 40rpx;">
+<!-- 个性化饮品设置卡片 -->
+<view class="card drink-card">
   <view class="card-header">
-    <image class="card-icon" src="/images/drink-icon.png" mode="widthFix" alt="饮品图标"></image>
+    <image class="card-icon" src="/images/drink-icon.png"></image>
     <text class="card-title">个性化饮品设置</text>
   </view>
-  
-  <!-- 名称输入：优化输入体验 -->
+
   <view class="form-item">
     <text class="label">名称</text>
-    <input 
-      class="input" 
-      placeholder="请输入饮品名称" 
-      value="{{drinkName}}"
-      bindinput="onNameInput"
-      maxlength="20"
-      type="text"
-    />
+    <input class="input" placeholder="请输入饮品名称"
+      value="{{drinkName}}" bindinput="onNameInput" maxlength="20" type="text" />
   </view>
-  
-  <!-- 图标选择：添加可点击样式提示 -->
+
   <view class="form-item">
     <text class="label">图标</text>
-    <view class="picker" bindtap="openIconPicker" style="cursor: pointer;">
+    <view class="picker" bindtap="openIconPicker">
       <text>选择图标</text>
-      <image class="arrow" src="/images/arrow-right.png" mode="widthFix" alt="箭头"></image>
     </view>
   </view>
-  
-  <!-- 杯型选择：修复选择器范围绑定 -->
+
   <view class="form-item">
     <text class="label">杯型</text>
-    <picker 
-      mode="selector" 
-      range="{{cupSizes}}" 
-      value="{{cupSizes.indexOf(cupSizeValue)}}"
-      bindchange="onCupSizeChange"
-      class="picker-container"
-    >
+    <picker mode="selector" range="{{cupSizes}}" value="{{cupSizes.indexOf(cupSizeValue)}}" bindchange="onCupSizeChange" class="picker-container">
       <view class="picker-view">
         <text>{{cupSizeValue}}</text>
-        <image class="arrow" src="/images/arrow-down.png" mode="widthFix" alt="下拉箭头"></image>
       </view>
     </picker>
   </view>
 </view>
 
-<!-- 装饰图片：修复定位导致的布局错乱 -->
-<image
-  src="/images/your-image.png"
-  class="custom-image"
-  mode="widthFix"
-  alt="装饰图案"
-  style="width: 306rpx; height: auto; display: block; box-sizing: border-box; margin: 0rpx 0 -50rpx auto; z-index: 999;"
-/>
+<!-- 小熊插画 -->
+<image src="/images/your-image.png" class="bear-img" mode="aspectFit" />
 
-<!-- 咖啡因含量卡片：修复高度自适应问题 -->
-<view class="card caffeine-card" style="width: calc(100% - 40rpx); display: block; box-sizing: border-box; margin: 0 auto; padding-bottom: 30rpx;">
+<!-- 咖啡因含量卡片 -->
+<view class="card caffeine-card">
   <view class="card-header">
-    <image class="card-icon" src="/images/caffeine-icon.png" mode="widthFix" alt="咖啡因图标"></image>
+    <image class="card-icon" src="/images/caffeine-icon.png"></image>
     <text class="card-title">咖啡因含量</text>
   </view>
-  
-  <!-- 含有咖啡因：限制数字输入范围 -->
+
   <view class="form-item">
     <text class="label">含有咖啡因</text>
-<!-- 优化后的咖啡因输入框 -->
-<input 
-      style="width: 270rpx; height: 68rpx; display: block; box-sizing: border-box" 
-      class="input" 
-      placeholder="0"
-      value="{{caffeineContent}}"
-      bindinput="onCaffeineInput"
-      type="number"
-      min="0"
-      max="1000"
-    />
-
-    <text class="unit">mg</text>
-    <image class="arrow" src="/images/arrow-right.png" mode="widthFix" alt="箭头"></image>
+    <view class="input-unit-wrap">
+      <input class="input small" placeholder="0" value="{{caffeineContent}}" bindinput="onCaffeineInput" type="number" min="0" max="1000" />
+      <text class="unit">mg</text>
+    </view>
   </view>
-  
-  <!-- 饮用后体内含量：添加可点击提示 -->
-  <view class="form-item" bindtap="openDetail" style="cursor: pointer;">
+
+  <view class="form-item clickable" bindtap="openDetail">
     <text class="label">饮用后体内含量</text>
     <text>详细信息</text>
-    <image class="arrow" src="/images/arrow-right.png" mode="widthFix" alt="箭头"></image>
   </view>
-  
-  <!-- 预计入睡时间：优化默认显示 -->
+
   <view class="form-item">
     <text class="label">预计可入睡时间</text>
-    <picker 
-      mode="time" 
-      start="00:00" 
-      end="23:59"
-      value="{{sleepTime}}"
-      bindchange="onSleepTimeChange"
-      class="picker-container"
-    >
+    <picker mode="time" start="00:00" end="23:59" value="{{sleepTime}}" bindchange="onSleepTimeChange" class="picker-container">
       <view class="picker-view">
         <text>{{sleepTime ? sleepTime : '请选择时间'}}</text>
-        <image class="clock-icon" src="/images/clock.png" mode="widthFix" alt="时钟"></image>
       </view>
     </picker>
   </view>
 </view>
 
-<!-- 操作按钮：修复定位导致的响应区域问题 -->
-<view class="btn-group" style="position: relative; margin: 60rpx 20rpx 20rpx;">
-  <button 
-    class="btn confirm" 
-    bindtap="confirmSetting"
-    hover-class="btn-hover"
-   style="width: 243rpx; display: block; box-sizing: border-box; left: -31rpx; top: 42rpx; position: relative">确认</button>
-  <button 
-    class="btn cancel" 
-    bindtap="cancelSetting"
-    hover-class="btn-hover"
-   style="width: 243rpx; display: block; box-sizing: border-box; left: 49rpx; top: 42rpx; position: relative">取消</button>
+<!-- 操作按钮 -->
+<view class="btn-group">
+  <button class="btn confirm" bindtap="confirmSetting" hover-class="btn-hover">确认</button>
+  <button class="btn cancel" bindtap="cancelSetting" hover-class="btn-hover">取消</button>
 </view>
-
-
-
 </view>

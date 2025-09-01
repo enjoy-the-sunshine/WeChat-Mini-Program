@@ -13,7 +13,9 @@
 .section-title {
   background-color: #f5d399;
   padding: 20rpx;
-  border-radius: 16rpx;
+  border-radius: 25rpx;
+  width: 300rpx;
+  text-align: center;
 }
 
 .title-text {
@@ -29,7 +31,7 @@
   align-items: center;
   padding: 20rpx 30rpx;
   background-color: #fdf8e3;
-  border-radius: 20rpx;
+  border-radius: 25rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
   margin-top: 20rpx;
 }

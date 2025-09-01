@@ -74,7 +74,7 @@
 /* 底部图片 */
 .footer-image {
   width: 80%;
-  height: 450rpx;
+  height: 480rpx;
   margin-top: auto;
   margin: auto auto 0; /* 上左右自动，下0，保证居中且贴底 */
 }

@@ -24,11 +24,10 @@ Page({
   },
 
   addTestDrink() {
-    wx.showToast({
-      title: '添加测试饮品',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/recording/brandselect/brandselect'
     });
-  }
+  }  
 });
 
 function updateChart(chartInstance, dailyLimit, sleepCaffeine, isTest = false) {
