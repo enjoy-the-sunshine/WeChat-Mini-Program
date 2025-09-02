@@ -59,8 +59,13 @@ Page({
   },
 
   onLoad(options) {
-    this.loadLocalData()
-    this.switchCategory({ currentTarget: { dataset: { category: 'recent' } } })
+    this.loadLocalData();
+    this.switchCategory({ currentTarget: { dataset: { category: 'recent' } } });
+  
+    // 如果是从“自定义按钮”跳过来的，直接弹出自定义弹窗
+    if (options.showCustom === '1') {
+      this.showCustomAddModal();
+    }
   },
 
   onShow() {

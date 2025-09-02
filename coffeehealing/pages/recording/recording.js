@@ -177,10 +177,14 @@ Page({
   },
   /** 跳转状态记录 */
   goToRecordingState() {
+    // 如果没有选中日期就用今天
+    const selectedDate = this.data.selectedDate || new Date().toISOString().slice(0, 10);
+    
     wx.navigateTo({
-      url: '/subpackage/recording/recording_state/recording_state'
+      url: `/subpackage/recording/recording_state/recording_state?date=${selectedDate}`
     });
   },
+  
 
   /** 页面显示时刷新当前选中日期 */
   onShow() {

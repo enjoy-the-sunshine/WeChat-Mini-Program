@@ -12,7 +12,7 @@ function toPlain(obj) {
   return obj.toJSON();
 }
 
-// parseDateOnly: 'YYYY-MM-DD' → 本地 0 点 Date（避免 "YYYY-MM-DDT00:00:00" 的时区坑）
+// parseDateOnly: 'YYYY-MM-DD' → 本地 0 点 Date（避免时区偏移导致日期不准）
 function parseDateOnly(dateStr) {
   if (!dateStr) return null;
   const [y, m, d] = dateStr.split('-').map(Number);
@@ -173,6 +173,7 @@ async function listBrands() {
 /* ====================================================================== */
 /*                                 profiles                               */
 /* ====================================================================== */
+// 旧方案（通过 userId 字段）
 async function getOrCreateProfile(userId, defaults = {}) {
   const q = new AV.Query(CLASS_PROFILE);
   q.equalTo('userId', userId);
@@ -204,6 +205,7 @@ async function updateProfile(userId, patch) {
   return toPlain(saved);
 }
 
+// 新方案（通过 Pointer<_User>）
 async function getOrCreateUserProfile(userId, defaults = {}) {
   const q = new AV.Query(CLASS_PROFILE);
   q.equalTo('user', AV.Object.createWithoutData('_User', userId));
@@ -233,6 +235,17 @@ async function getOrCreateUserProfile(userId, defaults = {}) {
   return toPlain(saved);
 }
 
+async function updateUserProfile(userId, patch) {
+  const q = new AV.Query(CLASS_PROFILE);
+  q.equalTo('user', AV.Object.createWithoutData('_User', userId));
+  const exist = await q.first();
+  if (!exist) throw new Error('User profile not found for userId=' + userId);
+  const obj = AV.Object.createWithoutData(CLASS_PROFILE, exist.id);
+  Object.entries(patch).forEach(([k, v]) => obj.set(k, v));
+  const saved = await obj.save();
+  return toPlain(saved);
+}
+
 /* ====================================================================== */
 /*                                 account                                */
 /* ====================================================================== */
@@ -245,7 +258,6 @@ async function registerWithPhone(phone, password, defaults = {}) {
   }
 
   const phoneTrim = String(phone).trim();
-
   let registeredUser;
 
   try {
@@ -257,7 +269,7 @@ async function registerWithPhone(phone, password, defaults = {}) {
     registeredUser = await user.signUp();
   } catch (err) {
     if (err.code === 214) {
-      //手机号已注册，直接登录
+      // 手机号已注册，直接登录
       registeredUser = await AV.User.logInWithMobilePhone(phoneTrim, password);
     } else {
       throw err;
@@ -275,7 +287,7 @@ async function registerWithPhone(phone, password, defaults = {}) {
 
   // 初始化 health_daily
   const todayStr = new Date().toISOString().slice(0, 10);
-  const todayDate = parseDateOnly(todayStr); // 转成 Date 对象
+  const todayDate = parseDateOnly(todayStr);
 
   const healthDailyQuery = new AV.Query('health_daily');
   healthDailyQuery.equalTo('user', AV.Object.createWithoutData('_User', userId));
@@ -285,15 +297,13 @@ async function registerWithPhone(phone, password, defaults = {}) {
   if (!existDaily) {
     const healthDaily = new AV.Object('health_daily');
     healthDaily.set('user', AV.Object.createWithoutData('_User', userId));
-    healthDaily.set('date', todayDate); 
+    healthDaily.set('date', todayDate);
     healthDaily.set('status', 'initial');
     await healthDaily.save();
   }
 
   return { user: registeredUser.toJSON(), profile };
 }
-
-
 
 async function loginWithPhone(phone, password) {
   if (!phone || !String(phone).trim()) {
@@ -323,9 +333,10 @@ async function loginWithPhone(phone, password) {
     if (err.code === 210) {
       throw new Error('密码错误');
     }
-    throw err; // 其他错误保持原样抛出
+    throw err;
   }
 }
+
 /* ====================================================================== */
 /*                                 feedback                               */
 /* ====================================================================== */
@@ -367,6 +378,7 @@ module.exports = {
   getProfile,
   updateProfile,
   getOrCreateUserProfile,
+  updateUserProfile,
 
   // account
   registerWithPhone,
