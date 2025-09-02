@@ -6,7 +6,7 @@ require('../../libs/leancloud-adapters-weapp.js');
 Page({
   data: {
     currentYear: 2025,
-    currentMonth: 8,
+    currentMonth: 9,
     days: [],
     selectedDate: '',
     selectedDateDisplay: '',
