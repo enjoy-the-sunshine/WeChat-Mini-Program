@@ -60,6 +60,26 @@
 .picker.error {
   border-color: #ff4d4f;
 }
+/* WXSS: 样式让它像现在的 view */
+.picker-input {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 15rpx;
+  padding: 0 25rpx;
+  font-size: 28rpx;
+  background-color: #fff;
+}
+
+.picker-input.error {
+  border-color: #ff4d4f;
+}
+
+.placeholder-text {
+  color: #999;
+}
+
 
 .placeholder-text {
   color: #999;

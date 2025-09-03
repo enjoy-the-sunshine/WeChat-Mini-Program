@@ -40,7 +40,6 @@ const CLASS_INTAKE = 'intakes';
 const CLASS_DRINK = 'drinks_catalog2';
 const CLASS_PROFILE = 'user_profiles';
 const CLASS_FEEDBACK = 'feedback';
-const CLASS_FAVORITE = 'user_favorites';        // ⭐ 新增：用户收藏表
 
 /* ====================================================================== */
 /*                               intakes                                  */
@@ -339,72 +338,6 @@ async function loginWithPhone(phone, password) {
 }
 
 /* ====================================================================== */
-/*                                favorites                                */
-/* ====================================================================== */
-/**
- * 列出某个用户的收藏
- * 返回：[{objectId, drink_id, brand, product, size_key, caffeine_per_serving_mg, unit, drink(可空), createdAt, ...}]
- */
-async function listFavoritesByUser(userId) {
-  if (!userId) throw new Error('listFavoritesByUser: userId required');
-  const q = new AV.Query(CLASS_FAVORITE);
-  q.equalTo('user', AV.Object.createWithoutData('_User', userId));
-  q.include('drink');                      // 如果有 pointer，顺带取回
-  q.limit(1000).descending('createdAt');
-  const rows = await q.find();
-  return rows.map(toPlain);
-}
-
-/**
- * 添加收藏（幂等：已存在则直接返回）
- * drinkSnap: { id, name, caffeine, unit, category(品牌名或品牌ID), size_key? }
- */
-async function addFavorite(userId, drinkSnap) {
-  if (!userId) throw new Error('addFavorite: userId required');
-  if (!drinkSnap || !drinkSnap.id) throw new Error('addFavorite: drinkSnap.id required');
-
-  // 先查是否已存在
-  const q = new AV.Query(CLASS_FAVORITE);
-  q.equalTo('user', AV.Object.createWithoutData('_User', userId));
-  q.equalTo('drink_id', String(drinkSnap.id));
-  const exist = await q.first();
-  if (exist) return toPlain(exist);
-
-  const obj = new AV.Object(CLASS_FAVORITE);
-  obj.set('user', AV.Object.createWithoutData('_User', userId));
-  obj.set('drink_id', String(drinkSnap.id));
-
-  // 可选的指针（若该收藏来自字典）
-  try {
-    obj.set('drink', AV.Object.createWithoutData(CLASS_DRINK, String(drinkSnap.id)));
-  } catch (_) {}
-
-  // 快照：避免字典后续变更影响历史
-  obj.set('brand', drinkSnap.brand || drinkSnap.category || '');
-  obj.set('product', drinkSnap.name || '');
-  obj.set('size_key', drinkSnap.size_key || '');
-  obj.set('caffeine_per_serving_mg', safeNum(drinkSnap.caffeine));
-  obj.set('unit', drinkSnap.unit || '/每份');
-
-  const saved = await obj.save();
-  return toPlain(saved);
-}
-
-/**
- * 取消收藏（按 user + drink_id 删除，多余记录也清理）
- */
-async function removeFavorite(userId, drinkId) {
-  if (!userId) throw new Error('removeFavorite: userId required');
-  const q = new AV.Query(CLASS_FAVORITE);
-  q.equalTo('user', AV.Object.createWithoutData('_User', userId));
-  q.equalTo('drink_id', String(drinkId));
-  const rows = await q.find();
-  if (!rows.length) return true;
-  await AV.Object.destroyAll(rows);
-  return true;
-}
-
-/* ====================================================================== */
 /*                                 feedback                               */
 /* ====================================================================== */
 async function addFeedback(data, { useACL = false } = {}) {
@@ -450,11 +383,6 @@ module.exports = {
   // account
   registerWithPhone,
   loginWithPhone,
-
-  // favorites ⭐
-  listFavoritesByUser,
-  addFavorite,
-  removeFavorite,
 
   // feedback
   addFeedback
