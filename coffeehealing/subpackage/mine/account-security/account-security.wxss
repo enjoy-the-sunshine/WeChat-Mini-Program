@@ -35,7 +35,10 @@
   color: #98592C;
   display: flex;
   align-items: center;
+  margin-right: 38.6rpx;        /* 右边距 */
+  margin-left: 38.6rpx;         /* 左边距 */
 }
+
 
 /* 小熊图标放大并靠左留间距 */
 .icon-small {

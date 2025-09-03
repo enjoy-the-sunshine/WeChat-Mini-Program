@@ -1,22 +1,19 @@
-<view class="page no-scroll">
+<view class="page">
   <!-- 今日心情 -->
   <view class="panel panel-white panel-mood">
     <view class="panel-header">
-      <text class="h2" style="position: relative; left: 181rpx; top: -16rpx">今日心情</text>
+      <text class="h2">今日心情</text>
     </view>
 
-    <view class="mood-wrap">
+    <view class="mood-container">
       <!-- 左侧：大图 + 文字 -->
       <view class="mood-hero">
-        <image class="hero-img"
-               src="{{moodBigMap[mood].src}}"
-               mode="aspectFit"
-               style="width: 212rpx; height: 225rpx; position: relative; top: -64rpx" />
-        <text class="hero-text" style="position: relative; top: -100rpx">{{moodBigMap[mood].text}}</text>
+        <image class="hero-img" src="{{moodBigMap[mood].src}}" mode="aspectFit" />
+        <text class="hero-text">{{moodBigMap[mood].text}}</text>
       </view>
 
-      <!-- 右侧：纯图片（无文字） -->
-      <view class="mood-grid" style="position: relative; left: -20rpx; top: 14rpx">
+      <!-- 右侧：心情选择网格 -->
+      <view class="mood-grid">
         <block wx:for="{{moodList}}" wx:key="id">
           <view class="mood-item {{mood===item.id?'active':''}}" bindtap="onPickMood" data-id="{{item.id}}">
             <image class="mood-img" src="{{item.src}}" mode="aspectFit"></image>
@@ -27,105 +24,74 @@
   </view>
 
   <!-- 睡眠记录 -->
-  <view class="panel panel-sleep panel-sleep-fixed">
+  <view class="panel panel-sleep">
     <view class="panel-header">
       <view class="h2-row">
-        <text class="h2" style="position: relative; top: -8rpx">睡眠记录</text>
-        <image class="head-icon" src="{{icons.mooncloud}}" mode="widthFix"
-               style="width: 66rpx; height: 52rpx; position: relative; top: -6rpx" />
+        <text class="h2">睡眠记录</text>
+        <image class="head-icon" src="{{icons.mooncloud}}" mode="widthFix" />
       </view>
     </view>
 
-    <!-- 第1行：入睡时间 / 睡眠时长（上下箭头） -->
-    <view class="kv-row">
-      <!-- 入睡时间 -->
-      <view class="kv-box" style="position: relative; left: 22rpx;">
-        <view class="kv-title" style="width: 252rpx; height: 41rpx; display: flex;">
-          <image class="kv-icon" src="{{icons.moon}}" mode="widthFix"
-                 style="width: 60rpx; height: 68rpx; position: relative; left: 10rpx; top: 24rpx"/>
-          <text style="position: relative;left:30rpx; top: -2rpx">入睡时间</text>
-        </view>
-        <picker mode="time" value="{{sleepTime}}" start="00:00" end="23:59" bindchange="onChangeTime">
-          <view class="kv-value" style="width: 124rpx; position: relative; left: 116rpx; top: 0rpx">{{sleepTime}}  ＞</view>
-        </picker>
-      </view>
-
-      <!-- 睡眠时长（仅上下箭头） -->
-      <view class="kv-box duration-box" style="position: relative; left: -22rpx;">
-        <view class="kv-title" style="width: 231rpx; height: 41rpx; display: flex;">
-          <image class="kv-icon" src="{{icons.clock}}" mode="widthFix"
-                 style="width: 62rpx; height: 68rpx; position: relative; left: 10rpx; top: 27rpx"/>
-          <text style="position: relative; left: 27rpx; top: -1rpx">睡眠时长</text>
-        </view>
-
-        <view class="kv-value duration-text" style="width: 87rpx; display: block; box-sizing: border-box; position: relative; left: 114rpx; top: -2rpx">{{durationText}}</view>
-
-        <!-- 上下箭头 -->
-        <!-- 上箭头 -->
-        <image 
-        style="position: absolute; left: 218rpx; top: 58rpx; width: 25rpx; height: 35rpx;" 
-        class="arrow-btn arrow-up" 
-        src="../assets/up.png"   
-        mode="widthFix" 
-        bindtap="tapIncDuration"
-        />
-
-        <!-- 下箭头 -->
-        <image 
-        style="position: absolute; left: 219rpx; top: 80rpx; width: 28rpx; height: 35rpx;" 
-        class="arrow-btn arrow-down" 
-        src="../assets/down.png" 
-        mode="widthFix" 
-        bindtap="tapDecDuration"
-        />
-
-      </view>
-    </view>
-
-    <!-- 第2行：效率 / 评分 -->
-    <view class="kv-row" style="position: relative; top: 20rpx">
-      <view class="kv-box" style="position: relative; left: 20rpx; height: 114rpx; display: flex;">
-        <view class="kv-title" style="height: 60rpx; display: flex;">
-          <image class="kv-icon" src="{{icons.star}}" mode="widthFix"
-                 style="width: 62rpx; height: 66rpx; position: relative; left: 10rpx; top: 52rpx"/>
-          <text style="position: relative; left: 35rpx; top: 24rpx">睡眠效率</text>
-        </view>
-        <view class="kv-value" style="width: 83rpx; position: relative; left: 150rpx; top: 15rpx;">
-          {{sleepEfficiency}}%
-        </view>
-        <slider class="kv-slider" min="50" max="100" step="1"
-                value="{{sleepEfficiency}}" bindchange="onChangeEfficiency"
-                block-size="10"
-                activeColor="#A1CAE2"  
-                style="position: relative; left: 35rpx;"/>
-      </view>
-
-      <view class="kv-box" style="position: relative; left: -20rpx;">
-        <view class="kv-title">
-          <image class="kv-icon" src="{{icons.like}}" mode="widthFix"
-                 style="width: 58rpx; height: 41rpx; position: relative; left: 20rpx; top: 54rpx"/>
-          <text style="position: relative; left: 35rpx; top: 24rpx">睡眠评分</text>
-        </view>
-        <view class="kv-value" style="width: 87rpx; position: relative; left: 150rpx; top: 15rpx;">
-          {{sleepScore}}分
-        </view>
-        <slider class="kv-slider" min="0" max="100" step="1"
-                value="{{sleepScore}}" bindchange="onChangeScore"
-                block-size="10"
-                activeColor="#A1CAE2"  
-                style="position: relative; left: 37rpx; top: 0rpx"/>
-      </view>
-    </view>
-
-    <!-- 睡眠感受 -->
-    <view class="feel-wrap" style="position: relative; top: 33rpx">
-      <text class="feel-label" style="position: relative; left: 56rpx;">睡眠感受</text>
-      <view class="feel-group" style="position: relative; left: 135rpx;">
-        <block wx:for="{{feelList}}" wx:key="id">
-          <view class="feel-item {{feel===item.id?'sel':''}}" bindtap="onPickFeel" data-id="{{item.id}}">
-            <image class="feel-img" src="{{item.src}}" mode="aspectFit"></image>
+    <view class="sleep-content">
+      <!-- 第1行：入睡时间 / 睡眠时长 -->
+      <view class="kv-row">
+        <view class="kv-box">
+          <view class="kv-title">
+            <image class="kv-icon" src="{{icons.moon}}" mode="widthFix" />
+            <text>入睡时间</text>
           </view>
-        </block>
+          <picker mode="time" value="{{sleepTime}}" start="00:00" end="23:59" bindchange="onChangeTime">
+            <view class="kv-value">{{sleepTime}}  ＞</view>
+          </picker>
+        </view>
+
+        <view class="kv-box duration-box">
+          <view class="kv-title">
+            <image class="kv-icon" src="{{icons.clock}}" mode="widthFix" />
+            <text>睡眠时长</text>
+          </view>
+          <view class="kv-value duration-text">{{durationText}}</view>
+          
+          <view class="arrow-container">
+            <image class="arrow-btn arrow-up" src="{{icons.up}}" mode="widthFix" bindtap="tapIncDuration" />
+            <image class="arrow-btn arrow-down" src="{{icons.down}}" mode="widthFix" bindtap="tapDecDuration" />
+          </view>
+        </view>
+      </view>
+
+      <!-- 第2行：效率 / 评分 -->
+      <view class="kv-row">
+        <view class="kv-box">
+          <view class="kv-title">
+            <image class="kv-icon" src="{{icons.star}}" mode="widthFix" />
+            <text>睡眠效率</text>
+          </view>
+          <view class="kv-value">{{sleepEfficiency}}%</view>
+          <slider class="kv-slider" min="50" max="100" step="1" value="{{sleepEfficiency}}" 
+                  bindchange="onChangeEfficiency" block-size="10" activeColor="#A1CAE2" />
+        </view>
+
+        <view class="kv-box">
+          <view class="kv-title">
+            <image class="kv-icon" src="{{icons.like}}" mode="widthFix" />
+            <text>睡眠评分</text>
+          </view>
+          <view class="kv-value">{{sleepScore}}分</view>
+          <slider class="kv-slider" min="0" max="100" step="1" value="{{sleepScore}}" 
+                  bindchange="onChangeScore" block-size="10" activeColor="#A1CAE2" />
+        </view>
+      </view>
+
+      <!-- 睡眠感受 -->
+      <view class="feel-wrap">
+        <text class="feel-label">睡眠感受</text>
+        <view class="feel-group">
+          <block wx:for="{{feelList}}" wx:key="id">
+            <view class="feel-item {{feel===item.id?'sel':''}}" bindtap="onPickFeel" data-id="{{item.id}}">
+              <image class="feel-img" src="{{item.src}}" mode="aspectFit"></image>
+            </view>
+          </block>
+        </view>
       </view>
     </view>
   </view>
@@ -136,23 +102,19 @@
       <text class="h2">元气熊の日志</text>
     </view>
 
-    <view class="journal" style="height: 231rpx; display: grid;">
-      <image class="bear" src="{{images.bearDiary}}" mode="widthFix"
-             style="width: 262rpx; height: 270rpx; position: relative; top: -23rpx"/>
-      <view class="note-box" style="position: relative; left: 72rpx; top: -60rpx; height: 270rpx;">
-        <image class="paperclip" src="{{icons.paperclip}}" mode="widthFix"
-               style="width: 64rpx; height: 74rpx; left: 254rpx; top: -18rpx; position: absolute"/>
+    <view class="journal">
+      <image class="bear" src="{{images.bearDiary}}" mode="widthFix" />
+      <view class="note-box">
+        <image class="paperclip" src="{{icons.paperclip}}" mode="widthFix" />
         <textarea class="note" placeholder="记录美好生活呀！" maxlength="300"
                   value="{{note}}" bindinput="onInputNote"/>
-        <image class="pen" src="{{icons.pen}}" mode="widthFix"
-               style="width: 43rpx; height: 47rpx; left: 252rpx; top: 212rpx"/>
+        <image class="pen" src="{{icons.pen}}" mode="widthFix" />
       </view>
     </view>
   </view>
 
   <!-- 确认按钮 -->
   <view class="footer">
-    <view class="btn-primary" hover-class="btn-primary--active" bindtap="onSubmit"
-          style="position: relative; top: -110rpx">确认</view>
+    <view class="btn-primary" hover-class="btn-primary--active" bindtap="onSubmit">确认</view>
   </view>
 </view>

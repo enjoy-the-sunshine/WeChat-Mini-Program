@@ -30,16 +30,25 @@ Page({
   },
 
   // 选择反馈类型
-  selectType(e) {
+  selectType: function(e) {
     const selectedType = e.currentTarget.dataset.value;
     this.setData({
-      selectedType,
-      typeError: false,
-      showTypeSelector: false // 选中后关闭下拉
+      selectedType: selectedType,
+      showTypeSelector: false,
+      typeError: false
     });
     this.updateSubmitButton();
   },
-  
+
+  // 输入问题描述
+  onDescInput: function(e) {
+    this.setData({
+      description: e.detail.value,
+      descError: false
+    });
+    this.updateSubmitButton();
+  },
+
   // 选择图片
   chooseImage: function() {
     if (this.data.images.length >= 3) {
@@ -140,16 +149,44 @@ Page({
     this.updateSubmitButton();
   },
   
-  onPageTap(e) {
-    const targetClass = e.target.dataset.class;
-    // 不是点击选择框或选项时，才关闭选择器
-    if (this.data.showTypeSelector &&
-        targetClass !== 'picker' &&
-        targetClass !== 'type-option') {
-      this.setData({
-        showTypeSelector: false
+  // 点击页面其他地方关闭选择器
+  onPageTap: function(e) {
+    if (this.data.showTypeSelector) {
+      // 判断点击的是否是选择器区域
+      const query = wx.createSelectorQuery();
+      query.select('.type-options').boundingClientRect();
+      query.select('.picker').boundingClientRect();
+      query.exec((res) => {
+        const optionsRect = res[0];
+        const pickerRect = res[1];
+        
+        if (optionsRect && pickerRect) {
+          const touch = e.touches[0] || e.changedTouches[0];
+          const x = touch.clientX;
+          const y = touch.clientY;
+          
+          // 判断点击是否在选择器或选择框内
+          const inOptions = (
+            x >= optionsRect.left && 
+            x <= optionsRect.right && 
+            y >= optionsRect.top && 
+            y <= optionsRect.bottom
+          );
+          
+          const inPicker = (
+            x >= pickerRect.left && 
+            x <= pickerRect.right && 
+            y >= pickerRect.top && 
+            y <= pickerRect.bottom
+          );
+          
+          if (!inOptions && !inPicker) {
+            this.setData({
+              showTypeSelector: false
+            });
+          }
+        }
       });
     }
   }
-  
 })

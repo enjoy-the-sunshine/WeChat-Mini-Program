@@ -1,54 +1,65 @@
 <view class="page">
-
-<!-- 顶部咖啡因卡片 -->
-<view class="card caffeine-card">
-  <view class="card-header" bindtap="goToSecond">
+  <!-- 顶部小熊插画 -->
+  <view class="bear-illustration-container">
     <image 
-      class="arrow-icon" 
-      src="../images/arrow_right.png" 
+      class="bear-illustration" 
+      src="../images/bear_fly.png" 
       mode="widthFix"
     ></image>
   </view>
 
-  <view class="caffeine-info">
-    <image class="bear-img" src="../images/bear_1.png" mode="widthFix"></image>
-    <view class="caffeine-text">
+  <!-- 咖啡因数据卡片 -->
+  <view class="card caffeine-card">
+    <view class="card-header" bindtap="goToSecond">
+      <image 
+        class="arrow-icon" 
+        src="../images/arrow_right.png" 
+        mode="widthFix"
+      ></image>
+    </view>
+
+    <view class="caffeine-title">
+      <text class="title-text">咖啡因追踪</text>
+    </view>
+    
+    <view class="caffeine-grid">
       <view class="caffeine-item">
         <text class="label">体内实时咖啡因</text>
-        <text class="value">{{ caffeineNow }}mg</text>
+        <text class="value">{{ caffeineNow }}<text class="unit">mg</text></text>
       </view>
       <view class="caffeine-item">
         <text class="label">今日总计</text>
-        <text class="value">{{ caffeineTotal }}mg</text>
+        <text class="value">{{ caffeineTotal }}<text class="unit">mg</text></text>
       </view>
     </view>
-  </view>
 
-  <view class="energy-time">
-    <image class="bear-face" src="../images/bear_face.png" mode="widthFix"></image>
-    <view class="energy-text">
-      <text class="title">元气时刻</text>
-      <text class="subtitle">
-        预计提神至 <text class="time">{{ energyTime }}</text>
+    <view class="energy-time" style="height: 149rpx; display: block; box-sizing: border-box">
+      <text class="energy-title" style="position: relative; left: -9rpx; top: -8rpx">元气时刻</text>
+      <text class="energy-subtitle">
+        预计提神至 <text class="highlight">{{ energyTime }}</text>
       </text>
     </view>
   </view>
-</view>
 
-<!-- 预测标题方框 -->
-<view class="forecast-title-box" bindtap="goToThird">
-  <text class="forecast-title-text">体内咖啡因代谢实时预测</text>
-  <image 
-    class="arrow-icon"
-    src="../images/arrow_right.png"
-    mode="widthFix"
-  ></image>
-</view>
+  <!-- 代谢预测图表 -->
+  <view class="card forecast-card" bindtap="goToThird">
+    <view class="card-header">
+      <image 
+        class="arrow-icon"
+        src="../images/arrow_right.png"
+        mode="widthFix"
+      ></image>
+    </view>
+    
+    <view class="forecast-title">
+      <text class="title-text">代谢预测</text>
+    </view>
+    
+    
+  </view>
 
-
-<!-- 圆形添加按钮 -->
-<view class="circle-btn" bindtap="goToBrandSelect">
-  <text class="circle-plus">+</text>
-</view>
-
+  <!-- 圆形添加按钮 -->
+  <view class="circle-btn" bindtap="goToBrandSelect">
+    <text class="circle-plus">+</text>
+  </view>
 </view>

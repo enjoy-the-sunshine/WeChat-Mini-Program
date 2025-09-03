@@ -23,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  font-size: 36rpx;
+  font-size: 35rpx;
   color: #5b4b3b;
 }
 
@@ -39,10 +39,20 @@
   margin-top: 10rpx;
   font-weight: bold;
   color: #a89984;
+  justify-items: center; /* 确保每列内容居中 */
 }
 
 .weekday {
   text-align: center;
+  font-size: 32rpx; /* 增大星期字号，提高可读性 */
+  padding: 8rpx 0; /* 适当调整padding */
+  width: 70rpx; /* 稍微增加宽度 */
+  height: 45rpx; /* 稍微增加高度 */
+  line-height: 45rpx; /* 调整行高 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .days {
@@ -50,16 +60,30 @@
   grid-template-columns: repeat(7, 1fr);
   margin-top: 14rpx;
   row-gap: 18rpx;
+  justify-items: center; /* 确保每列内容居中 */
 }
 
 .day {
   text-align: center;
-  font-size: 28rpx;
-  padding: 12rpx 0;
+  font-size: 32rpx; /* 增大日期字号，与星期保持一致 */
+  padding: 8rpx 0; /* 适当调整padding */
   border-radius: 50%;
-  width: 65rpx;   /* 固定宽度 */
-  height: 40rpx;  /* 固定高度 */
-  line-height: 37rpx; /* 让数字居中 */
+  width: 70rpx;   /* 稍微增加宽度，与星期保持一致 */
+  height: 45rpx;  /* 稍微增加高度，与星期保持一致 */
+  line-height: 45rpx; /* 调整行高 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  transition: all 0.2s ease; /* 添加过渡效果 */
+}
+
+.day:hover {
+  background-color: #f0f0f0; /* 添加悬停效果 */
+}
+
+.day.selected:hover {
+  background-color: #3b82f6; /* 选中状态的悬停效果 */
 }
 
 .other-month {
@@ -166,8 +190,12 @@
 .btn-group {
   display: flex;
   justify-content: center; /* 居中 */
-  margin-top:40rpx;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx; /* 添加底部间距，为小熊图片留出空间 */
   gap: 30rpx; /* 按钮之间的间距（微信基础库>=2.10.0支持） */
+  width: 600rpx; /* 与卡片宽度保持一致 */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button {
@@ -179,28 +207,30 @@ button {
   color: white;
   border-radius: 25rpx;
   padding: 20rpx 0;
-  margin-right:20rpx;
+  margin-right: 0; /* 移除右边距，使用gap控制间距 */
   font-size: 34rpx;
-  width: 100rpx;
+  width: 280rpx; /* 调整按钮宽度，考虑gap间距 */
 }
 
 .btn-state {
-  background:#E7F1F6;
-  color:black;
+  background: #E7F1F6;
+  color: #797979;
   border-radius: 25rpx;
   padding: 20rpx 0;
-  margin-left: 10rpx;
+  margin-left: 0; /* 移除左边距，使用gap控制间距 */
   font-size: 34rpx;
+  width: 280rpx; /* 调整按钮宽度，考虑gap间距 */
 }
 
 /* 底部小熊插图 */
 .bear-container {
   text-align: center;
+  margin-top: 20rpx; /* 减小与按钮的间距 */
 }
 
 .bear-img {
   width: 100%;
-  margin-top: 320rpx;
+  /* 移除之前的margin-top，让图片紧贴按钮 */
 }
 
 
@@ -549,6 +579,144 @@ button {
   margin-left: auto; /* 推到最右 */
   display: flex;
   align-items: center;
+}
+
+/* 悬停效果 */
+.drink-record:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 12rpx 24rpx rgba(0, 0, 0, 0.12);
+}
+
+/* 折叠提示卡片 */
+.fold-card {
+  background: #f8f9fa;
+  border-radius: 25rpx;
+  padding: 20rpx;
+  width: 600rpx;
+  margin: 0 auto 30rpx auto; /* 统一底部间距 */
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 使用更自然的缓动函数 */
+  border: 2rpx solid #e9ecef;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.fold-card:hover {
+  background: #e9ecef;
+  transform: translateY(-2rpx);
+  box-shadow: 0 12rpx 24rpx rgba(0, 0, 0, 0.12);
+}
+
+/* 展开状态下的折叠卡片样式 */
+.fold-card.expanded {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  margin-top: 20rpx; /* 展开状态下调整顶部间距 */
+}
+
+.fold-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fold-text {
+  font-size: 32rpx;
+  color: #6c757d;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* 展开状态下的文字颜色 */
+.fold-card.expanded .fold-text {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.fold-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40rpx;
+  height: 40rpx;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* 使用更自然的缓动函数 */
+}
+
+.fold-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.arrow-down {
+  font-size: 24rpx;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+/* 展开状态下的箭头颜色 */
+.fold-card.expanded .arrow-down {
+  color: #1976d2;
+}
+
+/* 折叠的记录容器 */
+.folded-records {
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 使用更自然的缓动函数 */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-20rpx);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 展开状态 */
+.folded-records.expanded {
+  max-height: 1000rpx; /* 足够的高度来显示所有记录 */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 折叠记录中的饮品记录特殊样式 */
+.folded-records .drink-record {
+  animation: slideInRecord 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-fill-mode: both;
+  margin: 0 auto 30rpx auto; /* 确保间距一致 */
+  transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 为每个折叠记录添加延迟动画 */
+.folded-records .drink-record:nth-child(1) { animation-delay: 0.1s; }
+.folded-records .drink-record:nth-child(2) { animation-delay: 0.2s; }
+.folded-records .drink-record:nth-child(3) { animation-delay: 0.3s; }
+.folded-records .drink-record:nth-child(4) { animation-delay: 0.4s; }
+.folded-records .drink-record:nth-child(5) { animation-delay: 0.5s; }
+
+/* 收起动画 */
+.folded-records:not(.expanded) .drink-record {
+  animation: slideOutRecord 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRecord {
+  from { 
+    opacity: 0;
+    transform: translateY(-30rpx);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutRecord {
+  from { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to { 
+    opacity: 0;
+    transform: translateY(-20rpx);
+  }
 }
 
 

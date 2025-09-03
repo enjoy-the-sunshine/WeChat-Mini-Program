@@ -1,26 +1,108 @@
 page {
-  background-color: #fff9e9;
+  background: linear-gradient(180deg, #f8f6f0 0%, #f0e6d2 100%);
+  font-family: 'Noto Sans SC', sans-serif;
+  color: #5c3a21;
 }
 
 .page {
-  padding: 10px;
+  padding: 38.6rpx;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 140rpx;
+}
+
+/* 顶部小熊插画 */
+.bear-illustration-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.bear-illustration {
+  width: 100%;
+  max-width: 500rpx;
+  height: auto;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 32rpx rgba(255, 182, 139, 0.3);
+  background: linear-gradient(135deg, #ffe8d6 0%, #ffd4b3 50%, #ffc4a0 100%);
+  padding: 40rpx;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.bear-illustration:hover {
+  transform: translateY(-4rpx);
+  box-shadow: 0 12rpx 40rpx rgba(255, 182, 139, 0.4);
+}
+
+.bear-illustration::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.bear-illustration::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: slideRight 2.5s ease-in-out infinite;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 /* 通用卡片 */
 .card {
-  margin-top: 40rpx;
-  background-color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  padding: 20px;
-  margin-bottom: 30px;
+  background-color: #fff9f0;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 24rpx rgba(92, 58, 33, 0.1);
+  padding: 38.6rpx;
+  margin-bottom: 32rpx;
 }
 
-/* 卡片头部右对齐箭头 */
+/* 卡片头部 */
 .card-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-bottom: 24rpx;
 }
 
 .arrow-icon {
@@ -28,122 +110,139 @@ page {
   height: auto;
 }
 
-/* 咖啡因卡片 */
-.caffeine-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10rpx;
+/* 标题样式 */
+.caffeine-title,
+.forecast-title {
+  margin-bottom: 24rpx;
+  height: 0rpx;
+  display: block;
+  box-sizing: border-box;
+  left: 0rpx;
+  top: 0rpx;
 }
 
-.bear-img {
-  width: 160rpx;
-  height: auto;
+.title-text {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #5c3a21;
+  position: relative;
+  left: 0rpx;
+  top: -87rpx;
 }
 
-.caffeine-text {
-  margin-left: 16px;
-  flex: 1;
+/* 咖啡因网格布局 */
+.caffeine-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32rpx;
+  margin-bottom: 32rpx;
 }
 
 .caffeine-item {
-  margin-bottom: 8px;
+  text-align: center;
 }
 
 .label {
-  font-size: 14px;
-  color: #888;
-  margin-right: 10px;
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 16rpx;
+  width: 189rpx;
+  box-sizing: border-box;
+}
+
+.caffeine-item:last-child .label {
+  width: 108rpx;
 }
 
 .value {
-  font-size: 22px;
+  font-size: 66rpx;
   font-weight: bold;
-  color: #9b5735;
+  color: #5c3a21;
+  position: relative;
+  left: -57rpx;
+  top: 0rpx;
 }
 
+.unit {
+  font-size: 36rpx;
+  margin-left: 8rpx;
+}
+
+/* 元气时刻 */
 .energy-time {
-  display: flex;
-  align-items: center;
-  background-color: #eac5ab;
-  border-radius: 25px;
-  padding: 10px;
+  background-color: #ffebee;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  text-align: center;
+  height: 149rpx;
+  display: block;
+  box-sizing: border-box;
 }
 
-.bear-face {
-  width: 120rpx;
-  height: auto;
-  margin-right: 10px;
+.energy-title {
+  font-size: 28rpx;
+  color: #5c3a21;
+  display: block;
+  margin-bottom: 16rpx;
+  width: 110rpx;
+  box-sizing: border-box;
 }
 
-.energy-text .title {
-  font-size: 16px;
-  color: #9b5735;
+.energy-subtitle {
+  font-size: 36rpx;
   font-weight: bold;
+  color: #5c3a21;
+  position: relative;
+  left: -139rpx;
+  top: -61rpx;
 }
 
-.energy-text .subtitle {
-  font-size: 14px;
-  color: #555;
+.highlight {
+  color: #ff6b8b;
 }
 
-.energy-text .time {
-  color: #9b5735;
-  font-weight: bold;
+/* 图表容器 */
+.chart-container {
+  height: 400rpx;
+  width: 100%;
 }
 
-/* 标题文字 */
-.section-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #9b5735;
-  margin-bottom: 8px;
+/* 代谢预测卡片特殊样式 */
+.forecast-card {
+  height: 133rpx;
+  display: block;
+  box-sizing: border-box;
 }
 
-
-
-/* 圆形添加按钮 */
+/* 圆形添加按钮 - 橙色样式，位于页面下方正中 */
 .circle-btn {
-  width: 80rpx;
-  height: 80rpx;
-  border: 4rpx solid #9b5735;
+  position: fixed;
+  bottom: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110rpx;
+  height: 110rpx;
+  border: none;
   border-radius: 50%;
-  background-color: #fff9e9;
+  background-color: #ff6b35;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  margin-top: 550rpx;
-  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.1);
+  box-shadow: 0 6rpx 20rpx rgba(255, 107, 53, 0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.circle-btn:active {
+  transform: translateX(-50%) scale(0.95);
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 53, 0.4);
 }
 
 .circle-plus {
-  font-size: 72rpx;
-  color: #9b5735;
-  font-weight: 300;
+  font-size: 70rpx;
+  color: #ffffff;
+  font-weight: 400;
   line-height: 1;
-}
-
-/* 预测标题方框 */
-.forecast-title-box {
-  background-color: #ffffff;
-  border-radius: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 12px 0;
-  width: 90%; /* 控制宽度，不占满 */
-}
-
-.forecast-title-text {
-  font-size: 14px;
-  color: #9b5735;
-  font-weight: bold;
-}
-
-.forecast-title-box .arrow-icon {
-  width: 40rpx;
-  height: auto;
 }
 

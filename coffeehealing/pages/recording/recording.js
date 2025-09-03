@@ -13,6 +13,9 @@ Page({
     selectedWeekday: '',
     totalCaffeine: 0,
     drinkRecords: [],
+    displayDrinkRecords: [], // 新增：显示的记录（最新的3条）
+    foldedDrinkRecords: [], // 新增：折叠的记录
+    isExpanded: false, // 新增：是否展开
     editIndex: null,
     editRecord: {},  // 新增：保存当前编辑的记录
     showEditPopup: false
@@ -166,6 +169,8 @@ Page({
           const updated = this.data.drinkRecords.filter(r => r.objectId !== record.objectId);
           const totalCaffeine = updated.reduce((sum, r) => sum + (Number(r.caffeine) || 0), 0);
           this.setData({ drinkRecords: updated, totalCaffeine, showEditPopup: false });
+          // 重新处理折叠逻辑
+          this.processRecordsForDisplay(updated);
         }
       }
     });
@@ -188,6 +193,18 @@ Page({
 
   /** 页面显示时刷新当前选中日期 */
   onShow() {
+    // 检查是否有新添加的饮品记录
+    const newDrinkRecord = wx.getStorageSync('newDrinkRecord')
+    if (newDrinkRecord) {
+      // 清除存储的记录
+      wx.removeStorageSync('newDrinkRecord')
+      
+      // 如果新记录是今天的，刷新数据
+      if (newDrinkRecord.date === this.data.selectedDate) {
+        this.fetchDrinkRecords(this.data.selectedDate)
+      }
+    }
+    
     if (this.data.selectedDate) {
       this.fetchDrinkRecords(this.data.selectedDate);
     }
@@ -197,54 +214,133 @@ Page({
   fetchDrinkRecords(dateString) {
     const AV = require('../../libs/av-core-min.js');
     require('../../libs/leancloud-adapters-weapp.js');
-  
-    const [year, month, day] = dateString.split('-').map(Number);
-    const startOfDay = new Date(year, month - 1, day, 0, 0, 0);
-    const endOfDay = new Date(year, month - 1, day + 1, 0, 0, 0);
-  
+
+    const dateOnly = new Date(`${dateString}T00:00:00`);
     const deletedIds = wx.getStorageSync('deletedIntakeIds') || [];
-  
+
+    // 先尝试从LeanCloud获取记录
     const query = new AV.Query('intakes');
-    query.greaterThanOrEqualTo('takenAt', startOfDay);
-    query.lessThan('takenAt', endOfDay);
-    query.ascending('takenAt_time');
-  
+    query.equalTo('takenAt', dateOnly);
+    query.ascending('takenAt_time'); // 按时间顺序
     query.find().then(list => {
-      let records = list.map(obj => {
-        let timeVal = obj.get('takenAt_time');
-  
-        // 兼容 Date / String 类型
-        if (typeof timeVal === 'string') {
-          timeVal = timeVal.replace(/-/g, '/');
-        }
-  
-        return {
-          objectId: obj.id,
-          brand: obj.get('brand') || '',
-          name: obj.get('product') || '',
-          caffeine: obj.get('caffeine_total_mg') || 0,
-          time: typeof timeVal === 'string'
-            ? timeVal
-            : this.formatTime(new Date(timeVal))
-        };
-      });
-  
-      // 过滤删除的
+      let records = list.map(obj => ({
+        objectId: obj.id,
+        brand: obj.get('brand') || '',
+        name: obj.get('product') || '',
+        caffeine: obj.get('caffeine_total_mg') || 0,
+        time: obj.get('takenAt_time') || '',
+        isLocal: false
+      }));
+      // 过滤掉已删除记录
       records = records.filter(r => !deletedIds.includes(r.objectId));
-  
-      this.setData({ drinkRecords: records });
-      this.updateTotalCaffeine(records);
+      
+      // 合并本地存储的记录
+      const localRecords = this.getLocalRecordsForDate(dateString);
+      const allRecords = [...records, ...localRecords];
+      
+      // 按时间排序
+      allRecords.sort((a, b) => {
+        const timeA = a.time || '';
+        const timeB = b.time || '';
+        return timeA.localeCompare(timeB);
+      });
+      
+      this.setData({ drinkRecords: allRecords });
+      this.updateTotalCaffeine(allRecords);
+      // 处理折叠逻辑
+      this.processRecordsForDisplay(allRecords);
     }).catch(err => {
-      console.error('查询饮用记录失败：', err);
-      this.setData({ drinkRecords: [], totalCaffeine: 0 });
+      console.error('查询LeanCloud记录失败：', err);
+      
+      // 如果LeanCloud失败，尝试从本地存储获取记录
+      const localRecords = this.getLocalRecordsForDate(dateString);
+      this.setData({ drinkRecords: localRecords });
+      this.updateTotalCaffeine(localRecords);
+      this.processRecordsForDisplay(localRecords);
+      
+      // 显示网络错误提示
+      if (localRecords.length === 0) {
+        wx.showToast({ 
+          title: '网络连接失败，仅显示本地记录', 
+          icon: 'none',
+          duration: 2000
+        });
+      }
     });
   },
-  
+
+  /** 获取指定日期的本地记录 */
+  getLocalRecordsForDate(dateString) {
+    try {
+      const localRecords = wx.getStorageSync('localDrinkRecords') || [];
+      const deletedIds = wx.getStorageSync('deletedIntakeIds') || [];
+      
+      // 过滤出指定日期的记录，并排除已删除的
+      return localRecords
+        .filter(record => record.date === dateString && !deletedIds.includes(record.id))
+        .map(record => ({
+          objectId: record.id,
+          brand: record.brand || '',
+          name: record.name || '未知饮品',
+          caffeine: record.caffeine || 0,
+          time: record.time || '',
+          isLocal: true
+        }));
+    } catch (e) {
+      console.error('获取本地记录失败:', e);
+      return [];
+    }
+  },
 
   /** 更新总咖啡因 */
   updateTotalCaffeine(records) {
     const total = records.reduce((sum, r) => sum + (Number(r.caffeine) || 0), 0);
     this.setData({ totalCaffeine: total });
+  },
+
+  /** 处理记录显示逻辑（新增） */
+  processRecordsForDisplay(records) {
+    console.log('处理记录显示逻辑，记录数量:', records.length); // 添加调试日志
+    
+    if (records.length <= 3) {
+      // 如果记录少于等于3条，全部显示
+      this.setData({
+        displayDrinkRecords: records.map((record, index) => ({ ...record, originalIndex: index })),
+        foldedDrinkRecords: [],
+        isExpanded: false
+      });
+      console.log('记录少于等于3条，全部显示');
+    } else {
+      // 如果记录超过3条，显示最新的3条，其他折叠
+      const displayRecords = records.slice(-3).map((record, index) => ({ 
+        ...record, 
+        originalIndex: records.length - 3 + index 
+      }));
+      const foldedRecords = records.slice(0, -3).map((record, index) => ({ 
+        ...record, 
+        originalIndex: index
+      }));
+      
+      console.log('显示记录:', displayRecords.length, '折叠记录:', foldedRecords.length);
+      
+      this.setData({
+        displayDrinkRecords: displayRecords,
+        foldedDrinkRecords: foldedRecords,
+        isExpanded: false
+      });
+    }
+  },
+
+  /** 切换记录展开/折叠状态（新增） */
+  toggleRecords() {
+    console.log('切换展开状态，当前状态:', this.data.isExpanded);
+    const newExpandedState = !this.data.isExpanded;
+    
+    this.setData({
+      isExpanded: newExpandedState
+    });
+    
+    console.log('新状态:', newExpandedState);
   },
 
   onSaveRecord() {

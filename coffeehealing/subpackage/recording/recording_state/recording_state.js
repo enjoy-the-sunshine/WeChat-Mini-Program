@@ -9,21 +9,21 @@ Page({
         cry:     { src: '../assets/mood_cry.png',     text: '哭哭' },
         angry:   { src: '../assets/mood_angry.png',   text: '生气' },
         sleepy:  { src: '../assets/mood_sleepy.png',  text: '困' },
-        yawn:    { src: '../assets/mood_yan.png',     text: '疲惫' },
+        yawn:    { src: '../assets/mood_yan.png',     text: '难蚌' },
         speech:  { src: '../assets/mood_speechless.png', text: '无语' },
-        diss:    { src: '../assets/mood_dissatisfied.png', text: '难过' },
+        diss:    { src: '../assets/mood_dissatisfied.png', text: '不满' },
         very:    { src: '../assets/mood_veryhappy.png', text: '很开心' },
       },
       // 右侧 8 只小熊（小图：文件名带 1）
       moodList: [
-        { id:'very',  src:'../assets/mode_happy1.png' },
-        { id:'diss',  src:'../assets/mood_yan1.png' },
-        { id:'angry', src:'../assets/mood_angry1.png' },
-        { id:'cry',   src:'../assets/mood_cry1.png' },
-        { id:'sleepy',src:'../assets/mood_sleepy1.png' },
-        { id:'speech',src:'../assets/mood_speechless1.png' },
-        { id:'happy', src:'../assets/mood_veryhappy1.png' },
-        { id:'sleepy',src:'../assets/mood_sleepy1.png' },
+        { id:'happy',  src:'../assets/mood_happy.png' },
+        { id:'cry',   src:'../assets/mood_cry.png' },
+        { id:'angry', src:'../assets/mood_angry.png' },
+        { id:'sleepy',src:'../assets/mood_sleepy.png' },
+        { id:'speech',src:'../assets/mood_speechless.png' },
+        { id:'diss',  src:'../assets/mood_dissatisfied.png' },
+        { id:'very', src:'../assets/mood_veryhappy.png' },
+        { id:'yawn',src:'../assets/mood_yan.png' },
       ],
   
       /* ===== 睡眠区域 ===== */
@@ -63,7 +63,9 @@ Page({
   
     /* 今日心情 */
     onPickMood(e) {
-      this.setData({ mood: e.currentTarget.dataset.id });
+      const moodId = e.currentTarget.dataset.id;
+      console.log('选择心情:', moodId, '对应图片:', this.data.moodBigMap[moodId]);
+      this.setData({ mood: moodId });
     },
   
     /* 入睡时间 */
@@ -96,6 +98,11 @@ Page({
     onLoad(options) {
       const dateParam = options.date || new Date().toISOString().slice(0, 10);
       this.setData({ targetDate: dateParam });
+      
+      // 添加调试信息
+      console.log('recording_state onLoad, moodList:', this.data.moodList);
+      console.log('recording_state onLoad, moodBigMap:', this.data.moodBigMap);
+      
       this.fetchHealthDaily(dateParam);
     },
   

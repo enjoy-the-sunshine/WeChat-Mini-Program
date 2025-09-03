@@ -30,7 +30,8 @@
 
 <!-- 当日饮品记录 -->
 <view>
-  <view wx:for="{{drinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{index}}">
+  <!-- 显示最新的3条记录 -->
+  <view wx:for="{{displayDrinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{item.originalIndex}}">
     <image class="drink-icon" src="../images/coffee-icon.png" mode="aspectFit"></image>
     <view class="drink-info">
       <text class="drink-name">{{item.name}}</text>
@@ -39,13 +40,36 @@
     <text class="drink-caffeine">{{item.caffeine}}mg</text>
     <image class="record-arrow" src="../images/arrow_right.png" mode="widthFix"></image>
   </view>
+
+  <!-- 折叠的其他记录 -->
+  <view wx:if="{{isExpanded && drinkRecords.length > 3}}" class="folded-records expanded">
+    <view wx:for="{{foldedDrinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{item.originalIndex}}">
+      <image class="drink-icon" src="../images/coffee-icon.png" mode="aspectFit"></image>
+      <view class="drink-info">
+        <text class="drink-name">{{item.name}}</text>
+        <text class="drink-time">{{item.time}}</text>
+      </view>
+      <text class="drink-caffeine">{{item.caffeine}}mg</text>
+      <image class="record-arrow" src="../images/arrow_right.png" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 折叠提示卡片 - 根据状态决定位置和文字 -->
+  <view wx:if="{{drinkRecords.length > 3}}" class="fold-card shadow {{isExpanded ? 'expanded' : ''}}" bindtap="toggleRecords">
+    <view class="fold-content">
+      <text class="fold-text">{{isExpanded ? '收起记录' : '还有 ' + (drinkRecords.length - 3) + ' 条记录'}}</text>
+      <view class="fold-icon {{isExpanded ? 'expanded' : ''}}">
+        <text class="arrow-down">▼</text>
+      </view>
+    </view>
+  </view>
 </view>
 
 
 <!-- 按钮 -->
 <view class="btn-group">
-  <button class="btn-add shadow" bindtap="goToBrandSelect" style="width: 300rpx; display: block; box-sizing: border-box; left: 14rpx; top: 40rpx; position: relative">追加记录</button>
-  <button class="btn-state shadow" bindtap="goToRecordingState" style="width: 300rpx; display: block; box-sizing: border-box; left: -15rpx; top: 40rpx; position: relative">状态记录</button>
+  <button class="btn-add shadow" bindtap="goToBrandSelect">追加记录</button>
+  <button class="btn-state shadow" bindtap="goToRecordingState">状态记录</button>
 </view>
 
 <!-- 底部插图 -->
