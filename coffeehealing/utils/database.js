@@ -1,401 +1,94 @@
 // utils/database.js
-// 数据库接入模板 - 用于替换模拟数据
+const dal = require('../services/db.js');
 
-/**
- * 数据库配置
- * 支持多种数据库类型：
- * 1. 云开发数据库 (推荐)
- * 2. 自建服务器 API
- * 3. 第三方云服务 (如 LeanCloud、Bmob 等)
- */
+/** 品牌映射（按需增补或直接用中文） */
+const BRAND_MAP = {
+  starbucks: '星巴克',
+  luckin: '瑞幸',
+  kfc: 'KCOFFEE',
+  mccafe: 'McCafé',
+  tims: 'Tims',
+  manner: 'Manner',
+  saturnbird: '三顿半',
+  nescafe: '雀巢咖啡',
+  heytea: '喜茶'
+};
+const BRAND_REVERSE = Object.fromEntries(
+  Object.entries(BRAND_MAP).map(([id, name]) => [name, id])
+);
 
-// 云开发数据库配置 (推荐)
-const cloudConfig = {
-  env: 'your-env-id', // 替换为你的云环境ID
-  collection: {
-    brands: 'brands',
-    drinks: 'drinks',
-    userFavorites: 'user_favorites',
-    userCustom: 'user_custom',
-    userRecent: 'user_recent'
-  }
+/** 表行 → 页面 drink 对象 */
+function rowToDrink(row) {
+  const caffeine = Number(row.caffeine_mg ?? row.caffeine_per_serving_mg ?? 0);
+  const brandName = row.brand || '';
+  const brandId = BRAND_REVERSE[brandName] || brandName; // 映射不到就用中文
+  return {
+    id: row.objectId,
+    name: row.product,
+    caffeine,
+    unit: '/每份',
+    size_key: row.size_key,
+    size_ml: row.size_ml ?? null,
+    emoji: '☕',
+    category: brandId,
+    isFavorite: false,
+    _raw: row
+  };
 }
 
-// API 服务器配置
-const apiConfig = {
-  baseUrl: 'https://your-api-domain.com/api',
-  endpoints: {
-    brands: '/brands',
-    drinks: '/drinks',
-    favorites: '/favorites',
-    custom: '/custom',
-    recent: '/recent'
-  }
+/** 读品牌（仅展示 approved & isPublic=true） */
+async function getBrands() {
+  const page1 = await dal.listDrinks({ page: 1, pageSize: 1000 });
+  const rows = page1.filter(r =>
+    (r.status ?? 'approved') === 'approved' &&
+    (r.isPublic ?? true) === true &&
+    !!r.brand
+  );
+  const uniq = Array.from(new Set(rows.map(r => r.brand))).sort();
+  return uniq.map(name => ({
+    id: BRAND_REVERSE[name] || name,
+    name,
+    emoji: '🧋'
+  }));
 }
 
-/**
- * 数据库操作类
- */
-class DatabaseService {
-  constructor() {
-    this.init()
-  }
-
-  // 初始化数据库连接
-  init() {
-    // 云开发初始化
-    if (wx.cloud) {
-      wx.cloud.init({
-        env: cloudConfig.env,
-        traceUser: true
-      })
-    }
-  }
-
-  /**
-   * 获取品牌列表
-   * @param {Function} callback 回调函数
-   */
-  getBrands(callback) {
-    // 云开发方式
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.brands)
-        .get()
-        .then(res => {
-          callback && callback(res.data)
-        })
-        .catch(err => {
-          console.error('获取品牌列表失败:', err)
-          callback && callback([])
-        })
-    } else {
-      // API 方式
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.brands}`,
-        method: 'GET',
-        success: (res) => {
-          callback && callback(res.data)
-        },
-        fail: (err) => {
-          console.error('获取品牌列表失败:', err)
-          callback && callback([])
-        }
-      })
-    }
-  }
-
-  /**
-   * 获取饮品列表
-   * @param {String} brandId 品牌ID
-   * @param {Function} callback 回调函数
-   */
-  getDrinks(brandId, callback) {
-    if (wx.cloud) {
-      const query = brandId ? { brandId: brandId } : {}
-      wx.cloud.database().collection(cloudConfig.collection.drinks)
-        .where(query)
-        .get()
-        .then(res => {
-          callback && callback(res.data)
-        })
-        .catch(err => {
-          console.error('获取饮品列表失败:', err)
-          callback && callback([])
-        })
-    } else {
-      const url = brandId 
-        ? `${apiConfig.baseUrl}${apiConfig.endpoints.drinks}?brandId=${brandId}`
-        : `${apiConfig.baseUrl}${apiConfig.endpoints.drinks}`
-      
-      wx.request({
-        url: url,
-        method: 'GET',
-        success: (res) => {
-          callback && callback(res.data)
-        },
-        fail: (err) => {
-          console.error('获取饮品列表失败:', err)
-          callback && callback([])
-        }
-      })
-    }
-  }
-
-  /**
-   * 获取用户收藏
-   * @param {String} userId 用户ID
-   * @param {Function} callback 回调函数
-   */
-  getUserFavorites(userId, callback) {
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userFavorites)
-        .where({ userId: userId })
-        .get()
-        .then(res => {
-          callback && callback(res.data)
-        })
-        .catch(err => {
-          console.error('获取用户收藏失败:', err)
-          callback && callback([])
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.favorites}?userId=${userId}`,
-        method: 'GET',
-        success: (res) => {
-          callback && callback(res.data)
-        },
-        fail: (err) => {
-          console.error('获取用户收藏失败:', err)
-          callback && callback([])
-        }
-      })
-    }
-  }
-
-  /**
-   * 添加收藏
-   * @param {String} userId 用户ID
-   * @param {Object} drink 饮品信息
-   * @param {Function} callback 回调函数
-   */
-  addFavorite(userId, drink, callback) {
-    const data = {
-      userId: userId,
-      drinkId: drink.id,
-      drink: drink,
-      createTime: new Date()
-    }
-
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userFavorites)
-        .add({ data: data })
-        .then(res => {
-          callback && callback(true)
-        })
-        .catch(err => {
-          console.error('添加收藏失败:', err)
-          callback && callback(false)
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.favorites}`,
-        method: 'POST',
-        data: data,
-        success: (res) => {
-          callback && callback(true)
-        },
-        fail: (err) => {
-          console.error('添加收藏失败:', err)
-          callback && callback(false)
-        }
-      })
-    }
-  }
-
-  /**
-   * 取消收藏
-   * @param {String} userId 用户ID
-   * @param {String} drinkId 饮品ID
-   * @param {Function} callback 回调函数
-   */
-  removeFavorite(userId, drinkId, callback) {
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userFavorites)
-        .where({
-          userId: userId,
-          drinkId: drinkId
-        })
-        .remove()
-        .then(res => {
-          callback && callback(true)
-        })
-        .catch(err => {
-          console.error('取消收藏失败:', err)
-          callback && callback(false)
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.favorites}`,
-        method: 'DELETE',
-        data: {
-          userId: userId,
-          drinkId: drinkId
-        },
-        success: (res) => {
-          callback && callback(true)
-        },
-        fail: (err) => {
-          console.error('取消收藏失败:', err)
-          callback && callback(false)
-        }
-      })
-    }
-  }
-
-  /**
-   * 添加自定义饮品
-   * @param {String} userId 用户ID
-   * @param {Object} drink 饮品信息
-   * @param {Function} callback 回调函数
-   */
-  addCustomDrink(userId, drink, callback) {
-    const data = {
-      userId: userId,
-      ...drink,
-      createTime: new Date()
-    }
-
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userCustom)
-        .add({ data: data })
-        .then(res => {
-          callback && callback(true)
-        })
-        .catch(err => {
-          console.error('添加自定义饮品失败:', err)
-          callback && callback(false)
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.custom}`,
-        method: 'POST',
-        data: data,
-        success: (res) => {
-          callback && callback(true)
-        },
-        fail: (err) => {
-          console.error('添加自定义饮品失败:', err)
-          callback && callback(false)
-        }
-      })
-    }
-  }
-
-  /**
-   * 获取用户自定义饮品
-   * @param {String} userId 用户ID
-   * @param {Function} callback 回调函数
-   */
-  getCustomDrinks(userId, callback) {
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userCustom)
-        .where({ userId: userId })
-        .orderBy('createTime', 'desc')
-        .get()
-        .then(res => {
-          callback && callback(res.data)
-        })
-        .catch(err => {
-          console.error('获取自定义饮品失败:', err)
-          callback && callback([])
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.custom}?userId=${userId}`,
-        method: 'GET',
-        success: (res) => {
-          callback && callback(res.data)
-        },
-        fail: (err) => {
-          console.error('获取自定义饮品失败:', err)
-          callback && callback([])
-        }
-      })
-    }
-  }
-
-  /**
-   * 更新最近浏览
-   * @param {String} userId 用户ID
-   * @param {Object} drink 饮品信息
-   * @param {Function} callback 回调函数
-   */
-  updateRecent(userId, drink, callback) {
-    const data = {
-      userId: userId,
-      drinkId: drink.id,
-      drink: drink,
-      viewTime: new Date()
-    }
-
-    if (wx.cloud) {
-      // 先删除旧的记录
-      wx.cloud.database().collection(cloudConfig.collection.userRecent)
-        .where({
-          userId: userId,
-          drinkId: drink.id
-        })
-        .remove()
-        .then(() => {
-          // 添加新记录
-          return wx.cloud.database().collection(cloudConfig.collection.userRecent)
-            .add({ data: data })
-        })
-        .then(res => {
-          callback && callback(true)
-        })
-        .catch(err => {
-          console.error('更新最近浏览失败:', err)
-          callback && callback(false)
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.recent}`,
-        method: 'POST',
-        data: data,
-        success: (res) => {
-          callback && callback(true)
-        },
-        fail: (err) => {
-          console.error('更新最近浏览失败:', err)
-          callback && callback(false)
-        }
-      })
-    }
-  }
-
-  /**
-   * 获取最近浏览
-   * @param {String} userId 用户ID
-   * @param {Number} limit 限制数量
-   * @param {Function} callback 回调函数
-   */
-  getRecent(userId, limit = 20, callback) {
-    if (wx.cloud) {
-      wx.cloud.database().collection(cloudConfig.collection.userRecent)
-        .where({ userId: userId })
-        .orderBy('viewTime', 'desc')
-        .limit(limit)
-        .get()
-        .then(res => {
-          callback && callback(res.data)
-        })
-        .catch(err => {
-          console.error('获取最近浏览失败:', err)
-          callback && callback([])
-        })
-    } else {
-      wx.request({
-        url: `${apiConfig.baseUrl}${apiConfig.endpoints.recent}?userId=${userId}&limit=${limit}`,
-        method: 'GET',
-        success: (res) => {
-          callback && callback(res.data)
-        },
-        fail: (err) => {
-          console.error('获取最近浏览失败:', err)
-          callback && callback([])
-        }
-      })
-    }
-  }
+/** 读某品牌饮品；brand='common' 返回空（保留你们本地 common 逻辑） */
+async function getDrinks(brandIdOrCommon, { page = 1, pageSize = 40, keyword = '' } = {}) {
+  if (brandIdOrCommon === 'common') return [];
+  const brandName = BRAND_MAP[brandIdOrCommon] || brandIdOrCommon;
+  const rows = await dal.listDrinks({ brand: brandName, keyword, page, pageSize });
+  const filtered = rows.filter(r =>
+    (r.status ?? 'approved') === 'approved' &&
+    (r.isPublic ?? true) === true
+  );
+  return filtered.map(rowToDrink);
 }
 
-// 创建数据库服务实例
-const dbService = new DatabaseService()
+/** —— 最近 / 收藏 / 自定义：本地存储兜底，与旧页面兼容 —— */
+function _get(key, def = []) { try { return wx.getStorageSync(key) || def; } catch { return def; } }
+function _set(key, v) { try { wx.setStorageSync(key, v); } catch {} }
+
+function getRecent(userId, limit = 20, cb) { const arr = _get('recentDrinks').slice(0, limit); cb && cb(arr); return arr; }
+function updateRecent(userId, drink, cb) {
+  let arr = _get('recentDrinks');
+  arr = arr.filter(d => d.id !== drink.id);
+  arr.unshift(drink);
+  if (arr.length > 50) arr = arr.slice(0, 50);
+  _set('recentDrinks', arr);
+  cb && cb(true); return true;
+}
+function getUserFavorites(userId, cb) { const v = _get('favoriteDrinks'); cb && cb(v); return v; }
+function addFavorite(userId, drink, cb) { const v = _get('favoriteDrinks'); if (!v.find(d=>d.id===drink.id)) v.push(drink); _set('favoriteDrinks', v); cb && cb(true); }
+function removeFavorite(userId, id, cb) { let v = _get('favoriteDrinks'); v = v.filter(d=>d.id!==id); _set('favoriteDrinks', v); cb && cb(true); }
+function getCustomDrinks(userId, cb) { const v = _get('customDrinks'); cb && cb(v); return v; }
+function addCustomDrink(userId, drink, cb) { const v = [drink, ..._get('customDrinks')]; _set('customDrinks', v); cb && cb(true); }
 
 module.exports = {
-  dbService,
-  cloudConfig,
-  apiConfig
-}
+  dbService: {
+    getBrands,
+    getDrinks,
+    getRecent, updateRecent,
+    getUserFavorites, addFavorite, removeFavorite,
+    getCustomDrinks, addCustomDrink
+  }
+};
