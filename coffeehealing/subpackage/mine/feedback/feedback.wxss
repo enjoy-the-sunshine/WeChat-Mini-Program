@@ -33,13 +33,19 @@
 }
 
 .form-item {
-  margin-bottom: 50rpx;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 38.6rpx 30rpx; /* 设置间距：左右为38.6rpx，下边距增加为30rpx */
+  border-radius: 25px;
+  padding: 16rpx;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
 }
 
 /* 类型选择器容器 */
 .type-selector-container {
-  z-index: 1000; /* 提高容器层级 */
+  z-index: 1000;
 }
 
 /* 选择器样式 */
@@ -60,26 +66,6 @@
 .picker.error {
   border-color: #ff4d4f;
 }
-/* WXSS: 样式让它像现在的 view */
-.picker-input {
-  width: 100%;
-  height: 90rpx;
-  line-height: 90rpx;
-  border: 2rpx solid #e0e0e0;
-  border-radius: 15rpx;
-  padding: 0 25rpx;
-  font-size: 28rpx;
-  background-color: #fff;
-}
-
-.picker-input.error {
-  border-color: #ff4d4f;
-}
-
-.placeholder-text {
-  color: #999;
-}
-
 
 .placeholder-text {
   color: #999;
@@ -107,7 +93,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  z-index: 9999; /* 最高层级 */
+  z-index: 9999;
 }
 
 .type-options {
@@ -171,12 +157,12 @@
 /* 图片上传区域 */
 .img-upload-container {
   display: flex;
-  gap: 20rpx;
+  gap: 20rpx; /* 设定图片盒子之间的间距 */
 }
 
 .img-box {
-  width: 220rpx;
-  height: 220rpx;
+  width: 160rpx; /* 缩小宽度 */
+  height: 160rpx; /* 缩小高度 */
   border-radius: 15rpx;
   position: relative;
   flex-shrink: 0;
@@ -200,7 +186,7 @@
 }
 
 .add-icon {
-  font-size: 60rpx;
+  font-size: 40rpx; /* 缩小添加图标大小 */
   color: #999;
 }
 
