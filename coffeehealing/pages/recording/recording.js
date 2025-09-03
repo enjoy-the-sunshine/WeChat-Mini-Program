@@ -6,7 +6,7 @@ require('../../libs/leancloud-adapters-weapp.js');
 Page({
   data: {
     currentYear: 2025,
-    currentMonth: 9,
+    currentMonth: 8,
     days: [],
     selectedDate: '',
     selectedDateDisplay: '',
@@ -177,14 +177,10 @@ Page({
   },
   /** 跳转状态记录 */
   goToRecordingState() {
-    // 如果没有选中日期就用今天
-    const selectedDate = this.data.selectedDate || new Date().toISOString().slice(0, 10);
-    
     wx.navigateTo({
-      url: `/subpackage/recording/recording_state/recording_state?date=${selectedDate}`
+      url: '/subpackage/recording/recording_state/recording_state'
     });
   },
-  
 
   /** 页面显示时刷新当前选中日期 */
   onShow() {
@@ -197,41 +193,23 @@ Page({
   fetchDrinkRecords(dateString) {
     const AV = require('../../libs/av-core-min.js');
     require('../../libs/leancloud-adapters-weapp.js');
-  
-    const [year, month, day] = dateString.split('-').map(Number);
-    const startOfDay = new Date(year, month - 1, day, 0, 0, 0);
-    const endOfDay = new Date(year, month - 1, day + 1, 0, 0, 0);
-  
+
+    const dateOnly = new Date(`${dateString}T00:00:00`);
     const deletedIds = wx.getStorageSync('deletedIntakeIds') || [];
-  
+
     const query = new AV.Query('intakes');
-    query.greaterThanOrEqualTo('takenAt', startOfDay);
-    query.lessThan('takenAt', endOfDay);
-    query.ascending('takenAt_time');
-  
+    query.equalTo('takenAt', dateOnly);
+    query.ascending('takenAt_time'); // 按时间顺序
     query.find().then(list => {
-      let records = list.map(obj => {
-        let timeVal = obj.get('takenAt_time');
-  
-        // 兼容 Date / String 类型
-        if (typeof timeVal === 'string') {
-          timeVal = timeVal.replace(/-/g, '/');
-        }
-  
-        return {
-          objectId: obj.id,
-          brand: obj.get('brand') || '',
-          name: obj.get('product') || '',
-          caffeine: obj.get('caffeine_total_mg') || 0,
-          time: typeof timeVal === 'string'
-            ? timeVal
-            : this.formatTime(new Date(timeVal))
-        };
-      });
-  
-      // 过滤删除的
+      let records = list.map(obj => ({
+        objectId: obj.id,
+        brand: obj.get('brand') || '',
+        name: obj.get('product') || '',
+        caffeine: obj.get('caffeine_total_mg') || 0,
+        time: obj.get('takenAt_time') || ''
+      }));
+      // 过滤掉已删除记录
       records = records.filter(r => !deletedIds.includes(r.objectId));
-  
       this.setData({ drinkRecords: records });
       this.updateTotalCaffeine(records);
     }).catch(err => {
@@ -239,7 +217,6 @@ Page({
       this.setData({ drinkRecords: [], totalCaffeine: 0 });
     });
   },
-  
 
   /** 更新总咖啡因 */
   updateTotalCaffeine(records) {

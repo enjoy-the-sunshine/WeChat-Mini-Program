@@ -23,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
-  font-size: 36rpx;
+  font-size: 35rpx;
   color: #5b4b3b;
 }
 

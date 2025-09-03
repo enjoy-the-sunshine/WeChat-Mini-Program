@@ -1,11 +1,13 @@
-// pages/register/register.js
-const db = require('../../service/db.js');
-
 Page({
   data: {
     phone: '',
     password: '',
     password2: '',
+    showPwd: false,
+    showPwd2: false,
+    agreed: false,
+    showPassword: false,
+    showConfirmPassword: false,
     isAgree: false
   },
 
@@ -21,56 +23,103 @@ Page({
     this.setData({ password2: e.detail.value });
   },
 
-  onAgreeChange(e) {
-    this.setData({ isAgree: e.detail.value.length > 0 });
+  togglePwd() {
+    this.setData({ showPwd: !this.data.showPwd });
   },
-  
 
-  async onRegister() {
+  togglePwd2() {
+    this.setData({ showPwd2: !this.data.showPwd2 });
+  },
+
+  onAgreeChange(e) {
+    const isChecked = Array.isArray(e.detail?.value) && e.detail.value.length > 0;
+    this.setData({ isAgree: isChecked });
+    },
+
+  onRegister() {
+    if (!this.data.agreed) {
+      wx.showToast({ title: '请先勾选协议', icon: 'none' });
+      return;
+    }
     if (!this.data.phone) {
-      return wx.showToast({ title: '请输入手机号', icon: 'none' });
+      wx.showToast({ title: '请输入手机号', icon: 'none' });
+      return;
     }
-    if (!this.data.password) {
-      return wx.showToast({ title: '请输入密码', icon: 'none' });
-    }
-    if (!this.data.isAgree) {
-      return wx.showToast({ title: '请先同意协议', icon: 'none' });
+    if (!this.data.password || !this.data.password2) {
+      wx.showToast({ title: '请输入密码', icon: 'none' });
+      return;
     }
     if (this.data.password !== this.data.password2) {
-      return wx.showToast({ title: '两次密码不一致', icon: 'none' });
+      wx.showToast({ title: '两次密码不一致', icon: 'none' });
+      return;
     }
+    wx.showToast({ title: '注册成功', icon: 'success' });
+  },
 
-    try {
-      wx.showLoading({ title: '注册中...' });
-      const { user, profile } = await db.registerWithPhone(this.data.phone, this.data.password, {
-        display_name: '新用户',             // 对应数据库 display_name
-        phone_contact: this.data.phone,    // 对应数据库 phone_contact
-        height_cm: null,
-        weight_kg: null,
-        age: null,
-        caffeine_template_key: '',
-        bedtime_caffeine_threshold_mg: null,
-        bedtime_target: '',
-        bear_style: {},
-        onboarding_answers1: null,
-        onboarding_answers2: null,
-        onboarding_answers3: null,
-        onboarding_answers4: null,
-        onboarding_answers5: null
+  goUserProtocol() {
+    wx.navigateTo({ url: '/pages/protocol/user/user' });
+  },
+
+  goPrivacy() {
+    wx.navigateTo({ url: '/pages/protocol/privacy/privacy' });
+  },
+
+  onHelp() {
+    wx.showToast({ title: '请联系管理员', icon: 'none' });
+  },
+
+  togglePassword() {
+    this.setData({
+      showPassword: !this.data.showPassword
+    });
+  },
+
+  toggleConfirmPassword() {
+    this.setData({
+      showConfirmPassword: !this.data.showConfirmPassword
+    });
+  },
+
+  onAgreeChange(e) {
+    this.setData({
+      isAgree: e.detail.value
+    });
+  },
+
+  onRegister() {
+    if (!this.data.isAgree) {
+      wx.showToast({
+        title: '请先同意用户协议和隐私政策',
+        icon: 'none'
       });
-
-      wx.setStorageSync('userId', user.objectId);
-      wx.setStorageSync('profile', profile);
-
-      wx.hideLoading();
-      wx.showToast({ title: '注册成功', icon: 'success' });
-
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1000);
-    } catch (err) {
-      wx.hideLoading();
-      wx.showToast({ title: err.message || '注册失败', icon: 'none' });
+      return;
     }
+    
+    wx.showToast({
+      title: '注册成功',
+      icon: 'success'
+    });
+    
+    setTimeout(() => {
+      wx.navigateBack();
+    }, 1500);
+  },
+
+  openUserAgreement() {
+    wx.navigateTo({
+      url: '/pages/protocol/user/user'
+    });
+  },
+
+  openPrivacyPolicy() {
+    wx.navigateTo({
+      url: '/pages/protocol/privacy/privacy'
+    });
+  },
+
+  onHelp() {
+    wx.navigateTo({
+      url: '/pages/register/help/help'
+    });
   }
 });

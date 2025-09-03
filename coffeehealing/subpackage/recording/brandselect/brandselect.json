@@ -1,9 +1,4 @@
 {
-  "navigationBarTitleText": "添加今日饮品",
-  "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTextStyle": "black",
-  "backgroundColor": "#f5f7fa",
-  "enablePullDownRefresh": false,
-  "disableScroll": false,
-  "navigationStyle": "default"
+  "navigationBarTitleText": "添加饮品",
+  "usingComponents": {}
 }

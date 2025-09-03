@@ -1,36 +1,16 @@
 <!--pages/login_phone/login_phone.wxml-->
 <view class="container">
-  <image class="bear-fly" src="../images/bear_fly.png" mode="widthFix"
-    style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
+  <image class="bear-fly" src="../images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
 
-  <text class="title" style="font-size: 60rpx; font-weight: bold">CoffeeHealing~</text>
+  <text 
+  class="title" 
+  style="font-size: 60rpx; font-weight: bold"
+>CoffeeHealing~</text>
 
-  <!-- 手机号输入 -->
-  <input
-    style="width: 580rpx; display: block; box-sizing: border-box"
-    class="input"
-    placeholder="手机号"
-    maxlength="11"
-    type="number"
-    bindinput="onPhoneInput"
-  />
-
-  <!-- 密码输入 -->
+  <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" placeholder="手机号" />
   <view class="password-box">
-    <input
-      style="width: 580rpx; display: block; box-sizing: border-box"
-      class="input"
-      password="{{!showPassword}}"
-      placeholder="密码"
-      maxlength="12"
-      bindinput="onPwdInput"
-    />
-    <image
-      class="eye"
-      src="{{showPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}"
-      bindtap="togglePassword"
-      style="position: absolute; left: 517rpx; top: 45rpx"
-    ></image>
+    <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" password="{{!showPassword}}" placeholder="密码" />
+    <image class="eye" src="{{showPassword ? '/images/eye_open.png' : '/images/eye_close.png'}}" bindtap="togglePassword" style="position: absolute; left: 517rpx; top: 45rpx"></image>
   </view>
 
   <view class="tips">
@@ -41,8 +21,7 @@
   <button class="btn" bindtap="onLogin">一键登录</button>
 
   <navigator url="/pages/login_wechat/login_wechat" class="other" style="position: relative; left: 0rpx; top: -34rpx">其他登陆方式</navigator>
-  <image class="bear-lie" src="../images/bear_lie.png" mode="widthFix"
-    style="width: 271rpx; height: 206rpx; display: block; box-sizing: border-box"></image>
+  <image class="bear-lie" src="../images/bear_lie.png" mode="widthFix" style="width: 271rpx; height: 206rpx; display: block; box-sizing: border-box"></image>
 
   <navigator url="/pages/register/help/help" class="problem">登录遇到问题?</navigator>
 </view>
