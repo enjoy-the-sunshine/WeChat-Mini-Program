@@ -1,3 +1,5 @@
+const AV = require('../../../libs/av-core-min.js');
+require('../../../libs/leancloud-adapters-weapp.js');
 Page({
     data: {
       /* ===== 今日心情（示例） ===== */
@@ -55,7 +57,8 @@ Page({
         bearDiary: '../assets/bear_diary.png'
       },
   
-      note: ''
+      note: '',
+      targetDate: '' // 保存要查询的日期
     },
   
     /* 今日心情 */
@@ -90,19 +93,119 @@ Page({
     onPickFeel(e) { this.setData({ feel: e.currentTarget.dataset.id }); },
     onInputNote(e) { this.setData({ note: e.detail.value }); },
   
-    onSubmit() {
-      const payload = {
-        mood: this.data.mood,
-        sleepTime: this.data.sleepTime,
-        // 以小时小数上报，例如 8.5h
-        sleepDuration: this.data.durationText,
-        efficiency: this.data.sleepEfficiency,
-        score: this.data.sleepScore,
-        feel: this.data.feel,
-        note: this.data.note
+    onLoad(options) {
+      const dateParam = options.date || new Date().toISOString().slice(0, 10);
+      this.setData({ targetDate: dateParam });
+      this.fetchHealthDaily(dateParam);
+    },
+  
+    async fetchHealthDaily(dateStr) {
+      const user = AV.User.current();
+      if (!user) return;
+    
+      const dateOnly = new Date(`${dateStr}T00:00:00`);
+    
+      try {
+        const query = new AV.Query('health_daily');
+        query.equalTo('user', user);
+        query.equalTo('date', dateOnly);
+        const obj = await query.first();
+    
+        if (obj) {
+          const data = obj.toJSON();
+          const moodReverseMap = {
+            1: 'cry',
+            2: 'diss',
+            3: 'sleepy',
+            4: 'happy',
+            5: 'very'
+          };
+    
+          this.setData({
+            mood: moodReverseMap[data.mood_day] || 'happy',
+            sleepTime: data.sleep_bedtime ? new Date(data.sleep_bedtime).toTimeString().slice(0, 5) : '22:00',
+            durationMinutes: data.sleep_duration_min || 480,
+            durationText: `${((data.sleep_duration_min || 480) / 60).toFixed(1)}h`,
+            note: data.diary || '',
+            // 新加：如果字段为空则用默认值
+            sleepEfficiency: data.sleeping_efficiency ? Number(data.sleeping_efficiency) : 88,
+            sleepScore: data.sleeping_point ? Number(data.sleeping_point) : 59
+          });
+        } else {
+          // 没有记录，显示默认
+          this.setData({
+            mood: 'happy',
+            sleepTime: '22:00',
+            durationMinutes: 480,
+            durationText: '8.0h',
+            note: '',
+            sleepEfficiency: 88,
+            sleepScore: 59
+          });
+        }
+      } catch (err) {
+        console.error('加载 health_daily 失败', err);
+      }
+    },
+    
+  
+    async onSubmit() {
+      const user = AV.User.current();
+      if (!user) {
+        wx.showToast({ title: '请先登录', icon: 'none' });
+        return;
+      }
+    
+      const dateStr = this.data.targetDate;
+      const dateOnly = new Date(`${dateStr}T00:00:00`);
+    
+      const moodMap = {
+        cry: 1,
+        diss: 2,
+        sleepy: 3,
+        happy: 4,
+        very: 5
       };
-      console.log('提交：', payload);
-      wx.showToast({ title: '已保存', icon: 'success' });
-    }
+    
+      const bedtime = new Date(`${dateStr}T${this.data.sleepTime}:00`);
+    
+      wx.showLoading({ title: '保存中...' });
+    
+      try {
+        const query = new AV.Query('health_daily');
+        query.equalTo('user', user);
+        query.equalTo('date', dateOnly);
+        let obj = await query.first();
+    
+        if (!obj) {
+          obj = new AV.Object('health_daily');
+          obj.set('user', user);
+          obj.set('date', dateOnly);
+        }
+    
+        obj.set('sleep_bedtime', bedtime);
+        obj.set('sleep_duration_min', this.data.durationMinutes);
+        obj.set('mood_day', moodMap[this.data.mood] || 3);
+        obj.set('diary', this.data.note || '');
+    
+        // 新加：保存睡眠效率和评分（转成 string 存储）
+        obj.set('sleeping_efficiency', String(this.data.sleepEfficiency));
+        obj.set('sleeping_point', String(this.data.sleepScore));
+    
+        await obj.save();
+        wx.showToast({ title: '已保存', icon: 'success' });
+    
+        // 延迟 1 秒返回上一页
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 1000);
+    
+      } catch (err) {
+        console.error('保存状态失败', err);
+        wx.showToast({ title: '保存失败', icon: 'error' });
+      } finally {
+        wx.hideLoading();
+      }
+    }    
   });
   

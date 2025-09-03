@@ -5,8 +5,8 @@ page {
 .setting-item {
   background-color: #fff;
   border-radius: 36rpx;
-  margin: 24rpx 38.6rpx 0 38.6rpx; /* 修改左右页边距为 38.6rpx */
-  padding: 24rpx; /* 保持不变，仍然适用于上下和左右的偏移 */
+  margin: 24rpx 20rpx 0 20rpx;
+  padding: 24rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
@@ -87,11 +87,12 @@ page {
   color: #999;
 }
 
+/* 恢复按钮 */
 .reset-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40rpx 38.6rpx; /* 修改左右页边距为 38.6rpx */
+  margin: 40rpx 20rpx;
   background-color: #fff;
   border-radius: 36rpx;
   height: 72rpx;

@@ -19,7 +19,7 @@
       <view class="mood-grid" style="position: relative; left: -20rpx; top: 14rpx">
         <block wx:for="{{moodList}}" wx:key="id">
           <view class="mood-item {{mood===item.id?'active':''}}" bindtap="onPickMood" data-id="{{item.id}}">
-            <image class="mood-img" src="{{item.src}}" mode="aspectFit" style="width: 95rpx; height: 85rpx; display: block; box-sizing: border-box; position: relative; left: 3rpx; top: 0rpx"></image>
+            <image class="mood-img" src="{{item.src}}" mode="aspectFit"></image>
           </view>
         </block>
       </view>
@@ -153,6 +153,6 @@
   <!-- 确认按钮 -->
   <view class="footer">
     <view class="btn-primary" hover-class="btn-primary--active" bindtap="onSubmit"
-          style="position: relative; top: -62rpx; left: 0rpx">确认</view>
+          style="position: relative; top: -110rpx">确认</view>
   </view>
 </view>
