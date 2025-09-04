@@ -4,41 +4,36 @@
   </view>
 
   <view class="form-content">
-    
- <!-- 反馈类型选择 -->
-<view class="form-item type-selector-container">
-  <text class="label required">反馈类型选择</text>
+    <!-- 反馈类型选择 -->
+    <view class="form-item type-selector-container">
+      <text class="label required">反馈类型选择</text>
+      <view class="picker {{typeError ? 'error' : ''}}" bindtap="toggleTypeSelector" style="width: 489rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
+        <text class="{{selectedType ? 'selected-text' : 'placeholder-text'}}" style="position: relative; left: -4rpx; top: -91rpx">
+          {{selectedType ? selectedType : '请选择反馈类型'}}
+        </text>
+        <view class="arrow-down"></view>
+      </view>
 
-  <!-- 原生输入框，readonly 禁止手动输入 -->
-  <input class="picker-input {{typeError ? 'error' : ''}}"
-         placeholder="请选择反馈类型"
-         placeholder-class="placeholder-text"
-         value="{{selectedType}}"
-         readonly
-         data-class="picker"
-         bindtap="toggleTypeSelector" />
+      <!-- 下拉框 -->
+      <view class="type-options-container" wx:if="{{showTypeSelector}}">
+        <view class="type-options">
+          <view 
+            class="type-option" 
+            wx:for="{{typeOptions}}" 
+            wx:key="index"
+            data-value="{{item}}"
+            bindtap="selectType"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
 
-  <!-- 下拉选项 -->
-  <view class="type-options-container" wx:if="{{showTypeSelector}}">
-    <view class="type-options">
-      <view 
-        class="type-option" 
-        wx:for="{{typeOptions}}" 
-        wx:key="index"
-        data-value="{{item}}"
-        data-class="type-option"
-        catchtap="selectType">
-        {{item}}
+      <view class="error-message {{typeError ? 'show' : ''}}">
+        <text class="error-icon">!</text>
+        <text>请选择反馈类型</text>
       </view>
     </view>
-  </view>
-
-  <view class="error-message {{typeError ? 'show' : ''}}">
-    <text class="error-icon">!</text>
-    <text>请选择反馈类型</text>
-  </view>
-</view>
-
 
     <!-- 其他代码保持不变 -->
     <!-- 问题描述 -->
@@ -59,8 +54,8 @@
     </view>
 
     <!-- 图片上传区 -->
-    <view class="form-item">
-      <text class="label" style="position: relative; left: 0rpx; top: -41rpx">上传图片（最多3张）</text>
+    <view class="form-item" style="height: 262rpx; display: flex; box-sizing: border-box">
+      <text class="label" style="position: relative; left: 1rpx; top: -16rpx">上传图片（最多3张）</text>
       <view class="img-upload-container">
         <view 
           class="img-box {{index < images.length ? 'has-image' : (index === images.length ? 'add-btn' : 'disabled-box')}}" 
@@ -81,7 +76,7 @@
     </view>
 
     <!-- 提交按钮 -->
-    <view class="submit-btn-container">
+    <view class="submit-btn-container" style="position: relative; left: 0rpx; top: 20rpx">
       <button class="submit-btn {{canSubmit ? '' : 'disabled'}}" bindtap="submitForm" style="height: 106rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx; position: relative">
         提交反馈
       </button>
