@@ -45,6 +45,7 @@
 
 /* 类型选择器容器 */
 .type-selector-container {
+  position: relative; /* 新增这一行 */
   z-index: 1000;
 }
 

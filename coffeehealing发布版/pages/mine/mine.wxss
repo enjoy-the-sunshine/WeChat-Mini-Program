@@ -1,0 +1,120 @@
+.container {
+  background-color: #fdf8e3;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.back-icon, .title, .right-icons {
+  font-size: 16px;
+  color: #333;
+}
+
+.header {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.nickname, .level {
+  display: block;
+  margin: 5px 0;
+}
+
+.progress {
+  width: 80%;
+  background-color: #dcc19b;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #c49769;
+  border-radius: 5px;
+}
+
+.points {
+  font-size: 14px;
+  color: #666;
+}
+
+.menu {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-item {
+  width: 675rpx; /* 根据之前的宽度设置 */
+  height: 116rpx; /* 根据之前的高度设置 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 30rpx; /* 调整左右padding，增加图标和文本距离边界的大小 */
+  border-radius: 50rpx;
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  margin-top: 50rpx;
+}
+
+.icon {
+  width: 60rpx; /* 根据设计需求调整图标大小 */
+  height: 60rpx;
+}
+
+.menu-text {
+  margin-left: 15rpx; /* 调整文字距离图标的距离 */
+  color: #AC886D; /* 与图片示例中颜色匹配 */
+  font-size: 34.74rpx; /* 18 * 1.93 的结果 */
+  font-weight: bold; /* 设置文本加粗 */
+  font-family: '思源黑体', sans-serif; /* 字体设置为思源黑体 */
+}
+
+
+
+
+
+.level {
+  font-size: 28rpx;
+  color: #795548; /* 原颜色保留 */
+  text-align: center; /* 水平居中 */
+  width: 100%; /* 占满父容器宽度 */
+  height: 41rpx;
+  display: block;
+  box-sizing: border-box;
+  margin-top: 10rpx; /* 替代原来的 top */
+}
+
+
+
+
+
+.footer-image {
+  width: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  margin-top: auto;
+}

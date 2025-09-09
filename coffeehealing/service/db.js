@@ -276,7 +276,7 @@ async function registerWithPhone(phone, password, defaults = {}) {
       throw err;
     }
   }
-
+  
   const userId = registeredUser.id;
 
   // 创建或获取 user_profiles
@@ -305,6 +305,18 @@ async function registerWithPhone(phone, password, defaults = {}) {
 
   return { user: registeredUser.toJSON(), profile };
 }
+// 检查手机号是否已注册
+async function queryUserByPhone(phone) {
+  const query = new AV.Query('_User');
+  query.equalTo('phone', phone);
+  const result = await query.find();
+  return result; // 如果数组长度 > 0 就代表存在用户
+}
+
+module.exports = {
+  registerWithPhone,
+  queryUserByPhone
+};
 
 async function loginWithPhone(phone, password) {
   if (!phone || !String(phone).trim()) {

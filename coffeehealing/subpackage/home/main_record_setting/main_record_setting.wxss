@@ -4,9 +4,9 @@ page {
 
 .setting-item {
   background-color: #fff;
-  border-radius: 36rpx;
-  margin: 24rpx 38.6rpx 0 38.6rpx; /* 修改左右页边距为 38.6rpx */
-  padding: 24rpx; /* 保持不变，仍然适用于上下和左右的偏移 */
+  border-radius: 25rpx;
+  margin: 40rpx 20rpx 0 20rpx;
+  padding: 24rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
@@ -23,8 +23,10 @@ page {
 
 /* 第一块布局 */
 .first-item {
+  margin-top: 40rpx;
   display: flex;
   align-items: center;
+  margin-bottom: 40rpx;
 }
 .first-item .info {
   flex: 1;
@@ -42,7 +44,8 @@ page {
 .with-divider .top-row {
   display: flex;
   align-items: center;
-  margin-bottom: 10rpx;
+  margin-bottom: 30rpx;
+  margin-top: 0rpx;
 }
 .text-area {
   display: flex;
@@ -87,15 +90,16 @@ page {
   color: #999;
 }
 
+/* 恢复按钮 */
 .reset-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40rpx 38.6rpx; /* 修改左右页边距为 38.6rpx */
+  margin: 40rpx 20rpx;
   background-color: #fff;
   border-radius: 36rpx;
   height: 72rpx;
-  color: #c67c59;
+  color: #98592C;
   font-size: 28rpx;
   font-weight: bold;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);

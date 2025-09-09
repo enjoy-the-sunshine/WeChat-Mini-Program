@@ -6,7 +6,8 @@ Page({
     phone: '',
     password: '',
     password2: '',
-    isAgree: false
+    isAgree: false,
+    showPassword: false
   },
 
   onPhoneInput(e) {
@@ -21,30 +22,53 @@ Page({
     this.setData({ password2: e.detail.value });
   },
 
+  togglePassword() {
+    this.setData({ showPassword: !this.data.showPassword });
+  },
+
   onAgreeChange(e) {
     this.setData({ isAgree: e.detail.value.length > 0 });
   },
-  
+
+  // 新增：检测手机号是否已注册
+  async checkPhoneRegistered(phone) {
+    try {
+      const res = await db.queryUserByPhone(phone); // 需要在 db.js 里实现这个方法
+      // 如果查到了记录，就说明已注册
+      return res && res.length > 0;
+    } catch (err) {
+      console.error('检测手机号失败', err);
+      return false;
+    }
+  },
 
   async onRegister() {
-    if (!this.data.phone) {
+    const { phone, password, password2, isAgree } = this.data;
+
+    if (!phone.trim()) {
       return wx.showToast({ title: '请输入手机号', icon: 'none' });
     }
-    if (!this.data.password) {
+    if (!password) {
       return wx.showToast({ title: '请输入密码', icon: 'none' });
     }
-    if (!this.data.isAgree) {
+    if (!isAgree) {
       return wx.showToast({ title: '请先同意协议', icon: 'none' });
     }
-    if (this.data.password !== this.data.password2) {
+    if (password !== password2) {
       return wx.showToast({ title: '两次密码不一致', icon: 'none' });
+    }
+
+    // 检测手机号是否注册
+    const exists = await this.checkPhoneRegistered(phone);
+    if (exists) {
+      return wx.showToast({ title: '手机号已注册', icon: 'none' });
     }
 
     try {
       wx.showLoading({ title: '注册中...' });
-      const { user, profile } = await db.registerWithPhone(this.data.phone, this.data.password, {
-        display_name: '新用户',             // 对应数据库 display_name
-        phone_contact: this.data.phone,    // 对应数据库 phone_contact
+      const { user, profile } = await db.registerWithPhone(phone, password, {
+        display_name: '新用户',
+        phone_contact: phone,
         height_cm: null,
         weight_kg: null,
         age: null,

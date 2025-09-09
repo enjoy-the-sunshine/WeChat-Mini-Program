@@ -1,0 +1,100 @@
+<!-- 容器 -->
+<view class="container">
+  <!-- 背景图 -->
+  <image class="background-image" src="../images/coffee-bg.png" mode="aspectFill"></image>
+  
+  <!-- 标题栏 -->
+  <view class="header">
+    <view class="header-title">咖啡因管理小熊</view>
+  </view>
+  
+  <!-- 聊天消息区域 -->
+  <scroll-view 
+    class="message-container" 
+    scroll-y 
+    scroll-with-animation
+    bindscrolltolower="onScrollToLower"
+    bindscroll="onScroll"
+    scroll-top="{{scrollTop}}" style="height: 922rpx; display: block; box-sizing: border-box">
+    
+    <!-- 初始欢迎消息 -->
+    <view class="welcome-message" wx:if="{{messages.length === 0}}">
+      <view class="welcome-avatar">
+        <image style="width: 97rpx; height: 97rpx; display: inline-block; box-sizing: border-box" src="../images/bot-avatar.png" class="avatar" mode="aspectFit" />
+      </view>
+      <view class="welcome-content">
+        <view class="name-tag">咖啡因管理小熊</view>
+        <view class="welcome-text" style="width: 545rpx; display: block; box-sizing: border-box">嗨，你好！我是咖啡因管理小熊，你的可靠小伙伴，关于咖啡相关的内容我都比较了解，你有什么想问我的吗？</view>
+        <view class="quick-buttons welcome-buttons">
+          <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[0]}}">{{quickQuestions[0]}}</view>
+          <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[1]}}">{{quickQuestions[1]}}</view>
+          <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[2]}}">{{quickQuestions[2]}}</view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 消息列表 -->
+    <view class="message-list">
+      <view wx:for="{{messages}}" wx:key="id" class="message-item {{item.role === 'user' ? 'user-message-item' : 'bot-message-item'}}">
+        
+        <!-- AI消息 -->
+        <view class="bot-message" wx:if="{{item.role === 'bear'}}">
+          <image src="../images/bot-avatar.png" class="avatar" mode="aspectFit" />
+          <view class="message-bubble">
+            <view class="name-tag">咖啡因管理小熊</view>
+            <view class="message-content bot-content">{{item.content}}</view>
+          </view>
+        </view>
+        
+        <!-- 用户消息 -->
+        <view class="user-message" wx:if="{{item.role === 'user'}}">
+          <view class="message-bubble">
+            <view class="name-tag user-name">用户</view>
+            <view class="message-content user-content">{{item.content}}</view>
+          </view>
+          <image src="../images/user-avatar.png" class="avatar" mode="aspectFit" />
+        </view>
+      </view>
+      
+      <!-- 加载中提示 -->
+      <view class="loading" wx:if="{{isLoading}}">
+        <view class="loading-dot"></view>
+        <view class="loading-dot"></view>
+        <view class="loading-dot"></view>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 快捷问题区域 - 移动到输入框上方 -->
+  <view class="quick-questions-above-input" wx:if="{{!isLoading && messages.length > 0}}">
+    <view class="quick-buttons">
+      <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[0]}}">{{quickQuestions[0]}}</view>
+      <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[1]}}">{{quickQuestions[1]}}</view>
+      <view class="quick-btn" bindtap="sendQuickQuestion" data-question="{{quickQuestions[2]}}">{{quickQuestions[2]}}</view>
+    </view>
+  </view>
+  
+  <!-- 输入区域 -->
+  <view class="input-area" style="position: relative; left: 2rpx; top: 166rpx">
+    <input 
+      class="input" 
+      placeholder="发送消息..." 
+      value="{{inputMessage}}"
+      bindinput="onInput"
+      bindconfirm="sendMessage"
+      focus="{{autoFocus}}"
+    />
+    <button 
+      class="send-btn" 
+      bindtap="sendMessage"
+      disabled="{{!inputMessage.trim() || isLoading}}"
+    >
+      发送
+    </button>
+  </view>
+  
+  <!-- 底部提示 -->
+  <view class="footer" style="position: relative; left: 1rpx; top: 166rpx">
+    <text class="footer-text">内容由AI生成，无法确保真实准确，仅供参考。</text>
+  </view>
+</view>

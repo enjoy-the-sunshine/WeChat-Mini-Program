@@ -1,0 +1,92 @@
+<view class="container" bindtap="onPageTap">
+  <view class="header">
+    <text class="subtitle">请填写以下信息，帮助我们改进产品</text>
+  </view>
+
+  <view class="form-content">
+    <!-- 反馈类型选择 -->
+    <view class="form-item type-selector-container {{showTypeSelector ? 'show' : ''}}">
+      <text class="label required">反馈类型选择</text>
+      <view class="picker {{typeError ? 'error' : ''}}" catchtap="toggleTypeSelector">
+        <text class="{{selectedType ? 'selected-text' : 'placeholder-text'}}" style="height: 0rpx; display: flex; box-sizing: border-box; width: 237rpx; position: relative; left: -2rpx; top: -45rpx">
+          {{selectedType ? selectedType : '请选择反馈类型'}}
+        </text>
+        <view class="arrow-down"></view>
+      </view>
+
+      <!-- 下拉框 -->
+      <view class="type-options-container" wx:if="{{showTypeSelector}}">
+        <view class="type-options">
+          <view 
+            class="type-option" 
+            wx:for="{{typeOptions}}" 
+            wx:key="index"
+            data-value="{{item}}"
+            catchtap="selectType"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="error-message {{typeError ? 'show' : ''}}">
+        <text class="error-icon">!</text>
+        <text>请选择反馈类型</text>
+      </view>
+    </view>
+
+    <!-- 其他代码保持不变 -->
+    <!-- 问题描述 -->
+    <view class="form-item">
+      <text class="label required">问题描述（必填）</text>
+      <textarea 
+        value="{{description}}"
+        placeholder="请详细描述您遇到的问题..." 
+        class="desc-input {{descError ? 'error' : ''}}"
+        bindinput="onDescInput"
+        maxlength="500"
+      ></textarea>
+      <text class="word-count">{{description.length}}/500</text>
+      <view class="error-message {{descError ? 'show' : ''}}">
+        <text class="error-icon">!</text>
+        <text>请输入问题描述</text>
+      </view>
+    </view>
+
+    <!-- 图片上传区 -->
+    <view class="form-item">
+      <text class="label">上传图片（最多3张）</text>
+      <view class="img-upload-container">
+        <view 
+          class="img-box {{index < images.length ? 'has-image' : (index === images.length ? 'add-btn' : 'disabled-box')}}" 
+          wx:for="{{[0,1,2]}}" 
+          wx:key="index"
+          bindtap="{{index === images.length ? 'chooseImage' : ''}}"
+          data-index="{{index}}"
+        >
+          <block wx:if="{{index < images.length}}">
+            <image src="{{images[index]}}" class="uploaded-img" mode="aspectFill"></image>
+            <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+          </block>
+          <block wx:elif="{{index === images.length}}">
+            <text class="add-icon">+</text>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-btn-container">
+      <button class="submit-btn {{canSubmit ? '' : 'disabled'}}" bindtap="submitForm">
+        提交反馈
+      </button>
+    </view>
+    
+    <!-- 成功消息 -->
+    <view class="success-message {{submitSuccess ? 'show' : ''}}">
+      <text class="success-icon">✓</text>
+      <text class="success-title">提交成功！</text>
+      <text class="success-desc">感谢您的反馈，我们会尽快处理您的问题。</text>
+    </view>
+  </view>
+</view>

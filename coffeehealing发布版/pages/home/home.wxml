@@ -1,0 +1,71 @@
+<view class="page">
+  <!-- 顶部小熊插画 -->
+  <view class="bear-illustration-container">
+    <view class="bear-illustration-wrapper">
+        <image
+          class="bear-illustration"
+          src="../images/bear_fly.png"
+          mode="widthFix"
+          bindtap="goToIndex"
+        />
+    </view>
+  </view>
+
+  <!-- 咖啡因数据卡片 -->
+  <view class="card caffeine-card" style="position: relative; left: 0rpx; top: -8rpx" bindtap="goToSecond">
+    <!-- 右上角箭头（保持原有做法） -->
+    <view class="card-header">
+      <image class="arrow-icon" src="../images/arrow.png" mode="widthFix" />
+    </view>
+
+    <view class="card-title">
+      <text class="title-text">咖啡因追踪</text>
+    </view>
+
+    <view class="caffeine-grid">
+      <view class="caffeine-item">
+        <text class="label">体内实时咖啡因</text>
+        <text class="value">
+          {{ caffeineNow }}<text class="unit">mg</text>
+        </text>
+      </view>
+      <view class="caffeine-item">
+        <text class="label">今日总计</text>
+        <text class="value">
+          {{ caffeineTotal }}<text class="unit">mg</text>
+        </text>
+      </view>
+    </view>
+
+    <view class="energy-time">
+      <text class="energy-title">元气时刻</text>
+      <text class="energy-subtitle">
+        预计提神至 <text class="highlight">{{ energyTime }}</text>
+      </text>
+    </view>
+  </view>
+
+  <!-- 代谢预测卡片（文字与箭头同容器，左右分布，上下居中） -->
+  <view class="card forecast-card" bindtap="goToThird" style="position: relative; left: 0rpx; top: -18rpx; height: 89rpx; display: flex; box-sizing: border-box">
+    <text class="title-text">咖啡因代谢预测</text>
+    <image class="arrow-icon" src="../images/arrow.png" mode="widthFix" />
+  </view>
+
+  <!-- 咖啡因tips卡片 -->
+  <view class="card tips-card" bindtap="goToCaffeineTips" style="position: relative;top: -18rpx; height: 120rpx; display: flex; box-sizing: border-box">
+    <text class="title-text">咖啡因小贴士</text>
+    <image class="arrow-icon" src="../images/arrow.png" mode="widthFix" />
+  </view>
+
+  <!-- 底部小熊图片 -->
+  <view class="bottom-bear-container">
+    <image class="bottom-bear" src="../images/bear_grass1.png" mode="widthFix" />
+  </view>
+
+  <!-- 圆形添加按钮（底部居中，自适配安全区） -->
+<!-- 圆形添加按钮（用动态 bottom） -->
+<view class="circle-btn" style="bottom: {{fabBottom}}rpx" bindtap="goToBrandSelect">
+  <text class="circle-plus">+</text>
+</view>
+
+</view>

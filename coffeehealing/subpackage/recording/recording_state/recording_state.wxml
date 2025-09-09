@@ -16,7 +16,7 @@
       <view class="mood-grid">
         <block wx:for="{{moodList}}" wx:key="id">
           <view class="mood-item {{mood===item.id?'active':''}}" bindtap="onPickMood" data-id="{{item.id}}">
-            <image class="mood-img" src="{{item.src}}" mode="aspectFit"></image>
+            <image class="mood-img" src="{{item.src}}" mode="aspectFit" style="width: 95rpx; height: 85rpx; display: block; box-sizing: border-box; position: relative; left: 3rpx; top: 0rpx"></image>
           </view>
         </block>
       </view>
@@ -50,12 +50,9 @@
             <image class="kv-icon" src="{{icons.clock}}" mode="widthFix" />
             <text>睡眠时长</text>
           </view>
-          <view class="kv-value duration-text">{{durationText}}</view>
-          
-          <view class="arrow-container">
-            <image class="arrow-btn arrow-up" src="{{icons.up}}" mode="widthFix" bindtap="tapIncDuration" />
-            <image class="arrow-btn arrow-down" src="{{icons.down}}" mode="widthFix" bindtap="tapDecDuration" />
-          </view>
+          <picker mode="selector" range="{{durationOptions}}" value="{{durationIndex}}" bindchange="onChangeDuration">
+            <view class="kv-value">{{durationText}} ＞</view>
+          </picker>
         </view>
       </view>
 

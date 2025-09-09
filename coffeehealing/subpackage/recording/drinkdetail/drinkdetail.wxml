@@ -1,59 +1,145 @@
-<view class="page" style="height: 1600rpx; display: block; box-sizing: border-box">
-
+<view class="page">
   <!-- 杯型选择 -->
-  <view class="cups">
-    <view class="cup-item" data-size="大杯" bindtap="selectCup">
-      <image src="../images/cup-large.png" class="cup-img-large"></image>
-      <text class="cup-text">大杯</text>
-      <image src="../images/add-icon.png" class="add-icon" data-size="大杯" bindtap="showInputModal" />
+  <view class="section cups-section">
+    <view class="section-title">
+      <view class="title-icon">☕</view>
+      <text>选择杯型</text>
     </view>
-    <view class="cup-item" data-size="中杯" bindtap="selectCup">
-      <image src="../images/cup-medium.png" class="cup-img-medium"></image>
-      <text class="cup-text">中杯</text>
-      <image src="../images/add-icon.png" class="add-icon" data-size="中杯" bindtap="showInputModal" />
-    </view>
-    <view class="cup-item" data-size="小杯" bindtap="selectCup">
-      <image src="../images/cup-small.png" class="cup-img-small"></image>
-      <text class="cup-text" style="position: relative; left: 0rpx; top: 33rpx">小杯</text>
-      <image src="../images/add-icon.png" class="add-icon" data-size="小杯" bindtap="showInputModal" />
+    <view class="cups">
+      <view class="cup-item {{cupSize === '大杯' ? 'selected' : ''}}" data-size="大杯" bindtap="selectCup">
+        <view class="cup-image-wrapper">
+          <image src="../images/cup-large.png" class="cup-img"></image>
+          <view class="selection-badge" wx:if="{{cupSize === '大杯'}}">✓</view>
+        </view>
+        <text class="cup-text">大杯</text>
+        <text class="cup-volume">350ml</text>
+        <view class="cup-add-btn" data-size="大杯" bindtap="showInputModal">
+          <image src="../images/add-icon.png" class="add-icon"></image>
+        </view>
+      </view>
+      <view class="cup-item {{cupSize === '中杯' ? 'selected' : ''}}" data-size="中杯" bindtap="selectCup">
+        <view class="cup-image-wrapper">
+          <image src="../images/cup-medium.png" class="cup-img"></image>
+          <view class="selection-badge" wx:if="{{cupSize === '中杯'}}">✓</view>
+        </view>
+        <text class="cup-text">中杯</text>
+        <text class="cup-volume">250ml</text>
+        <view class="cup-add-btn" data-size="中杯" bindtap="showInputModal">
+          <image src="../images/add-icon.png" class="add-icon"></image>
+        </view>
+      </view>
+      <view class="cup-item {{cupSize === '小杯' ? 'selected' : ''}}" data-size="小杯" bindtap="selectCup">
+        <view class="cup-image-wrapper">
+          <image src="../images/cup-small.png" class="cup-img"></image>
+          <view class="selection-badge" wx:if="{{cupSize === '小杯'}}">✓</view>
+        </view>
+        <text class="cup-text">小杯</text>
+        <text class="cup-volume">150ml</text>
+        <view class="cup-add-btn" data-size="小杯" bindtap="showInputModal">
+          <image src="../images/add-icon.png" class="add-icon"></image>
+        </view>
+      </view>
     </view>
   </view>
 
   <!-- 饮用时间 -->
-  <view class="time-box" style="position: relative; left: 37rpx; top: -2rpx">
-    <image src="../images/time2.png" class="time-icon-large"></image>
-    <view class="time-content">
-      <text class="time-title">饮用时间</text>
-      <picker mode="time" value="{{drinkTime}}" start="00:00" end="23:59" bindchange="onTimeChange">
-    <view class="time-input">{{drinkTime}}</view>
-</picker>
-
+  <view class="section time-section">
+    <view class="section-title">
+      <view class="title-icon">🕐</view>
+      <text>饮用时间</text>
+    </view>
+    <view class="time-card">
+      <view class="time-left">
+        <image src="../images/time2.png" class="time-illustration"></image>
+        <view class="time-info">
+          <text class="time-label">当前选择</text>
+          <text class="time-subtitle">记录您的饮用时间</text>
+        </view>
+      </view>
+      <view class="time-right">
+        <picker mode="time" value="{{drinkTime}}" start="00:00" end="23:59" bindchange="onTimeChange">
+          <view class="time-picker">
+            <view class="time-display">
+              <text class="time-value">{{drinkTime || '点击选择'}}</text>
+              <view class="time-arrow">▼</view>
+            </view>
+            <view class="time-hint">选择时间</view>
+          </view>
+        </picker>
+      </view>
     </view>
   </view>
 
   <!-- 咖啡因含量 -->
-  <view class="caffeine-box caffeine-position" style="height: 231rpx; display: flex; box-sizing: border-box; position: relative; left: 37rpx; top: 4rpx; width: 639rpx">
-    <image src="../images/caffeine2.png" class="caffeine-icon-large" style="width: 258rpx; display: block; box-sizing: border-box"></image>
-    <text class="caffeine-title" style="position: absolute; left: 274rpx; top: 47rpx; width: 200rpx; display: block; box-sizing: border-box">咖啡因含量</text>
-    <text class="caffeine-value" style="position: relative; left: -129rpx; top: 41rpx">{{caffeineAmount}}</text>
-    <text class="caffeine-unit" style="position: relative; left: -51rpx; top: 45rpx; font-weight: bold">mg</text>
+  <view class="section caffeine-section">
+    <view class="section-title">
+      <view class="title-icon">⚡</view>
+      <text>咖啡因含量</text>
+    </view>
+    <view class="caffeine-card">
+      <view class="caffeine-left">
+        <image src="../images/caffeine2.png" class="caffeine-illustration"></image>
+        <view class="caffeine-info">
+          <text class="caffeine-label">预计摄入量</text>
+          <text class="caffeine-subtitle">基于标准配方计算</text>
+        </view>
+      </view>
+      <view class="caffeine-right">
+        <view class="caffeine-display">
+          <view class="caffeine-amount">
+            <text class="caffeine-value">{{caffeineAmount || '--'}}</text>
+            <text class="caffeine-unit">mg</text>
+          </view>
+          <view class="caffeine-bar">
+            <view class="bar-track">
+              <view class="bar-fill" style="width: {{cupSize ? '100%' : '0%'}}"></view>
+            </view>
+            <text class="bar-text">{{cupSize ? '已选择' : '未选择'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 
   <!-- 添加按钮 -->
-  <button class="add-btn add-btn-position" bindtap="goBackToCaffeine">添加</button>
+  <view class="action-section">
+    <button class="add-btn {{cupSize ? 'active' : 'disabled'}}" bindtap="goBackToCaffeine" disabled="{{!cupSize}}">
+      <view class="btn-content">
+        <text class="btn-text">确认添加</text>
+        <view class="btn-icon">✓</view>
+      </view>
+    </button>
+  </view>
 
   <!-- 输入饮用量弹窗 -->
   <view wx:if="{{showModal}}" class="modal-mask">
     <view class="modal-container">
       <view class="modal-header">
-        <text class="modal-title">饮用量</text>
-        <image class="modal-close" bindtap="closeModal" src="../images/close-icon.png"></image>
+        <view class="modal-title-wrapper">
+          <text class="modal-title">设置饮用量</text>
+          <text class="modal-subtitle">为 {{currentCup}} 设置实际饮用量</text>
+        </view>
+        <view class="modal-close" bindtap="closeModal">
+          <image src="../images/close-icon.png" class="close-icon"></image>
+        </view>
       </view>
       <view class="modal-body">
-        <input type="number" bindinput="onAmountInput" class="modal-input"/>%
+        <view class="input-section">
+          <text class="input-label">饮用量百分比</text>
+          <view class="input-wrapper">
+            <input type="number" bindinput="onAmountInput" class="modal-input" placeholder="0" value="{{amount}}" maxlength="3"/>
+            <text class="input-unit">%</text>
+          </view>
+          <view class="input-slider">
+            <slider min="0" max="100" value="{{amount}}" activeColor="#D2691E" backgroundColor="#f0f0f0" block-size="24" block-color="#D2691E" bindchange="onSliderInput" bindchanging="onSliderInput"/>
+            <text class="slider-value">{{amount || 0}}%</text>
+          </view>
+        </view>
       </view>
-      <button class="modal-confirm" bindtap="confirmAmount">确定</button>
+      <view class="modal-actions">
+        <button class="modal-cancel" bindtap="closeModal">取消</button>
+        <button class="modal-confirm" bindtap="confirmAmount">确定</button>
+      </view>
     </view>
   </view>
-
 </view>

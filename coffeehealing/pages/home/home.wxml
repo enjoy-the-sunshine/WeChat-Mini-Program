@@ -5,6 +5,7 @@
       class="bear-illustration" 
       src="../images/bear_fly.png" 
       mode="widthFix"
+      bindtap="goToIndex"
     ></image>
   </view>
 
@@ -13,7 +14,7 @@
     <view class="card-header" bindtap="goToSecond">
       <image 
         class="arrow-icon" 
-        src="../images/arrow_right.png" 
+        src="../images/arrow.png" 
         mode="widthFix"
       ></image>
     </view>
@@ -46,13 +47,13 @@
     <view class="card-header">
       <image 
         class="arrow-icon"
-        src="../images/arrow_right.png"
+        src="../images/arrow.png"
         mode="widthFix"
       ></image>
     </view>
     
     <view class="forecast-title">
-      <text class="title-text">代谢预测</text>
+      <text class="title-text">咖啡因代谢预测</text>
     </view>
     
     

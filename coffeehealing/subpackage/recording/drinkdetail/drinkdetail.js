@@ -10,7 +10,7 @@ Page({
     caffeineAmount: 0,
     showModal: false,
     currentCup: '',
-    amount: '',
+    amount: 100,
     drinkTime: '',
     drinkName: '',
     brandName: '',
@@ -19,6 +19,10 @@ Page({
   },
 
   onLoad(options) {
+    // 设置默认时间为当前时间
+    const now = new Date()
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+    
     if (options.name) {
       this.setData({ drinkName: decodeURIComponent(options.name) })
     }
@@ -31,6 +35,9 @@ Page({
     if (options.unit) {
       this.setData({ unit: decodeURIComponent(options.unit) })
     }
+    
+    // 设置默认时间
+    this.setData({ drinkTime: currentTime })
   },
 
   selectCup(e) {
@@ -53,11 +60,23 @@ Page({
   },
 
   closeModal() {
-    this.setData({ showModal: false, amount: '' })
+    this.setData({ showModal: false })
   },
 
   onAmountInput(e) {
-    this.setData({ amount: e.detail.value }, () => {
+    const value = e.detail.value
+    // 限制输入范围在0-100之间
+    if (value >= 0 && value <= 100) {
+      this.setData({ amount: value }, () => {
+        this.updateCaffeineAmount()
+      })
+    }
+  },
+
+  // 滑块输入处理
+  onSliderInput(e) {
+    const value = e.detail.value
+    this.setData({ amount: value }, () => {
       this.updateCaffeineAmount()
     })
   },
@@ -74,11 +93,26 @@ Page({
   },
 
   confirmAmount() {
+    if (!this.data.amount || this.data.amount < 0 || this.data.amount > 100) {
+      wx.showToast({
+        title: '请输入0-100之间的数值',
+        icon: 'none'
+      })
+      return
+    }
     this.updateCaffeineAmount()
     this.closeModal()
   },
 
   goBackToCaffeine() {
+    if (!this.data.cupSize) {
+      wx.showToast({
+        title: '请先选择杯型',
+        icon: 'none'
+      })
+      return
+    }
+    
     const AV = require('../../../libs/av-core-min.js')
     require('../../../libs/leancloud-adapters-weapp.js')
 
@@ -93,6 +127,7 @@ Page({
 
     const Intake = AV.Object.extend('intakes')
     const intake = new Intake()
+    intake.set('user', AV.User.current())
     intake.set('takenAt', dateOnly)
     intake.set('takenAt_time', timeString)
     intake.set('brand', this.data.brandName || '')

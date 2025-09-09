@@ -1,201 +1,142 @@
+import AV from '../../libs/av-core-min.js';
 
-
-let chart = null;
+const HALF_LIFE = 5; // 半衰期（小时）
+const THRESHOLD = 50; // mg 阈值
 
 Page({
   data: {
-    caffeineNow: 125,
-    caffeineTotal: 300,
-    energyTime: '17:00',
-    ec: {
-      onInit: initChart
-    },
+    caffeineNow: 0,
+    caffeineTotal: 0,
+    energyTime: '--:--',
     dailyLimit: 300,
     sleepCaffeine: 50
   },
 
-  // 跳转到 second 页面
+  onShow() {
+    const limit = wx.getStorageSync('dailyLimit') || 300;
+    const sleepLevel = wx.getStorageSync('sleepCaffeine') || 50;
+    this.setData({ dailyLimit: limit, sleepCaffeine: sleepLevel });
+
+    this.fetchTodayIntakes();
+  },
+
+  async fetchTodayIntakes() {
+    const now = new Date();
+
+    // ===== 修正：按 UTC 零点计算当天查询范围 =====
+   // 本地零点
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+    const endOfDay = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
+
+    console.log('查询范围(本地零点):', {
+      startOfDay: startOfDay.toISOString(),
+      endOfDay: endOfDay.toISOString()
+    });
+
+
+    const query = new AV.Query('intakes');
+    query.equalTo('user', AV.User.current());
+    query.greaterThanOrEqualTo('takenAt', startOfDay);
+    query.lessThan('takenAt', endOfDay);
+    query.ascending('takenAt');
+
+    try {
+      const results = await query.find();
+
+      // ===== 调试输出，每条数据都打印 =====
+      console.log('今日查询到的条数:', results.length);
+      results.forEach((item, index) => {
+        console.log(`第 ${index + 1} 条:`, {
+          id: item.id,
+          takenAt: item.get('takenAt'),
+          takenAt_time: item.get('takenAt_time'),
+          caffeine_total_mg: item.get('caffeine_total_mg')
+        });
+      });
+
+      let totalCaffeine = 0;
+      let caffeineNow = 0;
+      let lastEnergyTime = null;
+
+      results.forEach(item => {
+        const amount = item.get('caffeine_total_mg') || 0;
+        if (amount <= 0) return; // 无效数据跳过
+
+        const takenDate = item.get('takenAt');
+        if (!(takenDate instanceof Date) || isNaN(takenDate)) return;
+
+        const takenTimeStr = item.get('takenAt_time') || '00:00';
+        const [hh, mm] = takenTimeStr.split(':').map(n => parseInt(n, 10) || 0);
+
+        const takenDateTime = new Date(
+          takenDate.getFullYear(),
+          takenDate.getMonth(),
+          takenDate.getDate(),
+          hh,
+          mm,
+          0
+        );
+
+        totalCaffeine += amount;
+
+        const hoursPassed = (now - takenDateTime) / 3600000;
+        const remaining = amount * Math.pow(0.5, hoursPassed / HALF_LIFE);
+        if (remaining > 0) caffeineNow += remaining;
+
+        if (amount >= THRESHOLD) {
+          const hoursToThreshold =
+            (Math.log(THRESHOLD / amount) / Math.log(0.5)) * HALF_LIFE;
+          const end = new Date(
+            takenDateTime.getTime() + hoursToThreshold * 3600000
+          );
+          if (!lastEnergyTime || end > lastEnergyTime) {
+            lastEnergyTime = end;
+          }
+        }
+      });
+
+      console.log('调试-计算结果:', {
+        totalCaffeine,
+        caffeineNow,
+        energyTime: lastEnergyTime
+      });
+
+      this.setData({
+        caffeineTotal: Math.round(totalCaffeine),
+        caffeineNow: Math.round(caffeineNow),
+        energyTime: lastEnergyTime ? this.formatTime(lastEnergyTime) : '--:--'
+      });
+    } catch (err) {
+      console.error('获取 intakes 失败', err);
+    }
+  },
+
+  formatTime(dateObj) {
+    const h = String(dateObj.getHours()).padStart(2, '0');
+    const m = String(dateObj.getMinutes()).padStart(2, '0');
+    return `${h}:${m}`;
+  },
+
   goToSecond() {
     wx.navigateTo({
       url: '/subpackage/home/main_record/main_record'
     });
   },
 
-  // 跳转到 third 页面
   goToThird() {
     wx.navigateTo({
       url: '/subpackage/home/main_forecast/main_forecast'
     });
   },
-  // 跳转到 brandselect 页面
+
   goToBrandSelect() {
     wx.navigateTo({
       url: '/subpackage/recording/brandselect/brandselect'
     });
   },
-
-  onShow() {
-    const limit = wx.getStorageSync('dailyLimit') || 300;
-    const sleepLevel = wx.getStorageSync('sleepCaffeine') || 50;
-    this.setData({
-      dailyLimit: limit,
-      sleepCaffeine: sleepLevel
+  goToIndex() {
+    wx.navigateTo({
+      url: '/subpackage/home/index/index' // 这里写 index 页面的实际路径
     });
-    if (chart) {
-      updateChart(chart, this.data.dailyLimit, this.data.sleepCaffeine);
-    }
-  }
+  },
 });
-
-function initChart(canvas, width, height, dpr) {
-  chart = echarts.init(canvas, null, {
-    width,
-    height,
-    devicePixelRatio: dpr
-  });
-  canvas.setChart(chart);
-  updateChart(chart, 300, 50);
-  return chart;
-}
-
-function updateChart(chartInstance, dailyLimit, sleepCaffeine) {
-  const mockData = generateMockData();
-  const nowIndex = getCurrentTimeIndex(mockData.times);
-
-  const option = {
-    tooltip: {
-      trigger: 'axis',
-      formatter: function (params) {
-        const barData = params.find(p => p.seriesType === 'bar');
-        return `${barData.axisValue}<br/>咖啡因含量: ${barData.value} mg`;
-      }
-    },
-    // 调小 grid 边距，让图表整体更大
-    grid: { left: 35, right: 15, top: 40, bottom: 35, containLabel: true },
-    dataZoom: [
-      {
-        type: 'slider',
-        show: true,
-        xAxisIndex: [0],
-        height: 18,
-        bottom: 6,
-        fillerColor: 'rgba(63, 81, 181, 0.3)',
-        borderColor: 'transparent',
-        backgroundColor: '#f0f0f0',
-        handleSize: '80%',
-        handleStyle: {
-          color: '#3f51b5',
-          borderColor: '#3f51b5'
-        },
-        textStyle: {
-          color: 'transparent'
-        }
-      },
-      { type: 'inside', xAxisIndex: [0] }
-    ],
-    xAxis: {
-      type: 'category',
-      data: mockData.times,
-      axisLabel: { interval: 0, rotate: 45, fontSize: 10 }
-    },
-    yAxis: {
-      type: 'value',
-      name: '咖啡因 (mg)',
-      min: 0,
-      axisLabel: { fontSize: 10 }
-    },
-    series: [
-      {
-        name: '咖啡因',
-        type: 'bar',
-        barWidth: 20,
-        data: mockData.values.map((v, idx) => ({
-          value: v,
-          itemStyle: { color: idx === nowIndex ? '#ff9900' : '#c59782' }
-        }))
-      },
-      {
-        name: '每日限额',
-        type: 'line',
-        data: Array(mockData.times.length).fill(dailyLimit),
-        symbol: 'none',
-        lineStyle: { type: 'dashed', color: 'red', width: 2 },
-        markLine: {
-          symbol: 'none',
-          label: {
-            show: true,
-            position: 'middle',
-            formatter: '每日限额',
-            color: 'red',
-            fontSize: 12
-          },
-          lineStyle: {
-            type: 'dashed',
-            color: 'red',
-            width: 2
-          },
-          data: [{ yAxis: dailyLimit }]
-        }
-      },
-      {
-        name: '睡眠水平',
-        type: 'line',
-        data: Array(mockData.times.length).fill(sleepCaffeine),
-        symbol: 'none',
-        lineStyle: { type: 'dashed', color: 'blue', width: 2 },
-        markLine: {
-          symbol: 'none',
-          label: {
-            show: true,
-            position: 'middle',
-            formatter: '睡眠水平',
-            color: 'blue',
-            fontSize: 12
-          },
-          lineStyle: {
-            type: 'dashed',
-            color: 'blue',
-            width: 2
-          },
-          data: [{ yAxis: sleepCaffeine }]
-        }
-      }
-    ]
-  };
-
-  chartInstance.setOption(option, true);
-}
-
-function generateMockData() {
-  const times = [];
-  const values = [];
-
-  const startTime = new Date();
-  startTime.setHours(22, 0, 0, 0);
-  startTime.setDate(startTime.getDate() - 1);
-
-  const totalHours = 38;
-  const steps = totalHours / 2;
-
-  for (let i = 0; i <= steps; i++) {
-    const time = new Date(startTime.getTime() + i * 2 * 3600 * 1000);
-    let label;
-    if (time.getHours() === 0) {
-      label = `${time.getMonth() + 1}月${time.getDate()}日`;
-    } else {
-      label = `${time.getHours()}:00`;
-    }
-    times.push(label);
-    values.push(Math.max(0, Math.round(400 * Math.exp(-0.15 * i))));
-  }
-
-  return { times, values };
-}
-
-function getCurrentTimeIndex(times) {
-  const now = new Date();
-  const nowStr = `${now.getHours()}:00`;
-  const idx = times.findIndex(t => t.includes(nowStr));
-  return idx >= 0 ? idx : 0;
-}
-

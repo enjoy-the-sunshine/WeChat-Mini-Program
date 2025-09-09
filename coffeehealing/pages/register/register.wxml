@@ -3,65 +3,25 @@
   <image class="bear-fly" src="../images/bear_fly.png" mode="widthFix" style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"></image>
 
   <text 
-    class="title" 
-    style="font-size: 60rpx; font-weight: bold"
-  >CoffeeHealing~</text>
+  class="title" 
+  style="font-size: 60rpx; font-weight: bold"
+>CoffeeHealing~</text>
 
-  <!-- 手机号输入框 -->
-  <input 
-    style="width: 580rpx; display: block; box-sizing: border-box" 
-    class="input" 
-    placeholder="手机号" 
-    maxlength="11"
-    bindinput="onPhoneInput"
-  />
+  <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" placeholder="手机号" bindinput="onPhoneInput" maxlength="11"/>
   
-  <!-- 密码输入框 -->
   <view class="password-box">
-    <input 
-      style="width: 580rpx; display: block; box-sizing: border-box" 
-      class="input" 
-      password="{{!showPassword}}" 
-      placeholder="密码" 
-      maxlength="12" 
-      bindinput="onPwdInput"
-    />
-    <image 
-      class="eye" 
-      src="{{showPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}" 
-      bindtap="togglePassword" 
-      style="position: absolute; left: 517rpx; top: 64rpx"
-    ></image>
+    <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" password="{{!showPassword}}" placeholder="密码" maxlength="12" bindinput="onPwdInput"/>
+    <image class="eye" src="{{showPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}" bindtap="togglePassword" style="position: absolute; left: 517rpx; top: 64rpx"></image>
   </view>
 
-  <!-- 确认密码输入框 -->
   <view class="password-box">
-    <input 
-      style="width: 580rpx; display: block; box-sizing: border-box" 
-      class="input" 
-      password="{{!showConfirmPassword}}" 
-      placeholder="确认密码" 
-      maxlength="12"
-      bindinput="onPwd2Input"
-    />
-    <image 
-      class="eye" 
-      src="{{showConfirmPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}" 
-      bindtap="toggleConfirmPassword" 
-      style="position: absolute; left: 517rpx; top: 64rpx"
-    ></image>
+    <input style="width: 580rpx; display: block; box-sizing: border-box" class="input" password="{{!showConfirmPassword}}" placeholder="确认密码" maxlength="12" bindinput="onPwd2Input"/>
+    <image class="eye" src="{{showConfirmPassword ? '/..images/eye_open.png' : '../images/eye_close.png'}}" bindtap="toggleConfirmPassword" style="position: absolute; left: 517rpx; top: 64rpx"></image>
   </view>
+
 
   <!-- 协议勾选 --> 
-  <view class="agreement" style="width: 576rpx; display: flex; box-sizing: border-box">
-    <checkbox-group bindchange="onAgreeChange">
-      <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox>
-    </checkbox-group>
-    <text>我已阅读并同意</text>
-    <text class="link" bindtap="openUserAgreement">《用户协议》</text>
-    <text>和</text>
-    <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text>
-  </view>
+  <view class="agreement" style="width: 576rpx; display: flex; box-sizing: border-box"> <checkbox-group bindchange="onAgreeChange"> <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox> </checkbox-group> <text>我已阅读并同意</text> <text class="link" bindtap="openUserAgreement">《用户协议》</text> <text>和</text> <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text> </view>
 
   <button class="btn" bindtap="onRegister" style="position: relative; left: -1rpx; top: -27rpx">立即注册</button>
 

@@ -1,0 +1,40 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+
+<!-- 顶部插画 -->
+<image 
+  class="top-img" 
+  src="../images/bear_fly1.png" 
+  mode="aspectFit" 
+  style="position: relative; left: 75rpx; top: -27rpx; transform: rotate(-35deg);"
+/>
+
+<!-- 标题 -->
+<text class="title" style="position: relative; left: -219rpx; top: -28rpx; font-size: 80.77rpx; font-weight: bold">Hello!</text>
+<text class="subtitle" style="position: relative; left: -33rpx; top: -28rpx; font-size: 53.85rpx; font-weight: bold">欢迎来到CoffeeHealing~</text>
+
+<!-- 账号登录按钮：勾选后加深颜色 -->
+<button 
+  class="btn phone-btn {{isAgree ? 'phone-btn--active' : ''}}" 
+  hover-class="btn--press"
+  bindtap="onPhoneLogin"
+  style="position: relative; left: 0rpx; top: -77rpx"
+>
+  <image class="icon" src="../images/icon_phone.png" mode="aspectFit"></image>
+  账号登录
+</button>
+
+<!-- 协议勾选 -->
+<view class="agreement" style="position: absolute; left: 0rpx; top: 1004rpx; height: 41rpx; display: flex; box-sizing: border-box">
+  <checkbox-group bindchange="onAgreeChange">
+    <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox>
+  </checkbox-group>
+  <text>我已阅读并同意</text>
+  <text class="link" bindtap="openUserAgreement">《用户协议》</text>
+  <text>和</text>
+  <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text>
+</view>
+
+<!-- 底部插画 -->
+<image class="low-img" src="../images/cup_smile.png" mode="aspectFit" style="position: relative; left: -185rpx; top: 10rpx" />
+</view>

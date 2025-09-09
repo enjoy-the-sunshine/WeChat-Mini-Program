@@ -1,0 +1,63 @@
+<view class="page">
+  <view class="header">
+    <text class="title">CoffeeHealing~</text>
+    <image src="../images/bear_top.png" class="bear-top" mode="widthFix"></image>
+  </view>
+
+  <view class="desc" wx:if="{{currentStep === 0}}">
+    <view>为了给您提供更贴心的服务，</view>
+    <view>我们会根据您的回答优化使用体验。</view>
+  </view>
+
+  <view class="content-area">
+    <view class="question">
+      Q{{currentStep+1}}. {{questions[currentStep].text}}
+    </view>
+
+    <!-- 第1题：A/B/C 三选（左对齐） -->
+    <block wx:if="{{questions[currentStep].type === 'abc'}}">
+      <block wx:for="{{questions[0].options}}" wx:key="key">
+        <button
+          class="option abc-option {{answers[0]===item.value ? 'selected' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="selectAnswer"
+          style="width:80vw"
+        >
+          {{item.key}}. {{item.label}}
+        </button>
+      </block>
+    </block>
+
+    <!-- 其余题：是/否（正常大小并居中） -->
+    <block wx:if="{{questions[currentStep].type === 'yn'}}">
+      <button
+        class="option yn-option {{answers[currentStep]===1 ? 'selected' : ''}}"
+        bindtap="selectAnswer"
+        data-answer="yes"
+        style="width:80vw"
+      >是</button>
+
+      <button
+        class="option yn-option {{answers[currentStep]===0 ? 'selected' : ''}}"
+        bindtap="selectAnswer"
+        data-answer="no"
+        style="width:80vw"
+      >否</button>
+    </block>
+
+    <view class="nav-btns">
+      <button wx:if="{{currentStep>0}}" class="nav-btn" bindtap="prevStep" style="width:80vw">上一步</button>
+      <button wx:if="{{currentStep<questions.length-1}}" class="nav-btn" bindtap="nextStep" style="width:80vw">下一步</button>
+      <button wx:if="{{currentStep===questions.length-1}}" class="nav-btn" bindtap="finish" style="width:80vw">进入小程序！</button>
+    </view>
+  </view>
+
+
+  <image src="../images/bear_lie.png" class="bear-bottom" mode="widthFix"></image>
+
+  <!-- 新增隐私说明 -->
+  <view class="privacy-tip">
+    <view>您的隐私信息将会被严格保密，</view>
+    <view>绝不会泄露给任何第三方。</view>
+  </view>
+</view>

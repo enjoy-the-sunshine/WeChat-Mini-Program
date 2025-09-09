@@ -1,5 +1,5 @@
 page {
-  background: linear-gradient(180deg, #f8f6f0 0%, #f0e6d2 100%);
+  background-color: #fef8e7;
   font-family: 'Noto Sans SC', sans-serif;
   color: #5c3a21;
 }
@@ -90,7 +90,7 @@ page {
 
 /* 通用卡片 */
 .card {
-  background-color: #fff9f0;
+  background-color: #ffffff;
   border-radius: 32rpx;
   box-shadow: 0 8rpx 24rpx rgba(92, 58, 33, 0.1);
   padding: 38.6rpx;

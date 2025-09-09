@@ -1,0 +1,124 @@
+page { background-color: #fdf8e3; }
+
+/* 页面左右留白用 rpx，随屏幕缩放更自然 */
+.page { padding: 32rpx; }
+
+/* 标题 */
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #9b5735;
+  margin: 12px 0 4px;
+}
+
+/* 通用卡片 */
+.card{
+  background:#ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0 12rpx 32rpx rgba(0,0,0,.06);
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 图表卡片：padding 交给内部 wrap 控制 */
+.chart-card { padding: 0; }
+
+/* 居中容器：图表会在卡片正中 */
+.chart-wrap{
+  min-height: 100rpx;           /* 你希望图在卡片里占的容器高度 */
+  display: block;         /* 不需要 flex 了 */
+  padding:0rpx 0rpx -100rpx;          /* ← 左右各预留 8% 的空白，自己调 */
+  box-sizing: border-box;
+}
+
+/* 画布基础样式（宽满，高度通过内联 style 的 rpx 来控制） */
+.chart-canvas{
+  width: 100%;
+  display:block;
+  height: 420rpx;
+}
+
+/* 时间区间选择 */
+.time-interval-selector {
+  display: flex;
+  align-items: center;
+  margin: 8px 0 12px 0;
+  padding: 0 4px;
+}
+.interval-label {
+  font-size: 14px;
+  color: #9b5735;
+  margin-right: 12px;
+  font-weight: 500;
+}
+.interval-options { display: flex; gap: 8px; }
+.interval-option {
+  padding: 6px 12px;
+  background-color: #f5f5f5;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #666;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  width:65rpx
+}
+.interval-option.active {
+  background-color: #9b5735;
+  color: #ffffff;
+  border-color: #9b5735;
+}
+
+/* 空态：保持在卡片正中 */
+.empty-test-card {
+  min-height: 440rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+.empty-icon {
+  font-size: 60rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.6;
+}
+.empty-text {
+  font-size: 32rpx;
+  color: #9b5735;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+.empty-desc {
+  font-size: 24rpx;
+  color: #9b5735;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* 添加按钮 */
+.action-btn{
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.plus{
+  font-size: 20px;
+  font-weight: bold;
+  color: #9b5735;
+  margin-right: 8px;
+}
+.label{
+  flex:1;
+  font-size: 16px;
+  font-weight: bold;
+  color: #9b5735;
+}
+.arrow{
+  font-size: 18px;
+  color: #9b5735;
+}

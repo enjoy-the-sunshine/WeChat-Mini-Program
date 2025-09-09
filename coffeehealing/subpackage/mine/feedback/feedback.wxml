@@ -7,7 +7,7 @@
     <!-- 反馈类型选择 -->
     <view class="form-item type-selector-container">
       <text class="label required">反馈类型选择</text>
-      <view class="picker {{typeError ? 'error' : ''}}" bindtap="toggleTypeSelector" style="width: 489rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
+      <view class="picker {{typeError ? 'error' : ''}}" catchtap="toggleTypeSelector" style="width: 489rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
         <text class="{{selectedType ? 'selected-text' : 'placeholder-text'}}" style="position: relative; left: -4rpx; top: -91rpx">
           {{selectedType ? selectedType : '请选择反馈类型'}}
         </text>
@@ -22,7 +22,7 @@
             wx:for="{{typeOptions}}" 
             wx:key="index"
             data-value="{{item}}"
-            bindtap="selectType"
+            catchtap="selectType"
           >
             {{item}}
           </view>

@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="nav-header">
+    <view class="nav-back" bindtap="goBack">
+    </view>
+    <text class="nav-title">{{brandName}}饮品咖啡因含量</text>
+  </view>
+
+  <!-- 品牌信息卡片 -->
+  <view class="brand-card">
+    <view class="brand-header">
+      <view class="brand-logo-container">
+        <image class="brand-logo" src="{{brandLogoUrl}}" mode="aspectFit"></image>
+      </view>
+      <text class="brand-name">{{brandName}}</text>
+    </view>
+
+    <view class="divider"></view>
+
+    <!-- 饮品列表 -->
+    <view wx:for="{{filteredList}}" wx:key="name" class="drink-item">
+      <view class="drink-content">
+        <view class="drink-info">
+          <view class="drink-icon-container">
+            <text class="drink-icon">☕</text>
+          </view>
+          <scroll-view class="drink-name-container" scroll-x="true" show-scrollbar="false">
+            <text class="drink-name">{{item.name}}</text>
+          </scroll-view>
+        </view>
+        <view class="caffeine-info">
+          <view wx:if="{{item.cupSizes && item.cupSizes.length > 0}}" class="cup-sizes">
+            <text wx:for="{{item.cupSizes}}" wx:for-item="size" wx:key="size" class="caffeine-item">
+              {{size.name}}: {{size.caffeine}}mg
+            </text>
+          </view>
+          <text wx:else class="caffeine-item">{{item.caffeine || 0}}mg</text>
+        </view>
+      </view>
+      <!-- ⛔️ 已删除：右侧收藏星星 -->
+      <!--
+      <view class="drink-actions">
+        <view class="favorite-btn {{item.isFavorite ? 'favorited' : ''}}"
+              catchtap="toggleFavorite"
+              data-drink="{{item}}">
+          <text class="favorite-icon">{{item.isFavorite ? '★' : '☆'}}</text>
+        </view>
+      </view>
+      -->
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{filteredList.length === 0}}" class="empty-state">
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">暂无饮品数据</text>
+  </view>
+</view>

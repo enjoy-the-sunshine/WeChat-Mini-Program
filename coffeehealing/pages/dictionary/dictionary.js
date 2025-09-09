@@ -3,7 +3,7 @@ const dal = require('../../service/db.js');
 const AV  = require('../../libs/av-core-min'); // 需要拿当前用户
 
 // ——可选的品牌映射（与你现有一致即可）——
-const BRAND_MAP = { starbucks:'星巴克', luckin:'瑞幸', kfc:'KCOFFEE', mccafe:'McCafé', tims:'Tims', manner:'Manner', saturnbird:'三顿半', nescafe:'雀巢咖啡', heytea:'喜茶' };
+const BRAND_MAP = { starbucks:'星巴克', luckin:'瑞幸', kfc:'KCOFFEE', mccafe:'McCafé', tims:'Tims', manner:'Manner', saturnbird:'三顿半', nescafe:'雀巢咖啡', heytea:'喜茶', costa:'Costa' };
 const BRAND_REVERSE = Object.fromEntries(Object.entries(BRAND_MAP).map(([id, name]) => [name, id]));
 
 function rowToDrink(row) {
@@ -42,7 +42,21 @@ Page({
 
     // 收藏
     favoriteIds: [],   // 统一维护（来源：云端或本地）
-    favorites: [],     // 收藏列表（用于“收藏”分类显示）
+    favorites: [],     // 收藏列表（用于"收藏"分类显示）
+
+    // 最近和自定义
+    recentDrinks: [],
+    customDrinks: [],
+
+    // 弹窗状态
+    showFavoriteModal: false,
+    showCustomModal: false,
+    showAddCustomModal: false,
+    activeCategory: null,
+
+    // 自定义饮品表单
+    customDrink: { name: '', caffeine: '', unitIndex: 0 },
+    unitOptions: ['/每份', '/杯', '/瓶', '/罐'],
 
     userId: null,      // 当前登录用户 id（未登录则为 null）
   },
@@ -121,21 +135,48 @@ Page({
     await dal.removeFavorite(userId, drinkId);
   },
 
+  /* ============ 最近和自定义功能 ============ */
+  loadLocalData() {
+    try {
+      const recentDrinks = wx.getStorageSync('recentDrinks') || []
+      const customDrinks = wx.getStorageSync('customDrinks') || []
+      this.setData({ recentDrinks, customDrinks })
+    } catch (e) {
+      console.error('加载本地数据失败:', e)
+    }
+  },
+
+  saveLocalData() {
+    try {
+      wx.setStorageSync('recentDrinks', this.data.recentDrinks)
+      wx.setStorageSync('customDrinks', this.data.customDrinks)
+    } catch (e) {
+      console.error('保存本地数据失败:', e)
+    }
+  },
+
+  addToRecent(drink) {
+    let recentDrinks = [...this.data.recentDrinks]
+    recentDrinks = recentDrinks.filter(d => d.id !== drink.id)
+    recentDrinks.unshift(drink)
+    if (recentDrinks.length > 20) {
+      recentDrinks = recentDrinks.slice(0, 20)
+    }
+    this.setData({ recentDrinks })
+    this.saveLocalData()
+  },
+
   /* ============ 生命周期 ============ */
   async onLoad() {
     this.resolveUser();
     this.loadLocalFavorites();      // 先读本地，保证秒开
+    this.loadLocalData();           // 加载最近和自定义数据
     if (this.data.userId) {
       await this.loadCloudFavorites(); // 登录后再同步云端
     }
 
     await this.loadBrands();
-    if (!this.data.activeBrand && this.data.brands.length) {
-      this.setData({ activeBrand: this.data.brands[0].id });
-    }
-    if (!this.data.activeBrand) this.setData({ activeBrand: 'starbucks' });
     this.updateActiveBrandName();
-    await this.reload();
   },
 
   /* ============ 加载品牌 & 列表 ============ */
@@ -143,86 +184,189 @@ Page({
     try {
       const rows = await dal.listDrinks({ page: 1, pageSize: 1000 });
       const uniq = Array.from(new Set((rows || []).filter(r => r.brand).map(r => r.brand))).sort();
-      let brands = uniq.map(name => ({ id: BRAND_REVERSE[name] || name, name }));
-      if (!brands.length) brands = Object.entries(BRAND_MAP).map(([id, name]) => ({ id, name }));
-      this.setData({ brands }); this.updateActiveBrandName();
+      let brands = uniq.map(name => ({ 
+        id: BRAND_REVERSE[name] || name, 
+        name,
+        logoUrl: this.getBrandLogoUrl(name)
+      }));
+      if (!brands.length) {
+        brands = Object.entries(BRAND_MAP).map(([id, name]) => ({ 
+          id, 
+          name,
+          logoUrl: this.getBrandLogoUrl(name)
+        }));
+      }
+      this.setData({ brands }); 
+      this.updateActiveBrandName();
     } catch (e) {
       console.error('[dict] loadBrands error:', e);
-      const brands = Object.entries(BRAND_MAP).map(([id, name]) => ({ id, name }));
-      this.setData({ brands }); this.updateActiveBrandName();
-    }
-  },
-
-  async reload() {
-    if (this.data.activeBrand === 'favorite') {
-      this.setData({ list: this.withFavoriteFlags(this.data.favorites), page: 1, noMore: true });
-      return;
-    }
-    this.setData({ page: 1, list: [], noMore: false });
-    await this.loadMore();
-  },
-
-  async loadMore() {
-    if (this.data.loading || this.data.noMore) return;
-    const { activeBrand, page, pageSize, keyword } = this.data;
-    if (!activeBrand || activeBrand === 'favorite') return;
-    this.setData({ loading: true });
-    try {
-      const brandName = BRAND_MAP[activeBrand] || activeBrand || '';
-      const rows = await dal.listDrinks({
-        brand: brandName || undefined,
-        keyword: (keyword || '').trim() || undefined,
-        page, pageSize
-      });
-      const items = this.withFavoriteFlags((rows || []).map(rowToDrink));
-      this.setData({
-        list: [...this.data.list, ...items],
-        page: page + 1,
-        noMore: items.length < pageSize
-      });
-    } catch (e) {
-      console.error('[dict] loadMore error:', e);
-      wx.showToast({ title: '加载失败', icon: 'none' });
-    } finally {
-      this.setData({ loading: false });
-    }
-  },
-
-  onReachBottom() { this.loadMore(); },
-  async onPullDownRefresh() { try { await this.reload(); } finally { wx.stopPullDownRefresh(); } },
-
-  /* ============ 分类切换 & 搜索 ============ */
-  async onBrandTap(e) {
-    const id = e?.currentTarget?.dataset?.id;
-    if (!id || id === this.data.activeBrand) return;
-    this.setData({ activeBrand: id, keyword: '' });
-    this.updateActiveBrandName();
-    await this.reload();
-  },
-  async switchCategory(e) {
-    const rawId = e?.currentTarget?.dataset?.id;
-    const rawCat = e?.currentTarget?.dataset?.category;
-    const token = (rawId ?? rawCat ?? '').toString().trim();
-    if (!token) return;
-
-    if (token === 'favorite' || token === '收藏') {
-      this.setData({ activeBrand: 'favorite', keyword: '' });
+      const brands = Object.entries(BRAND_MAP).map(([id, name]) => ({ 
+        id, 
+        name,
+        logoUrl: this.getBrandLogoUrl(name)
+      }));
+      this.setData({ brands }); 
       this.updateActiveBrandName();
-      await this.reload();
-      return;
     }
-    if (['recent','custom','最近','自定义'].includes(token)) return;
-
-    const normalizedId = normalizeBrandToken(token);
-    if (normalizedId === this.data.activeBrand) return;
-    this.setData({ activeBrand: normalizedId, keyword: '' });
-    this.updateActiveBrandName();
-    await this.reload();
   },
-  async onKeywordInput(e) {
-    const kw = e?.detail?.value || '';
-    this.setData({ keyword: kw });
-    await this.reload();
+
+  // 获取品牌logo路径
+  getBrandLogoUrl(brandName) {
+    const logoMap = {
+      '星巴克': '/pages/images/星巴克.png',
+      '瑞幸': '/pages/images/瑞幸.png',
+      '喜茶': '/pages/images/喜茶.png',
+      '古茗': '/pages/images/古茗.png',
+      '库迪': '/pages/images/库迪.png',
+      '茶百道': '/pages/images/茶百道.png',
+      '霸王茶姬': '/pages/images/霸王茶姬.png',
+      'Costa': '/pages/images/coffee-icon.png'
+    };
+    return logoMap[brandName] || '/pages/images/coffee-icon.png';
+  },
+
+
+  /* ============ 品牌选择 ============ */
+  selectBrand(e) {
+    const brand = e.currentTarget?.dataset?.brand;
+    if (!brand) return;
+    
+    // 跳转到品牌饮品界面
+    wx.navigateTo({
+      url: `/subpackage/recording/brandcoffee/brandcoffee?brandId=${brand.id}&brandName=${encodeURIComponent(brand.name)}`
+    });
+  },
+
+  /* ============ 悬浮栏交互 ============ */
+  switchToFavorite() {
+    this.setData({ 
+      showFavoriteModal: true,
+      activeCategory: 'favorite'
+    });
+  },
+
+  switchToCustom() {
+    this.setData({ 
+      showCustomModal: true,
+      activeCategory: 'custom'
+    });
+  },
+
+  hideFavoriteModal() {
+    this.setData({ 
+      showFavoriteModal: false,
+      activeCategory: null
+    });
+  },
+
+  hideCustomModal() {
+    this.setData({ 
+      showCustomModal: false,
+      activeCategory: null
+    });
+  },
+
+  /* ============ 收藏饮品交互 ============ */
+  selectFavoriteDrink(e) {
+    const drink = e.currentTarget?.dataset?.drink;
+    if (!drink) return;
+    this.addToRecent(drink);
+    this._goDrinkDetail(drink);
+  },
+
+  /* ============ 自定义饮品交互 ============ */
+  selectCustomDrink(e) {
+    const drink = e.currentTarget?.dataset?.drink;
+    if (!drink) return;
+    this.addToRecent(drink);
+    this._goDrinkDetail(drink);
+  },
+
+  showAddCustomModal() {
+    this.setData({
+      showAddCustomModal: true,
+      customDrink: { name: '', caffeine: '', unitIndex: 0 }
+    })
+  },
+
+  hideAddCustomModal() {
+    this.setData({ showAddCustomModal: false })
+  },
+
+  stopPropagation() {},
+
+  onCustomNameInput(e) {
+    this.setData({ 'customDrink.name': e.detail.value })
+  },
+
+  onCustomCaffeineInput(e) {
+    this.setData({ 'customDrink.caffeine': e.detail.value })
+  },
+
+  onUnitChange(e) {
+    this.setData({ 'customDrink.unitIndex': parseInt(e.detail.value) })
+  },
+
+  addCustomDrink() {
+    const { name, caffeine, unitIndex } = this.data.customDrink
+    const unit = this.data.unitOptions[unitIndex]
+
+    if (!name.trim()) {
+      wx.showToast({ title: '请输入饮品名称', icon: 'none' })
+      return
+    }
+    if (!caffeine || isNaN(caffeine) || caffeine <= 0) {
+      wx.showToast({ title: '请输入有效的咖啡因含量', icon: 'none' })
+      return
+    }
+
+    const newDrink = {
+      id: `custom_${Date.now()}`,
+      name: name.trim(),
+      caffeine: parseInt(caffeine),
+      unit: unit,
+      emoji: '☕',
+      category: 'custom',
+      isFavorite: false,
+      isCustom: true
+    }
+
+    const customDrinks = [newDrink, ...this.data.customDrinks]
+    this.setData({ customDrinks, showAddCustomModal: false })
+    this.saveLocalData()
+
+    wx.showToast({ title: '添加成功', icon: 'success' })
+  },
+
+  deleteCustomDrink(e) {
+    const drinkId = e.currentTarget.dataset.drinkId
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个自定义饮品吗？',
+      confirmText: '删除',
+      confirmColor: '#e74c3c',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          this.performDeleteCustomDrink(drinkId)
+        }
+      }
+    })
+  },
+
+  performDeleteCustomDrink(drinkId) {
+    try {
+      let customDrinks = [...this.data.customDrinks].filter(drink => drink.id !== drinkId)
+      let recentDrinks = [...this.data.recentDrinks].filter(drink => drink.id !== drinkId)
+
+      this.setData({ customDrinks, recentDrinks })
+      this.saveLocalData()
+
+      wx.showToast({ title: '删除成功', icon: 'success' })
+    } catch (e) {
+      console.error('删除自定义饮品失败:', e)
+      wx.showToast({ title: '删除失败', icon: 'error' })
+    }
   },
 
   /* ============ 跳转详情（保持你的写法） ============ */

@@ -1,0 +1,74 @@
+<view class="page">
+  <!-- 块1：入睡时间 -->
+  <view class="setting-item first-item">
+    <image class="icon" src="../images/icon_sleep.png" mode="widthFix"></image>
+    <view class="info shifted-text">
+      <view class="title">入睡时间</view>
+      <view class="desc">你日常的上床睡觉时间</view>
+    </view>
+    <picker mode="time" value="{{sleepTime}}" bindchange="onChangeSleepTime">
+      <view class="time-badge">{{sleepTime}}</view>
+    </picker>
+  </view>
+
+  <!-- 块2：每日咖啡因上限 -->
+  <view class="setting-item with-divider">
+    <view class="top-row">
+      <image class="icon" src="../images/icon_limit.png" mode="widthFix"></image>
+      <view class="text-area shifted-text">
+        <view class="title">每日咖啡因上限</view>
+        <view class="desc">在健康范围内的每日咖啡因摄入上限</view>
+      </view>
+    </view>
+    <view class="divider shifted-divider"></view>
+    <view class="value-row">
+      <input class="value-input" type="number" value="{{dailyLimit}}" bindinput="onInputDailyLimit" />
+      <text class="unit">毫克</text>
+    </view>
+  </view>
+
+  <!-- 块3：入睡时咖啡因水平 -->
+  <view class="setting-item with-divider">
+    <view class="top-row">
+      <image class="icon" src="../images/icon_caffeine.png" mode="widthFix"></image>
+      <view class="text-area shifted-text">
+        <view class="title">入睡时咖啡因水平</view>
+        <view class="desc">入睡时，不影响你睡眠的体内咖啡因上限</view>
+      </view>
+    </view>
+    <view class="divider shifted-divider"></view>
+    <view class="value-row">
+      <input class="value-input" type="number" value="{{sleepCaffeine}}" bindinput="onInputSleepCaffeine" />
+      <text class="unit">毫克</text>
+    </view>
+  </view>
+
+  
+
+  <!-- 块5：保存设置 -->
+  <view class="save-btn" bindtap="saveSettings">
+    保存设置
+  </view>
+
+  <!-- 块6：恢复默认 -->
+  <view class="reset-btn" bindtap="showResetPopup">
+    恢复默认
+  </view>
+
+  <!-- 恢复默认弹窗 -->
+  <view wx:if="{{showPopup}}" class="popup-mask">
+    <view class="popup">
+      <view class="popup-text">确认恢复默认的代谢设置吗</view>
+      <button class="popup-btn confirm" bindtap="resetDefaults">恢复</button>
+      <button class="popup-btn cancel" bindtap="hideResetPopup">取消</button>
+    </view>
+  </view>
+
+  <!-- 保存成功提示 -->
+  <view wx:if="{{showSaveSuccess}}" class="save-success-mask" bindtap="hideSaveSuccess">
+    <view class="save-success-popup">
+      <view class="success-icon">✓</view>
+      <view class="success-text">设置已保存</view>
+    </view>
+  </view>
+</view>

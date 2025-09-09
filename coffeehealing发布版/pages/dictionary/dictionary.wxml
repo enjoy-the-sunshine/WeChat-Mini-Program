@@ -1,0 +1,131 @@
+<!-- pages/dictionary/dictionary.wxml -->
+<view class="container">
+  <!-- 悬浮收藏栏和自定义栏 -->
+  <view class="floating-bars">
+    <view class="floating-bar {{activeCategory === 'favorite' ? 'active' : ''}}" bindtap="switchToFavorite">
+      <view class="bar-icon">🔎</view>
+      <text class="bar-text">搜索</text>
+    </view>
+    <view class="floating-bar {{activeCategory === 'custom' ? 'active' : ''}}" bindtap="switchToCustom">
+      <view class="bar-icon">⚙️</view>
+      <text class="bar-text">自定义</text>
+    </view>
+  </view>
+
+  <!-- 主内容区域 -->
+  <view class="main-content">
+    <view class="page-title"><text class="title-text">精选茶饮品牌</text></view>
+
+    <view class="brand-grid">
+      <view wx:for="{{brands}}" wx:key="id" class="brand-card" bindtap="selectBrand" data-brand="{{item}}">
+        <view class="card-logo-container">
+          <image class="brand-logo" src="{{item.logoUrl}}" mode="aspectFit" lazy-load="true"/>
+        </view>
+        <text class="brand-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{brands.length === 0}}" class="empty-state">
+      <view class="empty-icon">📭</view>
+      <text class="empty-text">暂无品牌数据</text>
+    </view>
+  </view>
+
+  <!-- 搜索饮品弹窗 -->
+  <view wx:if="{{showFavoriteModal}}" class="modal-overlay {{showFavoriteModal ? 'show' : ''}}" bindtap="hideFavoriteModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-icon">🧋</view>
+        <text class="modal-title">搜索饮品</text>
+        <view class="modal-close" bindtap="hideFavoriteModal">×</view>
+      </view>
+
+      <view class="modal-body">
+        <view class="search-bar">
+          <input class="search-input"
+                 placeholder="输入品牌名"
+                 confirm-type="search"
+                 bindconfirm="doSearch"
+                 bindinput="onSearchInput"
+                 value="{{searchKeyword}}" />
+          <button class="btn btn-primary" bindtap="doSearch">搜索</button>
+        </view>
+
+        <!-- 结果列表（仍绑定原数据/事件） -->
+        <view wx:for="{{favorites}}" wx:key="id" class="search-result" bindtap="selectFavoriteDrink" data-drink="{{item}}">
+          <image class="brand-icon" src="{{item.logoUrl}}" mode="aspectFill"></image>
+          <text class="brand-name">{{item.name}}</text>
+        </view>
+
+        <view wx:if="{{!favorites.length}}" class="empty-favorites">
+          <view class="empty-icon">⭐</view>
+          <text class="empty-text">暂无搜索结果</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 自定义饮品弹窗 -->
+  <view wx:if="{{showCustomModal}}" class="modal-overlay {{showCustomModal ? 'show' : ''}}" bindtap="hideCustomModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-icon">🛠️</view>
+        <text class="modal-title">自定义饮品</text>
+        <view class="modal-close" bindtap="hideCustomModal">×</view>
+      </view>
+
+      <view class="modal-body">
+        <view class="custom-add-btn" bindtap="showAddCustomModal">
+          <text class="custom-add-icon">+</text>
+          <text class="custom-add-text">添加自定义饮品</text>
+        </view>
+
+        <view wx:for="{{customDrinks}}" wx:key="id" class="custom-item" bindtap="selectCustomDrink" data-drink="{{item}}">
+          <view class="drink-icon">{{item.emoji || '☕'}}</view>
+          <view class="drink-info">
+            <text class="drink-name">{{item.name}}</text>
+            <text class="drink-caffeine">{{item.caffeine}} mg{{item.unit || ''}}</text>
+          </view>
+          <view class="delete-btn" catchtap="deleteCustomDrink" data-drink-id="{{item.id}}">
+            <text class="delete-icon">🗑️</text>
+          </view>
+        </view>
+
+        <view wx:if="{{customDrinks.length === 0}}" class="empty-custom">
+          <view class="empty-icon">⚙️</view>
+          <text class="empty-text">暂无自定义饮品</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加自定义饮品弹窗 -->
+  <view wx:if="{{showAddCustomModal}}" class="modal-overlay {{showAddCustomModal ? 'show' : ''}}" bindtap="hideAddCustomModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-icon">🐻</view>
+        <text class="modal-title">添加自定义饮品</text>
+        <view class="modal-close" bindtap="hideAddCustomModal">×</view>
+      </view>
+
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">饮品名称</text>
+          <input class="form-input" placeholder="请输入饮品名称"
+                 value="{{customDrink.name}}" bindinput="onCustomNameInput"/>
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">咖啡因含量 (mg)</text>
+          <input class="form-input" type="number" placeholder="请输入咖啡因含量"
+                 value="{{customDrink.caffeine}}" bindinput="onCustomCaffeineInput"/>
+        </view>
+      </view>
+
+      <view class="modal-footer">
+        <button class="btn btn-ghost" bindtap="hideAddCustomModal">取消</button>
+        <button class="btn btn-primary" bindtap="addCustomDrink">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

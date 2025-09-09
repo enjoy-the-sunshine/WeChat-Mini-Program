@@ -45,17 +45,20 @@
       <view class="timer-label">提神倒计时</view>
       <view class="timer-value">{{timer}}</view>
       <view class="progress light">
-        <view class="progress-bar light" style="width: 60%;"></view>
+      <view class="progress-bar light" style="width: {{vitalityProgress}};"></view>
       </view>
-      <view class="small-desc">体内咖啡因含量{{bodyCaffeine}}mg · 提神至15:00</view>
-    </view>
+      <view class="small-desc">
+        体内咖啡因含量{{bodyCaffeine}}mg · 提神至{{vitalityEndTime}}
+      </view>
+
     <image class="bear-img" src="../images/bear_lie.png"mode="widthFix"></image>
   </view>
 
-  <!-- 设置按钮 -->
-  <view class="settings" bindtap="goToSetting">
-    <image class="settings-icon" src="../images/settings.png" />
-    <text class="settings-text">个性化咖啡因代谢设置</text>
-    <image class="arrow-icon" src="../images/arrow.png" />
+    <!-- 设置按钮 -->
+    <view class="settings" bindtap="goToSetting">
+      <image class="settings-icon" src="../images/settings.png" />
+      <text class="settings-text">个性化咖啡因代谢设置</text>
+      <image class="arrow-icon" src="../images/arrow.png" />
+    </view>
   </view>
 </view>

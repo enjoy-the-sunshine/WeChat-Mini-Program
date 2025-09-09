@@ -1,0 +1,54 @@
+.page {
+    background: #FDF8E3;
+    min-height: 100vh;
+    padding: 38.6rpx 0 40rpx;
+    box-sizing: border-box;
+  
+    /* 居中卡片容器（可选） */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 分组顶部小标题（20px），字号用内联 style 绑定 */
+  .group-title {
+    font-weight: 800;
+    color: #7D5835;
+    width: 675rpx;            /* 跟卡片等宽，视觉对齐 */
+    margin: 24rpx 0 12rpx;
+  }
+  
+  /* 卡片：宽=350*1.93≈675rpx；上下左右一致阴影；25% 透明度 */
+  .panel {
+    width: 675rpx;
+    background: #FFFFFF;
+    border-radius: 25rpx;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25); /* 上下均匀 */
+    padding: 8rpx 6rpx;
+    margin-bottom: 18rpx;
+  }
+  
+  /* 每行内容：左标题 + 右开关 */
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22rpx 28rpx;
+  }
+  
+  /* 行标题文字（18px），字号用内联 style 绑定 */
+  .row-title {
+    font-weight: 600;
+    color: #7D5835;
+  }
+  
+  /* 细化开关尺寸 */
+  switch { transform: scale(0.92); }
+  
+  /* 总开关关闭时，子项置灰不可交互的视觉提示 */
+  .disabled .row-title { color: rgba(125,88,53,0.35); }
+  .disabled { opacity: 0.65; }
+  
+  /* 可选：页面内大标题（24px）时的行高/加粗 */
+  .h1 { font-weight: 700; color: #7D5835; margin: 0 0 12rpx; }
+  

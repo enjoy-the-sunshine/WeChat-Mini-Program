@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "咖啡因管理小熊",
+  "backgroundColor": "#FAF0E6",
+  "enablePullDownRefresh": false,
+  "disableScroll": true,
+  "usingComponents":{}
+}

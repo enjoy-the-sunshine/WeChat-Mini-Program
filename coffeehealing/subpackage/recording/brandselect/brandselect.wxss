@@ -1,4 +1,4 @@
-/* pages/add_home/add_home.wxss */
+/* subpackage/recording/brandselect/brandselect.wxss */
 .container {
   height: 100vh;
   background: linear-gradient(135deg, #FDF8E3 0%, #f5f0d8 50%, #e8e0c8 100%);

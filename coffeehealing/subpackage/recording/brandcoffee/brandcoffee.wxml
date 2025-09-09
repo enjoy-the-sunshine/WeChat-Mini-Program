@@ -1,18 +1,56 @@
-<view class="page" >
-  <!-- 搜索框 -->
-  <view class="search-box shadow">
-    <image src="../images/搜索.png" class="search-icon"></image>
-    <input placeholder="请输入内容" bindinput="onSearchInput" value="{{keyword}}" />
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="nav-header">
+    <view class="nav-back" bindtap="goBack">
+      <text class="back-icon">←</text>
+    </view>
+    <text class="nav-title">{{brandName}}饮品咖啡因含量</text>
   </view>
 
-  <!-- 星巴克咖啡列表 -->
-  <view wx:for="{{filteredList}}" wx:key="name" class="list-item" style="width: 625rpx; display: flex; box-sizing: border-box; position: relative; left: 44rpx; top: 0rpx" bindtap="gotoDrinkDetail" data-name="{{item.name}}">
-    <text>{{item.name}}</text>
-    <image class="arrow" src="../images/arrow.png" mode="widthFix"></image>
+  <!-- 品牌信息卡片 -->
+  <view class="brand-card">
+    <view class="brand-header">
+      <view class="brand-logo-container">
+        <image class="brand-logo" src="{{brandLogoUrl}}" mode="aspectFit"></image>
+      </view>
+      <text class="brand-name">{{brandName}}</text>
+    </view>
+    
+    <view class="divider"></view>
+    
+    <!-- 饮品列表 -->
+    <view wx:for="{{filteredList}}" wx:key="name" class="drink-item">
+      <view class="drink-content">
+        <view class="drink-info">
+          <view class="drink-icon-container">
+            <text class="drink-icon">☕</text>
+          </view>
+          <text class="drink-name">{{item.name}}</text>
+        </view>
+        <view class="caffeine-info">
+          <text wx:if="{{item.small || item.medium || item.large}}" class="caffeine-item">
+            <text wx:if="{{item.small}}">小杯: {{item.small}}mg</text>
+            <text wx:if="{{item.small && item.medium}}"> </text>
+            <text wx:if="{{item.medium}}">中杯: {{item.medium}}mg</text>
+            <text wx:if="{{(item.small || item.medium) && item.large}}"> </text>
+            <text wx:if="{{item.large}}">大杯: {{item.large}}mg</text>
+          </text>
+          <text wx:if="{{!item.small && !item.medium && !item.large}}" class="caffeine-item">{{item.caffeine || 0}}mg</text>
+        </view>
+      </view>
+      <view class="drink-actions">
+        <view class="favorite-btn {{item.isFavorite ? 'favorited' : ''}}" 
+              catchtap="toggleFavorite" 
+              data-drink="{{item}}">
+          <text class="favorite-icon">{{item.isFavorite ? '★' : '☆'}}</text>
+        </view>
+      </view>
+    </view>
   </view>
-  <!-- 底部小熊 -->
-  <view class="bottom-bear" style="height: 274rpx; display: flex; box-sizing: border-box">
-  <image src="../images/bear_fly.png" class="bear-img" style="width: 420rpx; height: 395rpx; display: block; box-sizing: border-box; position: relative; left: 235rpx; top: 198rpx"></image>
-  <text class="bear-text" style="position: relative; left: -275rpx; top: -38rpx; width: 299rpx; height: 75rpx; display: block; box-sizing: border-box; font-size: 50rpx">到底喽~~</text>
+
+  <!-- 空状态 -->
+  <view wx:if="{{filteredList.length === 0}}" class="empty-state">
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">暂无饮品数据</text>
   </view>
 </view>

@@ -1,0 +1,90 @@
+{
+    "pages": [
+        "pages/login/login",
+        "pages/login_wechat/login_wechat",
+        "pages/login_phone/login_phone",
+        "pages/login_bear/login_bear",
+        "pages/register/register",
+        "pages/register/help/help",
+        "pages/protocol/user/user",
+        "pages/protocol/privacy/privacy",
+        "pages/questions/questions",
+        "pages/home/home",
+        "pages/recording/recording",
+        "pages/dictionary/dictionary",
+        "pages/mine/mine"
+    ],
+    "subPackages": [
+        {
+            "root": "subpackage/recording",
+            "pages": [
+                "brandselect/brandselect",
+                "brandcoffee/brandcoffee",
+                "drinkdetail/drinkdetail",
+                "recording_state/recording_state"
+            ]
+        },
+        {
+            "root": "subpackage/home",
+            "pages": [
+                "index/index",
+                "main_record/main_record",
+                "main_forecast/main_forecast",
+                "test_drink/test_drink",
+                "main_record_setting/main_record_setting",
+                "caffeine_tips/caffeine_tips"
+            ]
+        },
+        {
+            "root": "subpackage/mine",
+            "pages": [
+                "profile/profile",
+                "settings/settings",
+                "person_setting_message/person_setting_message",
+                "feedback/feedback"
+            ]
+        }
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "CoffeeHealing",
+        "backgroundColor": "#fdf8e3",
+        "backgroundTextStyle": "light"
+    },
+    "tabBar": {
+        "position": "bottom",
+        "color": "#AC886D",
+        "selectedColor": "#A1CAE2",
+        "backgroundColor": "#FFFFFF",
+        "borderStyle": "white",
+        "list": [
+            {
+                "pagePath": "pages/home/home",
+                "text": "首页",
+                "iconPath": "images/home.png",
+                "selectedIconPath": "images/home_selected.png"
+            },
+            {
+                "pagePath": "pages/recording/recording",
+                "text": "咖啡记录",
+                "iconPath": "images/record.png",
+                "selectedIconPath": "images/record_selected.png"
+            },
+            {
+                "pagePath": "pages/dictionary/dictionary",
+                "text": "饮品字典",
+                "iconPath": "images/dictionary.png",
+                "selectedIconPath": "images/dictionary_selected.png"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "text": "我的",
+                "iconPath": "images/mine.png",
+                "selectedIconPath": "images/mine_selected.png"
+            }
+        ]
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
+}

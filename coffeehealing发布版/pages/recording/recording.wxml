@@ -1,0 +1,154 @@
+<view class="page">
+
+<!-- 日历 -->
+<view class="calendar-container shadow" style="position: relative; left: 37rpx; top: 40rpx">
+  <view class="calendar-header">
+    <text class="arrow" bindtap="prevMonth">‹</text>
+    <text class="current-date">{{currentYear}}年{{currentMonth}}月</text>
+    <text class="arrow" bindtap="nextMonth">›</text>
+  </view>
+  <view class="weekdays">
+    <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this" class="weekday">{{item}}</text>
+  </view>
+  <view class="days">
+    <view wx:for="{{days}}" wx:key="index"
+      class="day {{item.isCurrentMonth ? '' : 'other-month'}} {{selectedDate === item.dateString ? 'selected' : ''}}"
+      bindtap="selectDate" data-date="{{item.dateString}}">
+      {{item.date}}
+    </view>
+  </view>
+</view>
+
+<!-- 总咖啡因 -->
+<view class="caffeine-summary shadow" style="width: 639rpx; display: block; box-sizing: border-box; position: relative; left: 37rpx; top: 40rpx">
+  <text class="summary-date">{{selectedDateDisplay}}  星期{{selectedWeekday}}</text>
+  <view class="summary-row">
+    <text class="summary-title">今日总计咖啡因</text>
+    <text class="summary-value">{{totalCaffeine}}<text class="unit">mg</text></text>
+  </view>
+</view>
+
+<!-- 当日饮品记录 -->
+<view>
+  <!-- 显示最新的3条记录 -->
+  <view wx:for="{{displayDrinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{item.originalIndex}}">
+    <image class="drink-icon" src="../images/coffee-icon.png" mode="aspectFit"></image>
+    <view class="drink-info">
+      <text class="drink-name">{{item.name}}</text>
+      <text class="drink-time">{{item.time}}</text>
+    </view>
+    <text class="drink-caffeine">{{item.caffeine}}mg</text>
+    <image class="record-arrow" src="../images/arrow_right.png" mode="widthFix"></image>
+  </view>
+
+  <!-- 折叠的其他记录 -->
+  <view wx:if="{{isExpanded && drinkRecords.length > 3}}" class="folded-records expanded">
+    <view wx:for="{{foldedDrinkRecords}}" wx:key="index" class="drink-record shadow" bindtap="openEditPopup" data-index="{{item.originalIndex}}">
+      <image class="drink-icon" src="../images/coffee-icon.png" mode="aspectFit"></image>
+      <view class="drink-info">
+        <text class="drink-name">{{item.name}}</text>
+        <text class="drink-time">{{item.time}}</text>
+      </view>
+      <text class="drink-caffeine">{{item.caffeine}}mg</text>
+      <image class="record-arrow" src="../images/arrow_right.png" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 折叠提示卡片 - 根据状态决定位置和文字 -->
+  <view wx:if="{{drinkRecords.length > 3}}" class="fold-card shadow {{isExpanded ? 'expanded' : ''}}" bindtap="toggleRecords">
+    <view class="fold-content">
+      <text class="fold-text">{{isExpanded ? '收起记录' : '还有 ' + (drinkRecords.length - 3) + ' 条记录'}}</text>
+      <view class="fold-icon {{isExpanded ? 'expanded' : ''}}">
+        <text class="arrow-down">▼</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 按钮 -->
+<view class="btn-group {{drinkRecords.length === 0 ? 'no-records' : ''}}">
+  <button class="btn-add shadow" bindtap="goToBrandSelect">追加记录</button>
+  <button class="btn-state shadow" bindtap="goToRecordingState">状态记录</button>
+</view>
+
+<!-- 底部插图 -->
+<view class="bear-container">
+  <image src="../images/bear_grass1.png" mode="widthFix" class="bear-img"></image>
+</view>
+</view>
+
+<!-- 弹窗 -->
+<view class="popup-mask" wx:if="{{showEditPopup}}" bindtap="closeEditPopup">
+  <view class="popup-container" catchtap="stopTap">
+    <image src="../images/close-icon.png" class="popup-close-btn" bindtap="closeEditPopup"></image>
+    <view class="popup-title">编辑记录</view>
+
+    <!-- 饮品 -->
+  <view class="popup-field">
+    <view class="popup-field-left">
+      <image src="../images/drink-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">饮品</text>
+    </view>
+    <view class="popup-field-right">
+      <view class="popup-inner-input auto-width drink-name-input">
+        <text class="hidden-text">{{editRecord.name || ' '}}</text>
+        <input value="{{editRecord.name}}" bindinput="onDrinkNameInput" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期 -->
+  <view class="popup-field">
+    <view class="popup-field-left">
+      <image src="../images/calendar-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">日期</text>
+    </view>
+    <view class="popup-field-right">
+      <picker mode="date" value="{{editRecord.date}}" bindchange="onDrinkDateChange">
+        <view class="popup-inner-input auto-width">
+          <text>{{editRecord.date || '选择日期'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 时间 -->
+  <view class="popup-field">
+    <view class="popup-field-left">
+      <image src="../images/time-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">时间</text>
+    </view>
+    <view class="popup-field-right">
+      <picker mode="time" value="{{editRecord.time}}" bindchange="onDrinkTimeChange">
+        <view class="popup-inner-input auto-width">
+          <text>{{editRecord.time || '选择时间'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+    <!-- 咖啡因含量 -->
+    <view class="popup-field">
+      <image src="../images/caffeine-icon.png" class="popup-icon"></image>
+      <text class="popup-label" style="font-size: 35rpx;">咖啡因含量</text>
+      <view class="popup-caffeine-display">
+        <text class="popup-caffeine-value">{{editRecord.caffeine}}</text>
+        <text class="popup-unit">mg</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮行 -->
+  <view class="popup-action-row">
+    <view class="popup-action-btn delete-btn" bindtap="onDeleteRecord">
+      删除此记录...
+    </view>
+    <view class="popup-action-btn save-btn" bindtap="onSaveRecord">
+      保存修改
+    </view>
+  </view>
+
+
+  </view>
+</view>
+
+

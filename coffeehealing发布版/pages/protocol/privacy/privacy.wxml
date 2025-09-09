@@ -1,0 +1,59 @@
+<!--pages/protocol/privacy/privacy.wxml-->
+<view class="container">
+  <scroll-view scroll-y="true" class="content">
+    <view class="section">
+      <view class="intro">
+        <text class="intro-text">我们非常重视您的隐私。本政策向您说明我们如何收集、使用和保护您的个人信息。</text>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">一、收集的信息类型</view>
+        <view class="article-content">
+          <view class="paragraph">1、必要信息：微信OpenID、昵称、头像（用于账号体系）。</view>
+          <view class="paragraph">2、健康数据：体重、咖啡因敏感度、自定义饮品咖啡因含量、实时摄入记录、睡眠时间、心情标签。</view>
+          <view class="paragraph">3、设备信息：手机型号、操作系统版本（用于兼容性优化）。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">二、信息使用目的</view>
+        <view class="article-content">
+          <view class="paragraph">1、实时计算体内咖啡因浓度，通过进度条展示摄入上限比例。</view>
+          <view class="paragraph">2、生成个性化睡眠曲线预测（基于代谢时间算法）。</view>
+          <view class="paragraph">3、匿名化分析群体摄入习惯，优化推荐算法。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">三、数据存储与保护</view>
+        <view class="article-content">
+          <view class="paragraph">1、健康数据加密存储于腾讯云数据库，仅用户本人可通过账号访问。</view>
+          <view class="paragraph">2、本地缓存数据（如临时记录）在卸载小程序后自动清除。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">四、第三方共享</view>
+        <view class="article-content">
+          <view class="paragraph">1、绝不共享：生理指标、心情记录等敏感数据不与任何第三方共享。</view>
+          <view class="paragraph">2、可选共享：若用户授权，咖啡因摄入量可同步至Apple Health（仅限iOS设备）。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">五、用户权利</view>
+        <view class="article-content">
+          <view class="paragraph">1、数据导出/删除：在"账户设置"中可导出全部记录或永久删除账号及数据。</view>
+          <view class="paragraph">2、撤回同意：关闭"元气时刻分析"功能后，系统将停止读取心情标签。</view>
+        </view>
+      </view>
+      
+      <view class="article">
+        <view class="article-title">六、未成年人保护</view>
+        <view class="article-content">
+          <view class="paragraph">若用户年龄＜14岁，需监护人同意方可使用生理指标统计功能。</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

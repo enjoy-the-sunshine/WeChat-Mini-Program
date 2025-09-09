@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FDF8E3;
+    height: 100vh;
+  }
+  
+  .bear-fly { width: 200rpx; margin: 40rpx 0; }
+  .title { font-size: 40rpx; margin-bottom: 40rpx; }
+  
+  .input {
+    width: 500rpx;
+    height: 90rpx;
+    background: #fff;
+    border: 1rpx solid #ccc;
+    border-radius: 12rpx;
+    margin: 20rpx 0;
+    padding-left: 20rpx;
+    font-size: 30rpx;
+  }
+  
+  .password-box { position: relative; }
+  .eye { position: absolute; right: 20rpx; top: 30rpx; width: 40rpx; height: 40rpx; z-index: 999; }
+  
+  .tips {
+    width: 500rpx;
+    display: flex;
+    justify-content: space-between;
+    font-size: 26rpx;
+    margin-bottom: 20rpx;
+  }
+  
+  .btn {
+    width: 500rpx;
+    height: 90rpx;
+    border-radius: 45rpx;
+    background-color: rgba(161, 202, 226, 0.23); /* 默认浅色 */
+    color: #797979;
+    text-align: center;
+    line-height: 90rpx;
+    margin-bottom: 40rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32rpx;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    transition: all .2s ease;
+  }
+  
+  /* 高亮：账号+密码都有内容时 */
+  .btn--active {
+    background-color: #A1CAE2;
+    color: #ffffff;
+    box-shadow: 0 6rpx 20rpx rgba(161, 202, 226, 0.35);
+  }
+  
+  /* 按压反馈（视觉轻微缩放） */
+  .btn--press { transform: scale(.98); }
+  
+  /* 去掉原生 button 的按压描边 */
+  button::after { border: none; }
+  
+  .bear-lie { width: 180rpx; margin: 20rpx 0 60rpx; }
+  .protocol { display: flex; align-items: center; font-size: 24rpx; margin-bottom: 30rpx; }
+  .link { color: #1E90FF; margin: 0 10rpx; }
+  .problem { font-size: 24rpx; color: #666; text-decoration: underline; }
+  

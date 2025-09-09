@@ -1,0 +1,38 @@
+<view class="container">
+  <!-- 账户设置 -->
+  <view class="section account-settings">
+    <view class="section-title">
+      <text>账户设置</text>
+      <image class="icon" src="../images/happy.png" />
+    </view>
+
+    <!-- 白色矩形面板 -->
+    <view class="action-panel" bindtap="navigateToProfile" style="width: 625rpx; display: flex; box-sizing: border-box; height: 108rpx">
+      <text class="action-text">个人信息修改</text>
+      <image src="../images/right.png" class="arrow" />
+    </view>
+  </view>
+
+  <!-- 通知设置 -->
+  <view class="section notification-settings">
+    <view class="section-title">
+      <text style="position: relative; left: 4rpx; top: 0rpx">通知设置</text>
+      <image class="icon" src="../images/phone.png" />
+    </view>
+
+    <!-- 白色矩形面板 -->
+    <view class="action-panel" bindtap="navigateToNotification" style="width: 622rpx; display: flex; box-sizing: border-box; height: 108rpx">
+      <text class="action-text">通知</text>
+      <image src="../images/right.png" class="arrow" />
+    </view>
+  </view>
+
+  <!-- ★ 新增：退出登录按钮（样式与“账号登录”一致，始终高亮） -->
+  <button
+    class="btn phone-btn phone-btn--active logout-btn"
+    hover-class="btn--press"
+    bindtap="onLogout"
+   style="position: relative; left: 1rpx; top: 27rpx">退出登录</button>
+
+  <image class="footer-image" src="../images/bear_fly.png" alt="Bear with Coffee" />
+</view>

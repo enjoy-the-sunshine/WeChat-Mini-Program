@@ -1,0 +1,55 @@
+<!--pages/login_phone/login_phone.wxml-->
+<view class="container">
+  <image class="bear-fly" src="../images/bear_fly1.png" mode="widthFix"
+    style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box" />
+
+  <text class="title" style="font-size: 60rpx; font-weight: bold">CoffeeHealing~</text>
+
+  <!-- 账号输入 -->
+  <input
+    class="input"
+    style="width: 580rpx; display: block; box-sizing: border-box"
+    placeholder="账号"
+    bindinput="onAccountInput"
+    value="{{account}}"
+  />
+
+  <!-- 密码输入 -->
+  <view style="position: relative;">
+    <input
+      class="input"
+      style="width: 580rpx; display: block; box-sizing: border-box"
+      placeholder="密码"
+      maxlength="12"
+      password="{{!showPassword}}"
+      bindinput="onPwdInput"
+      value="{{password}}"
+    />
+    <image
+      class="eye"
+      src="{{showPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}"
+      bindtap="togglePassword"
+      style="position: absolute; left: 517rpx; top: 45rpx"
+    />
+  </view>
+
+  <!-- 提示导航 -->
+  <view class="tips">
+    <navigator url="/pages/register/register" style="position: relative; left: -23rpx;">还没有账号？去注册</navigator>
+  </view>
+
+  <!-- 登录按钮：不再使用 disabled，只做颜色高亮 -->
+  <button
+    class="btn {{canLogin ? 'btn--active' : ''}}"
+    hover-class="btn--press"
+    bindtap="onLogin"
+  >
+    一键登录
+  </button>
+
+  <!-- 底部插画 -->
+  <image class="bear-lie" src="../images/bear_lie.png" mode="widthFix"
+    style="width: 271rpx; height: 206rpx; display: block; box-sizing: border-box" />
+
+  <navigator url="/pages/register/help/help" class="problem">登录遇到问题?</navigator>
+</view>

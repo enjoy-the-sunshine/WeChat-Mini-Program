@@ -1,0 +1,174 @@
+<view class="page">
+  <!-- 饮用百分比 -->
+  <view class="section percentage-section" wx:if="{{isCustom}}">
+    <view class="section-title">
+      <view class="title-icon">📊</view>
+      <text>饮用百分比</text>
+    </view>
+    <view class="percentage-card" style="height: 133rpx; display: flex; box-sizing: border-box">
+      <view class="percentage-left">
+        <view class="percentage-info">
+          <text class="percentage-label">实际饮用量</text>
+          <text class="percentage-subtitle">调整您实际饮用的量</text>
+        </view>
+      </view>
+      <view class="percentage-right">
+        <view class="percentage-display">
+          <view class="percentage-amount" style="position: relative; left: -70rpx; top: 11rpx">
+            <text class="percentage-value">{{drinkPercentage || 100}}</text>
+            <text class="percentage-unit">%</text>
+          </view>
+          <view class="percentage-slider">
+            <slider style="width: 249rpx; display: block; box-sizing: border-box; left: -70rpx; position: relative; top: 0rpx" min="0" max="100" value="{{drinkPercentage || 100}}" 
+                    activeColor="#D2691E" backgroundColor="#f0f0f0" 
+                    block-size="24" block-color="#D2691E" 
+                    bindchange="onPercentageChange" bindchanging="onPercentageChanging"/>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 杯型选择 -->
+  <view class="section cups-section" wx:if="{{!isCustom}}">
+    <view class="section-title">
+      <view class="title-icon">☕</view>
+      <text>选择杯型</text>
+    </view>
+    <view class="cups">
+      <view wx:for="{{sizeOptions}}" wx:key="size_key"
+            class="cup-item {{cupSize === item.size_key ? 'selected' : ''}}"
+            data-size="{{item.size_key}}" bindtap="selectCup">
+        <view class="cup-image-wrapper">
+          <image src="{{item.cupImage}}" class="cup-img"></image>
+          <view class="selection-badge" wx:if="{{cupSize === item.size_key}}">✓</view>
+        </view>
+        <text class="cup-text">{{item.size_key}}</text>
+        <text class="cup-volume">{{item.size_ml ? item.size_ml + 'ml' : ''}}</text>
+        <view class="cup-add-btn" data-size="{{item.size_key}}" bindtap="showInputModal">
+          <image src="../images/add-icon.png" class="add-icon"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮用时间 -->
+  <view class="section time-section">
+    <view class="section-title">
+      <view class="title-icon">🕐</view>
+      <text>饮用时间</text>
+    </view>
+    <view class="time-card">
+      <view class="time-left">
+        <image src="../images/time2.png" class="time-illustration"></image>
+        <view class="time-info">
+          <text class="time-label">当前选择</text>
+          <text class="time-subtitle">记录饮用时间</text>
+        </view>
+      </view>
+      <view class="time-right">
+        <picker mode="time" value="{{drinkTime}}" start="00:00" end="23:59" bindchange="onTimeChange">
+          <view class="time-picker">
+            <view class="time-display">
+              <text class="time-value">{{drinkTime || '点击选择'}}</text>
+              <view class="time-arrow">▼</view>
+            </view>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 咖啡因含量 -->
+  <view class="section caffeine-section">
+    <view class="section-title">
+      <view class="title-icon">⚡</view>
+      <text>咖啡因含量</text>
+    </view>
+    <view class="caffeine-card">
+      <view class="caffeine-left">
+        <image src="../images/caffeine2.png" class="caffeine-illustration"></image>
+        <view class="caffeine-info">
+          <text class="caffeine-label">预计摄入量</text>
+          <text class="caffeine-subtitle">基于标准配方计算</text>
+        </view>
+      </view>
+      <view class="caffeine-right">
+        <view class="caffeine-display">
+          <view class="caffeine-amount">
+            <text class="caffeine-value">{{caffeineAmount || '--'}}</text>
+            <text class="caffeine-unit">mg</text>
+          </view>
+          <view class="caffeine-bar">
+            <view class="bar-track">
+              <view class="bar-fill" style="width: {{cupSize ? '100%' : '0%'}}"></view>
+            </view>
+            <text class="bar-text" wx:if="{{!isCustom}}">{{cupSize ? '已选择' : '未选择'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="action-section">
+    <button class="add-btn {{(cupSize || isCustom) ? 'active' : 'disabled'}}" bindtap="goBackToCaffeine" disabled="{{!cupSize && !isCustom}}">
+      <view class="btn-content">
+        <text class="btn-text">确认添加</text>
+        <view class="btn-icon">✓</view>
+      </view>
+    </button>
+  </view>
+
+  <!-- 输入饮用量弹窗 -->
+  <view wx:if="{{showModal}}" class="modal-mask">
+    <view class="modal-container">
+      <view class="modal-header">
+        <view class="modal-title-wrapper">
+          <text class="modal-title">设置饮用量</text>
+          <text class="modal-subtitle">为 {{currentCup}} 设置实际饮用量</text>
+        </view>
+        <view class="modal-close" bindtap="closeModal">
+          <image src="../images/close-icon.png" class="close-icon"></image>
+        </view>
+      </view>
+      <view class="modal-body">
+        <view class="input-section">
+          <text class="input-label">饮用量百分比</text>
+          <view class="input-wrapper">
+            <input type="number" bindinput="onAmountInput" class="modal-input" placeholder="0" value="{{amount}}" maxlength="3"/>
+            <text class="input-unit">%</text>
+          </view>
+          <view class="input-slider">
+            <slider min="0" max="100" value="{{amount}}" activeColor="#D2691E" backgroundColor="#f0f0f0" block-size="24" block-color="#D2691E" bindchange="onSliderInput" bindchanging="onSliderInput"/>
+          </view>
+        </view>
+      </view>
+      <view class="modal-actions">
+        <button class="modal-cancel" bindtap="closeModal">取消</button>
+        <button class="modal-confirm" bindtap="confirmAmount">确定</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 超标提示弹窗 - 已移到最外层 -->
+  <view class="warn-modal" wx:if="{{modalVisible}}">
+    <view class="warn-modal-content">
+      <!-- 标题区 -->
+      <view class="warn-modal-header">
+        <image src="../images/avatar.png" class="warn-modal-icon" />
+        <text class="warn-modal-title">{{modalTitle}}</text>
+      </view>
+
+      <!-- 提示文字 -->
+      <text class="warn-modal-text">{{modalMessage}}</text>
+
+      <!-- 按钮 -->
+      <view class="warn-modal-actions">
+        <button class="warn-modal-button warn-modal-button-confirm" bindtap="confirmModal">确认</button>
+        <button class="warn-modal-button warn-modal-button-cancel" bindtap="hideModal">返回</button>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,126 @@
+/* 背景与布局 */
+.container {
+  height: 100vh;
+  background-color: #fdf8e3;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+  
+  /* 悬浮按钮条 */
+  .floating-bars{position:fixed;top:20rpx;right:20rpx;z-index:100;display:flex;flex-direction:column;gap:10rpx;}
+  .floating-bar{background:rgba(172,136,109,.9);padding:15rpx 20rpx;border-radius:25rpx;display:flex;align-items:center;gap:8rpx;box-shadow:0 4rpx 12rpx rgba(172,136,109,.3);transition:.3s;backdrop-filter:blur(10rpx);border:1rpx solid rgba(253,248,227,.3);}
+  .floating-bar:active{transform:scale(.95);background:rgba(172,136,109,1);}
+  .floating-bar.active{background:#AC886D;box-shadow:0 6rpx 16rpx rgba(172,136,109,.4);}
+  .bar-icon{font-size:28rpx;color:#FDF8E3;}
+  .bar-text{font-size:24rpx;color:#FDF8E3;font-weight:500;}
+  
+  .main-content{padding:20rpx;padding-top:120rpx;overflow-y:auto;height:100vh;box-sizing:border-box;}
+  .page-title{text-align:center;margin-bottom:40rpx;}
+  .title-text{font-size:36rpx;font-weight:600;color:#8b6f5a;text-shadow:0 2rpx 4rpx rgba(139,111,90,.1);}
+  
+  /* 品牌网格 */
+  .brand-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20rpx;padding:0 10rpx;}
+  .brand-card{background:#fff;border-radius:16rpx;padding:20rpx;box-shadow:0 2rpx 8rpx rgba(139,90,43,.1);border:1rpx solid #D7CEC7;transition:.3s;display:flex;flex-direction:column;align-items:center;min-height:200rpx;}
+  .brand-card:active{transform:translateY(-3rpx);box-shadow:0 5rpx 15rpx rgba(139,90,43,.15);}
+  .card-logo-container{width:100%;aspect-ratio:1;margin-bottom:16rpx;display:flex;align-items:center;justify-content:center;background:#F5F0E6;border-radius:12rpx;overflow:hidden;}
+  .brand-logo{width:75%;height:75%;object-fit:contain;}
+  .brand-name{font-size:28rpx;font-weight:600;color:#8b6f5a;text-align:center;line-height:1.2;}
+  
+  /* 空态 */
+  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100rpx 0;flex:1;}
+  .empty-icon{font-size:80rpx;margin-bottom:30rpx;opacity:.4;color:#AC886D;}
+  .empty-text{font-size:28rpx;color:#8b6f5a;font-weight:400;}
+  
+  /* ======= 弹窗（新风格） ======= */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:.25s;}
+  .modal-overlay.show{opacity:1;visibility:visible;}
+  .modal-content{
+    width:82%;max-width:640rpx;max-height:80vh;overflow:hidden;
+    background:#FDF8E3;border-radius:28rpx;padding:28rpx 28rpx 20rpx;
+    border:1rpx solid #e7ddc9;box-shadow:0 16rpx 50rpx rgba(0,0,0,.15);
+    transform:translateY(10rpx);transition:.25s;
+  }
+  .modal-overlay.show .modal-content{transform:translateY(0);}
+  
+  /* 头部：圆形图标 + 标题 + 右上角关闭 */
+  .modal-header{position:relative;display:flex;align-items:center;justify-content:center;padding-bottom:16rpx;margin-bottom:12rpx;border-bottom:1rpx dashed #eadfcb;}
+  .modal-icon{
+    width:96rpx;height:96rpx;border-radius:50%;
+    background:#F2E8D8;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6rpx 16rpx rgba(172,136,109,.18);margin-right:14rpx;font-size:48rpx;
+  }
+  .modal-title{font-size:32rpx;font-weight:700;color:#8b6f5a;letter-spacing:.5rpx;}
+  .modal-close{
+    position:absolute;right:10rpx;top:8rpx;width:54rpx;height:54rpx;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:36rpx;color:#8b6f5a;
+    background:#fff;border:1rpx solid #e0d6c5;box-shadow:0 2rpx 8rpx rgba(0,0,0,.06);transition:.2s;
+  }
+  .modal-close:active{transform:scale(.92);}
+  
+  /* 内容区 */
+  .modal-body{padding-top:10rpx;background:#FDF8E3;max-height:60vh;overflow-y:auto;}
+  
+  /* 搜索栏 */
+  .search-bar{display:flex;gap:16rpx;margin-bottom:20rpx;}
+  .search-input{
+    flex:1;height:80rpx;padding:0 22rpx;border:1rpx solid #d4c4a8;border-radius:16rpx;
+    background:#fff;color:#8b6f5a;font-size:28rpx;box-sizing:border-box;
+    box-shadow:inset 0 2rpx 4rpx rgba(0,0,0,.04);
+  }
+  
+  /* 统一按钮体系 —— 修正为完全居中 */
+  .btn{
+    min-width:140rpx;height:80rpx;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+    line-height:1;                 /* 避免行高撑高 */
+    text-align:center;
+    border-radius:18rpx;font-size:28rpx;border:none;transition:.2s;
+    box-sizing:border-box;
+  }
+  button.btn::after{border:none;}  /* 移除小程序按钮默认描边 */
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:#A1CAE2;color:#fff;box-shadow:0 4rpx 10rpx rgba(161,202,226,.35);}
+  .btn-ghost{background:#fff;color:#8b6f5a;border:1rpx solid #d4c4a8;}
+  
+  /* 列表项（收藏/自定义） */
+  .favorite-item,.custom-item{display:flex;align-items:center;padding:20rpx;margin-bottom:15rpx;background:#f8f4e8;border-radius:14rpx;border:1rpx solid #e8e0c8;box-shadow:0 2rpx 8rpx rgba(172,136,109,.05);transition:.2s;}
+  .favorite-item:active,.custom-item:active{transform:scale(.98);border-color:#AC886D;box-shadow:0 4rpx 12rpx rgba(172,136,109,.1);}
+  .drink-icon{font-size:40rpx;width:50rpx;height:50rpx;border-radius:8rpx;margin-right:15rpx;display:flex;align-items:center;justify-content:center;background:#FDF8E3;box-shadow:0 2rpx 6rpx rgba(172,136,109,.1);border:1rpx solid #e8e0c8;}
+  .drink-info{flex:1;display:flex;flex-direction:column;}
+  .drink-name{font-size:26rpx;font-weight:500;color:#8b6f5a;margin-bottom:6rpx;}
+  .drink-caffeine{font-size:22rpx;color:#AC886D;font-weight:500;background:rgba(172,136,109,.1);padding:3rpx 8rpx;border-radius:6rpx;display:inline-block;width:fit-content;}
+  
+  .delete-btn{width:40rpx;height:40rpx;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(231,76,60,.1);border:1rpx solid rgba(231,76,60,.3);transition:.2s;}
+  .delete-btn:active{transform:scale(.9);background:rgba(231,76,60,.2);}
+  .delete-icon{font-size:24rpx;color:#e74c3c;}
+  
+  /* 自定义添加按钮（保留原交互，重设视觉） */
+  .custom-add-btn{background:#AC886D;padding:20rpx 30rpx;border-radius:14rpx;display:flex;align-items:center;justify-content:center;box-shadow:0 4rpx 12rpx rgba(172,136,109,.2);transition:.2s;margin-bottom:30rpx;border:1rpx solid #8b6f5a;}
+  .custom-add-btn:active{transform:scale(.98);box-shadow:0 2rpx 6rpx rgba(172,136,109,.2);}
+  .custom-add-icon{color:#FDF8E3;font-size:28rpx;font-weight:500;margin-right:10rpx;}
+  .custom-add-text{color:#FDF8E3;font-size:26rpx;font-weight:400;}
+  
+  /* 空状态 */
+  .empty-favorites,.empty-custom{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60rpx 0;}
+  .empty-favorites .empty-icon,.empty-custom .empty-icon{font-size:60rpx;margin-bottom:20rpx;opacity:.4;color:#AC886D;}
+  .empty-favorites .empty-text,.empty-custom .empty-text{font-size:24rpx;color:#8b6f5a;font-weight:400;}
+  
+  /* 表单 */
+  .form-item{margin-bottom:28rpx;}
+  .form-label{display:block;font-size:28rpx;color:#8b6f5a;margin-bottom:12rpx;font-weight:500;}
+  .form-input{
+    width:100%;height:80rpx;padding:0 22rpx;border:1rpx solid #d4c4a8;border-radius:16rpx;
+    background:#fff;color:#8b6f5a;font-size:28rpx;box-sizing:border-box;
+    box-shadow:inset 0 2rpx 4rpx rgba(0,0,0,.04);
+  }
+  
+  /* 搜索结果项 */
+  .brand-icon{width:50rpx;height:50rpx;margin-right:12rpx;border-radius:8rpx;background:#fff;border:1rpx solid #eee;}
+  .search-result{display:flex;flex-direction:row;align-items:center;padding:12rpx 0;}
+  
+  /* 页脚按钮区（添加弹窗） */
+  .modal-footer{padding:22rpx 0 4rpx;display:flex;gap:20rpx;}
+  

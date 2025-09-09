@@ -1,0 +1,89 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+  <image
+    class="bear-fly"
+    src="../images/bear_fly1.png"
+    mode="widthFix"
+    style="width: 419rpx; height: 421rpx; display: block; box-sizing: border-box"
+  />
+
+  <text class="title" style="font-size: 60rpx; font-weight: bold">CoffeeHealing~</text>
+
+  <!-- 账号 -->
+  <input
+    class="input"
+    style="width: 580rpx; display: block; box-sizing: border-box"
+    placeholder="账号"
+    bindinput="onAccountInput"
+    value="{{account}}"
+  />
+
+  <!-- 密码 -->
+  <view class="password-box" style="position: relative;">
+    <input
+      class="input"
+      style="width: 580rpx; display: block; box-sizing: border-box"
+      password="{{!showPassword}}"
+      placeholder="密码"
+      maxlength="12"
+      bindinput="onPwdInput"
+      value="{{password}}"
+    />
+    <image
+      class="eye"
+      src="{{showPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}"
+      bindtap="togglePassword"
+      style="position: absolute; left: 516rpx; top: 45rpx"
+    />
+  </view>
+
+  <!-- 确认密码 -->
+  <view class="password-box" style="position: relative;">
+    <input
+      class="input"
+      style="width: 580rpx; display: block; box-sizing: border-box"
+      password="{{!showConfirmPassword}}"
+      placeholder="确认密码"
+      maxlength="12"
+      bindinput="onPwd2Input"
+      value="{{password2}}"
+    />
+    <image
+      class="eye"
+      src="{{showConfirmPassword ? '../images/eye_open.png' : '../images/eye_close.png'}}"
+      bindtap="toggleConfirmPassword"
+      style="position: absolute; left: 516rpx; top: 45rpx"
+    />
+  </view>
+
+  <!-- 协议勾选 -->
+  <view class="agreement" style="width: 576rpx; display: flex; box-sizing: border-box">
+    <checkbox-group bindchange="onAgreeChange">
+      <checkbox class="checkbox" value="agree" checked="{{isAgree}}"></checkbox>
+    </checkbox-group>
+    <text>我已阅读并同意</text>
+    <text class="link" bindtap="openUserAgreement">《用户协议》</text>
+    <text>和</text>
+    <text class="link" bindtap="openPrivacyPolicy">《隐私政策》</text>
+  </view>
+
+  <!-- 注册按钮：根据 canSubmit 高亮（颜色与登录页一致） -->
+  <button
+    class="btn {{canSubmit ? 'btn--active' : ''}}"
+    hover-class="btn--press"
+    bindtap="onRegister"
+    style="position: relative; left: -1rpx; top: -27rpx"
+  >
+    立即注册
+  </button>
+
+  <view class="tips">
+    <navigator url="/pages/login/login" style="position: relative; left: 0rpx; top: -35rpx">
+      已有账号？去登录
+    </navigator>
+  </view>
+
+  <navigator url="/pages/register/help/help" class="problem" style="position: relative; left: -1rpx; top: -20rpx">
+    注册遇到问题?
+  </navigator>
+</view>

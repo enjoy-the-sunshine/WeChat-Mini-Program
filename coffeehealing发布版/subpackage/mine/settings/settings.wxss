@@ -1,0 +1,82 @@
+.container {
+    background-color: #fdf8e3;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20rpx;
+    box-sizing: border-box;
+  }
+  
+  /* 每个模块之间间距更大 */
+  .section { margin-bottom: 50rpx; }
+  
+  /* 标题区 */
+  .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 44rpx;
+    font-weight: bold;
+    color: #98592C;
+    margin-bottom: 30rpx;
+    padding: 0 20rpx;
+    font-family: 'Source Han Sans', sans-serif;
+  }
+  .section-title .icon {
+    width: 130rpx;
+    height: 130rpx;
+    margin-left: 20rpx;
+  }
+  
+  /* —— 白色矩形面板 —— */
+  .action-panel {
+    background-color: #ffffff;
+    width: 80%;
+    height: 80rpx;
+    border-radius: 30rpx;
+    margin: 10rpx 40rpx 0 auto;   /* 右侧对齐 */
+    padding: 0 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 左文字右箭头 */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  }
+  .action-text { font-size: 30rpx; color: #333; }
+  .arrow { width: 20rpx; height: 20rpx; }
+  
+  /* —— 按钮样式（与登录页一致） —— */
+  .btn {
+    width: 80%;
+    height: 90rpx;
+    margin: 40rpx auto;
+    border-radius: 45rpx;
+    font-size: 32rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    transition: all .2s ease;
+  }
+  .phone-btn { background-color: rgba(161, 202, 226, 0.23); color: #797979; }
+  .phone-btn--active {
+    background-color: #A1CAE2;
+    color: #ffffff;
+    box-shadow: 0 6rpx 20rpx rgba(161, 202, 226, 0.35);
+  }
+  .btn--press { transform: scale(.98); }
+  button::after { border: none; }
+  
+  /* 放在底部小熊上方一点 */
+  .logout-btn { margin-top: 10rpx; margin-bottom: 30rpx; }
+  
+  /* 底部图片 */
+  .footer-image {
+    width: 80%;
+    height: 480rpx;
+    margin-top: auto;
+    margin: auto auto 60rpx;
+  }
+  

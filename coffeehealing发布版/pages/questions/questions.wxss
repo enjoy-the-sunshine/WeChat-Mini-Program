@@ -1,0 +1,120 @@
+.page {
+    background-color: #fdf5dc;
+    min-height: 100vh;
+    padding: 40rpx 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;          /* 横向排列 */
+    justify-content: flex-start; /* 文字在左，熊图在右 */
+    align-items: center;
+    padding: 0 30rpx;
+  }
+  
+  .bear-top {
+    width: 400rpx;  
+    height: auto;
+    margin-left: 20rpx;  /* 文字和图片的间距 */
+    margin-bottom: 0;    /* 去掉原来的底部间距 */
+  }
+  
+  .title {
+    font-size: 52rpx;
+    font-weight: bold;
+  }
+  
+  .desc {
+    font-size: 42rpx;
+    color: #404040;
+    line-height: 1.6;
+    margin: 30rpx 0 40rpx; /* 顶部和底部间距 */
+    text-align: center;    /* 居中显示 */
+  }
+  
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .question {
+    font-size: 40rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
+    text-align: center;
+  }
+  
+  /* 通用按钮：默认居中（给是/否用） */
+  .option {
+    display: block;
+    width: calc(100vw - 40rpx);
+    margin: 0 auto 20rpx;
+    background: #ffffff;
+    border-radius: 999rpx;
+    font-size: 34rpx;
+    padding: 24rpx 0;
+    color: #909399;
+    text-align: center;   /* 居中 —— 让是/否在中间 */
+    line-height: 1.4;
+  }
+  
+  /* A/B/C 专属：左对齐 + 左右内边距，便于阅读长文案 */
+  .abc-option {
+    text-align: left;
+    padding: 24rpx 28rpx;
+  }
+  
+  /* 如需把是/否更大些，可在此处加固定高度：
+  .yn-option { display:flex; justify-content:center; align-items:center; height:100rpx; }
+  */
+  .yn-option {}
+  
+  /* 选中态 */
+  .option.selected {
+    background: #ac886d;
+    color: #fdf8e3;
+  }
+  
+  .nav-btns {
+    width: 100%;
+    margin-top: 30rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* 居中按钮 */
+    padding: 0 20rpx; /* 给两边一点空隙 */
+  }
+  
+  .nav-btn {
+    display: block;
+    width: calc(100vw - 40rpx);
+    margin: 0 auto 20rpx;
+    background: #A1CAE2;     /* 保持你原来的蓝色 */
+    border-radius: 999rpx;
+    font-size: 34rpx;
+    padding: 24rpx 0;
+    color: #3C3C3C;          /* 保持你原来的文字色 */
+  }
+  
+  .bear-bottom {
+    margin-top: -50rpx;
+    width: 360rpx;
+    height: auto;
+    margin-right: 300rpx;
+  }
+  .privacy-tip {
+    margin-top: -50rpx;
+    font-size: 24rpx;
+    color: #404040;
+    text-align: center;
+    line-height: 1.5;
+  }
+  

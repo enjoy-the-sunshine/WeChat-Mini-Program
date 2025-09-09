@@ -198,6 +198,43 @@
   margin-right: auto;
 }
 
+/* 无记录时按钮组的特殊样式 */
+.btn-group.no-records {
+  margin-top: 80rpx; /* 增加顶部间距，与无记录提示保持合适距离 */
+}
+
+/* 无记录提示样式 */
+.no-records-tip {
+  background: white;
+  border-radius: 25rpx;
+  padding: 60rpx 40rpx;
+  width: 600rpx;
+  margin: 80rpx auto 0 auto; /* 与统计框保持合适距离 */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.no-records-icon {
+  width: 80rpx;
+  height: 80rpx;
+  opacity: 0.6;
+}
+
+.no-records-text {
+  font-size: 36rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.no-records-subtext {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
 button {
   border: none;
 }

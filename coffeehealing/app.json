@@ -20,21 +20,14 @@
       "pages": [
         "brandselect/brandselect",
         "brandcoffee/brandcoffee",
-        "userdefined/userdefined",
         "drinkdetail/drinkdetail",
         "recording_state/recording_state"
       ]
     },
     {
-      "root": "subpackage/dictionary",
-      "pages": [
-        "brandcoffee/brandcoffee",
-        "gexinghua/gexinghua"
-      ]
-    },
-    {
       "root": "subpackage/home",
       "pages": [
+        "index/index",
         "main_record/main_record",
         "main_forecast/main_forecast",
         "main_record_setting/main_record_setting"

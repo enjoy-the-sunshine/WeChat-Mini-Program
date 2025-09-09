@@ -1,0 +1,137 @@
+<view class="page">
+  <!-- 顶部标题区域 -->
+  <view class="header">
+    <text class="page-title">咖啡因小知识</text>
+    <text class="page-subtitle">了解咖啡因，健康享受每一杯</text>
+  </view>
+
+  <!-- 文章内容区域 -->
+  <view class="article-container">
+    <!-- 文章标题 -->
+    <view class="article-header">
+      <text class="article-title">咖啡因：提神背后的科学密码与隐藏的"饮食雷区"</text>
+      <text class="article-meta">发布于 2024年1月</text>
+    </view>
+
+    <!-- 文章内容 -->
+    <view class="article-content">
+      <text class="article-intro">清晨一杯咖啡唤醒大脑，午后一杯浓茶驱散困倦…咖啡因早已融入现代生活。但你是否知道，这个"提神利器"与某些食物、药物相遇时，可能暗藏风险？今天，带你解锁咖啡因的作用奥秘，避开那些不可不知的"冲突组合"。</text>
+      
+      <image class="article-image" src="https://s2.loli.net/2025/09/07/MamlgKtHEJVYNjP.png" mode="widthFix" />
+      
+      <view class="section">
+        <text class="section-title">一、咖啡因如何让你"瞬间清醒"？</text>
+        
+        <image class="article-image" src="https://s2.loli.net/2025/09/07/I8eysVvmjxD6flu.png" mode="widthFix" />
+        <image class="article-image" src="https://s2.loli.net/2025/09/07/FmciUE3jxv6Bnl5.png" mode="widthFix" />
+        
+        <view class="content-item">
+          <text class="item-title">• 核心机制：抢占"瞌睡信号"座位！</text>
+          <text class="item-content">我们大脑中天然存在一种叫"腺苷"的物质，它会与特定的受体（如A2A受体）结合，向身体发出"该休息了"的信号。咖啡因的分子结构与腺苷相似，它能抢先一步"霸占"这些受体，阻止腺苷发挥作用，从而暂时驱散困意，让你感觉清醒、专注。</text>
+        </view>
+        
+        <view class="content-item">
+          <text class="item-title">• 细胞内的"能量开关"：</text>
+          <text class="item-content">咖啡因还能作用于细胞内部，促进储存的钙离子释放。钙离子是细胞活动的关键"信使"，它的释放能刺激肌肉收缩、神经兴奋等，进一步贡献了提神效果（这也是过量摄入可能引起心慌、手抖的原因之一）。</text>
+        </view>
+        
+        <text class="summary">简单说：咖啡因 = 欺骗大脑"不困" + 给细胞"充电"。</text>
+      </view>
+      
+      <view class="section">
+        <text class="section-title">二、警惕！咖啡因与这些"搭档"可能不合拍</text>
+        
+        <image class="article-image" src="https://s2.loli.net/2025/09/07/8VmQKNbLAgn5ZW1.png" mode="widthFix" />
+        
+        <view class="content-item">
+          <text class="item-title">1. 咖啡因 + 酒精 = 危险的"清醒假象"</text>
+          <text class="item-subtitle">◦ 误区：</text>
+          <text class="item-content">"喝醉了来杯咖啡解酒"？大错特错！</text>
+          <text class="item-subtitle">◦ 真相：</text>
+          <text class="item-content">咖啡因会掩盖酒精的镇静作用，让你误以为自己"清醒了"，但酒精对判断力、协调能力的损害依然存在，极易导致危险行为（如酒驾）。同时，咖啡因可能延缓酒精在体内的代谢过程，增加身体负担。</text>
+          <text class="item-subtitle">安全提示：</text>
+          <text class="item-content">饮酒时或酒后，避免饮用含咖啡因饮品。</text>
+        </view>
+        
+        <view class="content-item">
+          <text class="item-title">2. 咖啡因 + 尼古丁（吸烟） = 加速消耗与成瘾循环</text>
+          <text class="item-subtitle">◦ 真相：</text>
+          <text class="item-content">烟草烟雾中的某些成分会显著加快肝脏对咖啡因的代谢分解。这意味着吸烟者需要摄入更多咖啡因才能达到相同的提神效果，容易导致咖啡因摄入过量。同时，咖啡因可能增强尼古丁的吸收和作用，形成更强的成瘾性循环。</text>
+          <text class="item-subtitle">安全提示：</text>
+          <text class="item-content">控制摄入量，警惕依赖。</text>
+        </view>
+        
+        <view class="content-item">
+          <text class="item-title">3. 咖啡因 + 某些药物 = 药效打折或风险增加 ⚠️（重中之重！）</text>
+          
+          <image class="article-image" src="https://s2.loli.net/2025/09/07/WOTeBidlMrA1Z3z.png" mode="widthFix" />
+          
+          <text class="item-content">这是最容易被忽视，也最需警惕的领域：</text>
+          
+          <text class="item-subtitle">◦ 影响吸收，药效"打折"：</text>
+          <text class="item-content">■ 钙剂 & 骨质疏松药物（如双膦酸盐类）：咖啡因可能干扰钙的吸收，并影响某些抗骨质疏松药物的效果。</text>
+          <text class="item-content">■ 胃药（如抗酸药） & 部分抗生素/抗真菌药：咖啡因刺激胃酸分泌，可能改变胃肠道环境，影响弱碱性药物的溶解和吸收（如酮康唑）。</text>
+          
+          <text class="item-subtitle">◦ 干扰代谢，毒性"升级"：</text>
+          <text class="item-content">■ 某些抗生素（如环丙沙星、诺氟沙星等喹诺酮类）：这些药物会抑制肝脏分解咖啡因的酶，导致咖啡因在体内蓄积，引发或加重心慌、失眠、焦虑等中毒症状。</text>
+          <text class="item-content">■ 解热镇痛药（如对乙酰氨基酚/扑热息痛）：长期或大量同时摄入咖啡因和对乙酰氨基酚，可能增加肝脏损伤的风险。</text>
+          
+          <text class="item-subtitle">◦ 作用相冲，效果"抵消"或"增强"：</text>
+          <text class="item-content">■ 镇静催眠药（如安定类）：咖啡因的兴奋作用可能拮抗这些药物的镇静效果。</text>
+          <text class="item-content">■ 兴奋剂类药物（如某些ADHD药物）：叠加作用可能导致过度兴奋、焦虑、心悸。</text>
+          <text class="item-content">■ 某些抗抑郁药、心血管药物等：相互作用复杂，可能影响药效或产生副作用。</text>
+          
+          <view class="safety-tips">
+            <text class="safety-title">💊 核心安全原则：</text>
+            <text class="safety-item">- 服用任何药物（尤其是上述类别）期间，最好避免饮用咖啡、浓茶、功能饮料等含咖啡因饮品。</text>
+            <text class="safety-item">- 如果难以避免，请务必间隔至少2小时以上。</text>
+            <text class="safety-item">- 最稳妥的做法：仔细阅读药品说明书中的"药物相互作用"和"注意事项"项，或咨询医生或药师。</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="section">
+        <text class="section-title">三、你是"咖啡因敏感者"吗？</text>
+        
+        <image class="article-image" src="https://s2.loli.net/2025/09/07/H3VkUpavtjscin8.png" mode="widthFix" />
+        
+        <text class="item-content">• 少量咖啡因就心慌、手抖、失眠？</text>
+        <text class="item-content">• 喝咖啡后容易胃部不适、反酸？</text>
+        <text class="item-content">• 下午喝咖啡，晚上辗转难眠？</text>
+        
+        <text class="item-content">如果你有以上情况，可能对咖啡因比较敏感。建议：</text>
+        <text class="item-content">• 选择低因咖啡/脱咖啡因茶。</text>
+        <text class="item-content">• 控制摄入量和时间（避免下午及晚上饮用）。</text>
+        <text class="item-content">• 尝试其他提神方式，如短暂小憩、活动身体、补充水分。</text>
+      </view>
+      
+      <view class="section">
+        <text class="section-title">四、健康享用咖啡因的小贴士</text>
+        
+        <image class="article-image" src="https://s2.loli.net/2025/09/07/bAxXgSmulEdGefN.png" mode="widthFix" />
+        
+        <view class="tips-container">
+          <view class="tips-section">
+            <text class="tips-title">• ✅ 宜：</text>
+            <text class="tips-item">◦ 适量饮用（一般健康成人，每日咖啡因摄入建议不超过400mg，约相当于4杯标准美式咖啡）。</text>
+            <text class="tips-item">◦ 优先选择早晨或上午饮用。</text>
+            <text class="tips-item">◦ 饮用咖啡/茶后注意补充水分。</text>
+          </view>
+          
+          <view class="tips-section">
+            <text class="tips-title">• ❌ 忌：</text>
+            <text class="tips-item">◦ 空腹大量饮用（易刺激肠胃）。</text>
+            <text class="tips-item">◦ 依赖咖啡因熬夜透支。</text>
+            <text class="tips-item">◦ 服药期间随意搭配含咖啡因饮品（再次强调！）。</text>
+            <text class="tips-item">◦ 与酒精同饮。</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="conclusion">
+        <text class="conclusion-title">结语：</text>
+        <text class="conclusion-content">咖啡因是柄双刃剑，用好了是提神良伴，用错了则可能伤身误事。了解它的作用机制，特别是警惕它与酒精、烟草以及多种药物的潜在冲突，是安全享受咖啡因的关键。下次端起咖啡杯或茶杯前，不妨想想这些科学小知识，为健康多添一份保障！</text>
+      </view>
+    </view>
+  </view>
+</view>
